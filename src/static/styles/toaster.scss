@@ -1,0 +1,40 @@
+.toast-container {
+  @apply relative flex flex-row items-center bg-white border rounded w-80 p-2;
+  &.success {
+    @apply border-success;
+  }
+  &.error {
+    @apply border-error;
+  }
+  &.warning {
+    @apply border-warning;
+  }
+  &.information {
+    @apply border-blue;
+  }
+}
+.toast-progress-bar {
+  @apply h-1;
+  background: transparent;
+
+  &.success {
+    @apply bg-success;
+  }
+  &.error {
+    @apply bg-error;
+  }
+  &.warning {
+    @apply bg-warning;
+  }
+  &.information {
+    @apply bg-blue;
+  }
+}
+
+.Toastify {
+  @apply text-open-sans;
+  * {
+    font-family: inherit;
+    @apply text-sm text-black;
+  }
+}

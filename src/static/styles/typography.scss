@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Newyear Coffee';
+  src: url('/fonts/newyear-coffee/NewyearCoffee.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.text-open-sans {
+  @apply normal-case;
+  font-family: 'Red Rose', serif;
+}

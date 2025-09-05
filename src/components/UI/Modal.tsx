@@ -33,9 +33,7 @@ export default function Modal({
         {!!open && children}
       </div>
       {!!backdrop && (
-        <form method="dialog" className="modal-backdrop" onClick={onClose}>
-          <button className="btn">Close</button>
-        </form>
+        <form method="dialog" className="modal-backdrop" onClick={onClose} />
       )}
     </dialog>
   )

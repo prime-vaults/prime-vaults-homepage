@@ -5,7 +5,7 @@
   @apply grid col-span-1 md:grid-cols-3 gap-4;
   .pool-card {
     --tvl-bg-color: #1e2142;
-    @apply flex flex-col p-4 gap-4 rounded bg-gray border border-black;
+    @apply flex flex-col p-4 gap-4 rounded bg-gray-400 border border-black;
     .pool-card-avatar {
       @apply flex flex-col justify-center items-center;
       .tvl {

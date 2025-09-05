@@ -10,7 +10,7 @@
     @apply border-warning;
   }
   &.information {
-    @apply border-blue;
+    @apply border-blue-400;
   }
 }
 .toast-progress-bar {
@@ -27,7 +27,7 @@
     @apply bg-warning;
   }
   &.information {
-    @apply bg-blue;
+    @apply bg-blue-400;
   }
 }
 

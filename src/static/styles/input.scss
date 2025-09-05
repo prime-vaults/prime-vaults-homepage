@@ -124,6 +124,6 @@ input[type='number'] {
 
 .input-switch-disabled {
   input {
-    @apply bg-border cursor-not-allowed;
+    @apply bg-gray-400 cursor-not-allowed;
   }
 }

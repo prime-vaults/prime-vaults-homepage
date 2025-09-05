@@ -1,27 +1,33 @@
-import { Link } from 'react-router-dom'
-
-import Container from '@/components/UI/Container'
-
-import { CoreRoutes } from '@/constant/router'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { Link } from 'react-router'
 
-export default function Header() {
+function HeaderLayout() {
   return (
-    <Container className="page-header">
-      <div className="ph-container">
-        <Link
-          to={CoreRoutes.Home}
-          className="text-cyan uppercase font-bold text-lg md:text-2xl"
-        >
-          prime vaults
-        </Link>
-        <div className="ph-menus">
-          <Link to={CoreRoutes.Staking} className="btn hover:btn-primary">
-            Staking
-          </Link>
-          <ConnectButton />
-        </div>
+    <div className="navbar bg-base-200 shadow-sm">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">Prime Vaults</a>
+        <ul className="menu menu-horizontal bg-base-200">
+          <li>
+            <Link to="/staking">Staking</Link>
+          </li>
+          <li>
+            <Link to="/point">Point</Link>
+          </li>
+          <li>
+            <Link to="/earn">Earn</Link>
+          </li>
+        </ul>
       </div>
-    </Container>
+
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <ConnectButton />
+          </li>
+        </ul>
+      </div>
+    </div>
   )
 }
+
+export default HeaderLayout

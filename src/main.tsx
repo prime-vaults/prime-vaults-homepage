@@ -2,34 +2,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from './constant/wagmi.ts'
-import {
-  MutationCache,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { JHubProvider } from '@beraji/web3-sdk'
 
 import App from './App.tsx'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
 
-window.jiko = {} as any
+dayjs.extend(relativeTime)
 
-const mutationCache = new MutationCache({
-  onSuccess: () => {},
-  // onError: (error) => {
-  //   window.jiko.message({ msg: normalizeError(error), type: 'error' })
-  // },
-})
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      staleTime: 24 * 60 * 60 * 1000,
-    },
-  },
-  mutationCache,
-})
+const queryClient = new QueryClient({})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

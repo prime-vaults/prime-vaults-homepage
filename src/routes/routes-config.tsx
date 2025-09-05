@@ -1,20 +1,25 @@
-import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouteObject,
+} from 'react-router-dom'
 import { CoreRoutes } from '../constant/router'
 
-import ProtectedRoute from './ProtectedRoute'
 import AppLayout from '@/layouts/AppLayout'
 import HomePage from '@/app/Page'
 import StakingPage from '@/app/staking/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
+import Point from '@/app/point/Page'
 
 const ROUTES_CONFIG: RouteObject[] = [
   {
     path: CoreRoutes.Home,
     element: (
-      <ProtectedRoute>
-        <AppLayout />
-      </ProtectedRoute>
+      <AppLayout>
+        <Outlet />
+      </AppLayout>
     ),
     children: [
       { index: true, element: <HomePage /> },
@@ -24,6 +29,15 @@ const ROUTES_CONFIG: RouteObject[] = [
           {
             index: true,
             element: <StakingPage />,
+          },
+        ],
+      },
+      {
+        path: 'point',
+        children: [
+          {
+            index: true,
+            element: <Point />,
           },
         ],
       },

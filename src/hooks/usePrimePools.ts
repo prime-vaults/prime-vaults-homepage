@@ -1,6 +1,23 @@
 import { useLocks, usePools, useRewards } from '@beraji/web3-sdk'
 import { useMemo } from 'react'
-import { Address, isAddressEqual } from 'viem'
+
+const FILTERED_TOKENS = [
+  '0x312203a9df1b39824a826e4ceb266541d6e0feaa',
+  '0xde9decc3a84cf9cd197ca51ec998a475cc4e8469',
+  '0x7e6e5cb67b93f57789749e8dee3ca94cd30656e9',
+  '0x7b1d19216d8d3e95bab262c369dacea954d3a7bc',
+]
+
+export const usePrimePools = () => {
+  const pools = usePools()
+  const primePools = pools.data.filter((pool) =>
+    FILTERED_TOKENS.includes(pool.stakingToken),
+  )
+  return {
+    ...pools,
+    data: primePools,
+  }
+}
 
 export const usePoolStat = (poolId: number) => {
   const locks = useLocks(poolId)
@@ -30,13 +47,4 @@ export const usePoolStat = (poolId: number) => {
     }
     return stat
   }, [liveRewards, locks.data])
-}
-
-export const usePoolByTokenAddress = (address?: Address) => {
-  const { data: pools } = usePools()
-
-  return useMemo(() => {
-    if (!pools || !address) return
-    return pools?.find((p) => isAddressEqual(p.stakingToken, address))
-  }, [address, pools])
 }

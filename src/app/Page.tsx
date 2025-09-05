@@ -1,6 +1,11 @@
 import Container from '@/components/UI/Container'
+import TestGuestWallet from './TestGuestWallet'
+
+import { useConnectedGuestWallet } from '@/hooks/useGuestWallet'
 
 export default function HomePage() {
+  const { isGuestWalletConnected } = useConnectedGuestWallet()
+
   return (
     <Container>
       <div className="page-home">
@@ -10,6 +15,7 @@ export default function HomePage() {
             Bring me your money. We’ll keep it safe for you. Trustfully!
           </span>
         </div>
+        {isGuestWalletConnected && <TestGuestWallet />}
       </div>
     </Container>
   )

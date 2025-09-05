@@ -1,8 +1,18 @@
 import { createConnector, injected } from 'wagmi'
-import type { TransactionRequest, TransactionSerializable } from 'viem'
+import {
+  createPublicClient,
+  http,
+  type TransactionRequest,
+  type TransactionSerializable,
+} from 'viem'
 import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts'
 import { Wallet } from '@rainbow-me/rainbowkit'
 import configs from '@/configs'
+
+export const publicClient = createPublicClient({
+  chain: configs.chain.chain,
+  transport: http(),
+})
 
 export const jikoGuestWallet = (): Wallet => {
   let privKey = import.meta.env.VITE_GUEST_PRIV_KEY

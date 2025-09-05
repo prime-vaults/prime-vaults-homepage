@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import Container from '@/components/UI/Container'
+
 import { CoreRoutes } from '@/constant/router'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { Link } from 'react-router-dom'
 
 export default function Header() {
   return (

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { BN } from 'bn.js'
 import { useBalance } from 'wagmi'
+import { toast } from 'react-toastify'
+import { Hex, isAddress } from 'viem'
 
 import Input from '@/components/UI/Input'
 
@@ -13,7 +15,6 @@ import {
 } from '@/helpers/utils'
 import { useConnectedGuestWallet } from '@/hooks/useGuestWallet'
 import configs from '@/configs'
-import { Hex, isAddress } from 'viem'
 
 export default function TestGuestWallet() {
   const { address, provider, estimateTransferCost, transfer } =
@@ -31,16 +32,14 @@ export default function TestGuestWallet() {
     try {
       const hash = await transfer({ to: to as Hex, amount })
       const path = isAddress(hash) ? 'address' : 'tx'
-      window.jiko.message({
-        msg: `Transfer successful! Click to view details`,
+      toast('Transfer successful! Click to view details', {
         onClick: () =>
           openLink(`${configs.network.blockExplorerUrls}/${path}/${hash}`),
       })
       setTo('')
       setAmount('')
     } catch (error: any) {
-      window.jiko.message({
-        msg: `Transfer failed: ${normalizeError(error)}`,
+      toast(`Transfer failed: ${normalizeError(error)}`, {
         type: 'error',
       })
     } finally {

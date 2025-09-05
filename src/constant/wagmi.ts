@@ -2,8 +2,6 @@ import configs from '@/configs'
 import { jikoGuestWallet } from '@/wallets'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import {
-  berasigWallet,
-  desigWallet,
   metaMaskWallet,
   rainbowWallet,
   walletConnectWallet,

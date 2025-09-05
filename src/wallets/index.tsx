@@ -4,15 +4,9 @@ import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts'
 import { Wallet } from '@rainbow-me/rainbowkit'
 import configs from '@/configs'
 
-const STORAGE_KEY = 'jiko-guest-wallet'
-
 export const jikoGuestWallet = (): Wallet => {
-  let privKey = localStorage.getItem(STORAGE_KEY)
-
-  if (!privKey) {
-    privKey = generatePrivateKey()
-    localStorage.setItem(STORAGE_KEY, privKey)
-  }
+  let privKey = import.meta.env.VITE_GUEST_PRIV_KEY
+  if (!privKey) privKey = generatePrivateKey()
 
   const account = privateKeyToAccount(privKey as `0x${string}`)
 
@@ -48,11 +42,10 @@ export const jikoGuestWallet = (): Wallet => {
   }
 
   async function getChain() {
-    return configs.network.chainId // Trả về hex string
+    return configs.network.chainId
   }
 
   async function walletRevokePermissions() {
-    localStorage.removeItem(STORAGE_KEY)
     return true
   }
 

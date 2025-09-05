@@ -1,4 +1,0 @@
-.tooltip-container {
-  @apply absolute min-w-40 max-w-96 select-none bg-[#303030] p-4 rounded-lg z-[999];
-  width: calc(100% - 3rem);
-}

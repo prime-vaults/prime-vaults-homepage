@@ -4,8 +4,6 @@ import { useBalance } from 'wagmi'
 import { toast } from 'react-toastify'
 import { Hex, isAddress } from 'viem'
 
-import Input from '@/components/UI/Input'
-
 import {
   compositeFloat,
   normalizeError,

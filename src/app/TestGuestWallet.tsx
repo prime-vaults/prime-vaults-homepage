@@ -77,8 +77,8 @@ export default function TestGuestWallet() {
             {!loadingBalance && !balance && <span>--</span>}
           </div>
         </div>
-        <Input
-          className="w-full"
+        <input
+          className="input"
           placeholder="enter amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -86,8 +86,8 @@ export default function TestGuestWallet() {
         {!!amount && !!cost && (
           <span className="text-xs text-secondary">Est fee: {cost} BERA</span>
         )}
-        <Input
-          className="w-full"
+        <input
+          className="input"
           placeholder="enter address"
           value={to}
           onChange={(e) => setTo(e.target.value)}

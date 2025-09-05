@@ -21,6 +21,7 @@ export const wagmiConfig = getDefaultConfig({
       groupName: 'guest',
       wallets: [jikoGuestWallet],
     },
+
     {
       groupName: 'Others',
       wallets: [rainbowWallet, walletConnectWallet, metaMaskWallet],

@@ -1,4 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { Link } from 'react-router'
 
 function HeaderLayout() {
   return (
@@ -7,13 +8,13 @@ function HeaderLayout() {
         <a className="btn btn-ghost text-xl">Prime Vaults</a>
         <ul className="menu menu-horizontal bg-base-200">
           <li>
-            <a>Staking</a>
+            <Link to="/staking">Staking</Link>
           </li>
           <li>
-            <a>Point</a>
+            <Link to="/point">Point</Link>
           </li>
           <li>
-            <a>Earn</a>
+            <Link to="/earn">Earn</Link>
           </li>
         </ul>
       </div>

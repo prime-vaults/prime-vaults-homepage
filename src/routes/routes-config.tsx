@@ -11,6 +11,7 @@ import HomePage from '@/app/Page'
 import StakingPage from '@/app/staking/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
+import Point from '@/app/point/Page'
 
 const ROUTES_CONFIG: RouteObject[] = [
   {
@@ -28,6 +29,15 @@ const ROUTES_CONFIG: RouteObject[] = [
           {
             index: true,
             element: <StakingPage />,
+          },
+        ],
+      },
+      {
+        path: 'point',
+        children: [
+          {
+            index: true,
+            element: <Point />,
           },
         ],
       },

@@ -1,0 +1,9 @@
+.page-header {
+  @apply bg-black;
+}
+.page-header .ph-container {
+  @apply flex flex-row gap-4 p-4 items-center justify-between;
+}
+.page-header .ph-menus {
+  @apply flex flex-row gap-2;
+}

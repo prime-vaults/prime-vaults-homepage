@@ -1,5 +1,6 @@
 import Container from '@/components/UI/Container'
 import { CoreRoutes } from '@/constant/router'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Link } from 'react-router-dom'
 
 export default function Header() {
@@ -16,9 +17,7 @@ export default function Header() {
           <Link to={CoreRoutes.Staking} className="btn hover:btn-primary">
             Staking
           </Link>
-          <Link to={CoreRoutes.Staking} className="btn hover:btn-primary">
-            Games
-          </Link>
+          <ConnectButton />
         </div>
       </div>
     </Container>

@@ -1,0 +1,23 @@
+@import './typography.css';
+@import './header.css';
+@import './home.css';
+@import './tooltip.css';
+@import './input.css';
+@import './staking.css';
+@import './toaster.css';
+@import 'tailwindcss';
+
+@plugin "daisyui" {
+  themes: all;
+}
+
+body {
+  @apply normal-case;
+  font-family: 'Red Rose', serif;
+}
+.app-container {
+  @apply flex flex-col w-screen min-h-screen;
+}
+.app-flex-element {
+  @apply flex-1;
+}

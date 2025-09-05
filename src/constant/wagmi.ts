@@ -2,6 +2,8 @@ import configs from '@/configs'
 import { jikoGuestWallet } from '@/wallets'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import {
+  berasigWallet,
+  desigWallet,
   metaMaskWallet,
   rainbowWallet,
   walletConnectWallet,
@@ -21,6 +23,7 @@ export const wagmiConfig = getDefaultConfig({
       groupName: 'guest',
       wallets: [jikoGuestWallet],
     },
+
     {
       groupName: 'Others',
       wallets: [rainbowWallet, walletConnectWallet, metaMaskWallet],

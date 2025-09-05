@@ -2,18 +2,20 @@ import { createConnector, injected } from 'wagmi'
 import type { TransactionRequest, TransactionSerializable } from 'viem'
 import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts'
 import { Wallet } from '@rainbow-me/rainbowkit'
+import configs from '@/configs'
 
 const STORAGE_KEY = 'jiko-guest-wallet'
-let privKey = localStorage.getItem(STORAGE_KEY)
-
-if (!privKey) {
-  privKey = generatePrivateKey()
-  localStorage.setItem(STORAGE_KEY, privKey)
-}
-
-const account = privateKeyToAccount(privKey as any)
 
 export const jikoGuestWallet = (): Wallet => {
+  let privKey = localStorage.getItem(STORAGE_KEY)
+
+  if (!privKey) {
+    privKey = generatePrivateKey()
+    localStorage.setItem(STORAGE_KEY, privKey)
+  }
+
+  const account = privateKeyToAccount(privKey as `0x${string}`)
+
   async function ethAccounts() {
     return [account.address]
   }
@@ -31,7 +33,7 @@ export const jikoGuestWallet = (): Wallet => {
     const chainId = Number(chainIdHex)
 
     const tx: TransactionSerializable = {
-      to: payload.to ?? null,
+      to: payload.to ?? undefined,
       data: payload.data,
       gas: payload.gas,
       nonce: payload.nonce,
@@ -40,14 +42,13 @@ export const jikoGuestWallet = (): Wallet => {
       chainId,
       maxFeePerGas: payload.maxFeePerGas,
       maxPriorityFeePerGas: payload.maxPriorityFeePerGas,
-      // gasPrice: payload.gasPrice,
     }
 
     return account.signTransaction(tx)
   }
 
   async function getChain() {
-    return '0x1' // default Ethereum mainnet
+    return configs.network.chainId // Trả về hex string
   }
 
   async function walletRevokePermissions() {
@@ -82,20 +83,34 @@ export const jikoGuestWallet = (): Wallet => {
     },
   }
 
+  function createInjectedConnector(provider: any): any {
+    return (walletDetails: any) => {
+      // Create the injected configuration object conditionally based on the provider.
+      const injectedConfig = provider
+        ? {
+            target: () => ({
+              id: walletDetails.rkDetails.id,
+              name: walletDetails.rkDetails.name,
+              provider,
+            }),
+          }
+        : {}
+
+      return createConnector((config) => ({
+        // Spread the injectedConfig object, which may be empty or contain the target function
+        ...injected(injectedConfig)(config),
+        ...walletDetails,
+      }))
+    }
+  }
+
   return {
-    id: 'jiko',
+    id: 'jiko-guest',
     name: 'Guest Wallet',
-    iconUrl: 'https://dummyimage.com/200x200/000/fff.png&text=Fake',
-    iconBackground: '#000',
+    iconUrl: 'https://www.berachain.com/images/icons/berachain.svg',
+    iconBackground: '#fff',
     installed: true,
     downloadUrls: {},
-    extension: {},
-    createConnector: () =>
-      createConnector((config) => ({
-        ...injected()(config),
-        async getProvider() {
-          return provider
-        },
-      })),
+    createConnector: createInjectedConnector(provider),
   }
 }

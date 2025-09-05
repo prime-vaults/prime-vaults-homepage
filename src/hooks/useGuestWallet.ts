@@ -41,7 +41,6 @@ export const useConnectedGuestWallet = () => {
     }
   }
 
-  // Function để get chain ID
   const getChainId = async () => {
     if (!provider) {
       throw new Error('Guest wallet not connected')
@@ -90,7 +89,6 @@ export const useConnectedGuestWallet = () => {
     if (!provider) {
       throw new Error('Guest wallet not connected')
     }
-
     try {
       const gasPrice = await publicClient.getGasPrice()
       const gasLimit = 21000n

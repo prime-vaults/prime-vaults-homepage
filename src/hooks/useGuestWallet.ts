@@ -1,7 +1,9 @@
 import { useAccount } from 'wagmi'
-import { useEffect, useState } from 'react'
-import { formatUnits, Hex, parseEther } from 'viem'
-import { publicClient } from '@/wallets'
+import { useEffect, useMemo, useState } from 'react'
+import { createPublicClient, formatUnits, Hex, http, parseEther } from 'viem'
+import configs from '@/configs'
+
+const { chain } = configs.chain
 
 export const useConnectedGuestWallet = () => {
   const { address, isConnected, connector } = useAccount()
@@ -21,6 +23,9 @@ export const useConnectedGuestWallet = () => {
     getProvider()
   }, [isConnected, connector])
 
+  const publicClient = useMemo(() => {
+    return createPublicClient({ chain, transport: http() })
+  }, [])
   const getAccounts = async () => {
     if (!provider) {
       throw new Error('Guest wallet not connected')

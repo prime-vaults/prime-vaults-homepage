@@ -1,28 +1,22 @@
 import { createConnector, injected } from 'wagmi'
 import {
-  createPublicClient,
+  createWalletClient,
   fromHex,
   Hex,
   http,
   type TransactionRequest,
-  type TransactionSerializable,
 } from 'viem'
 import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts'
 import { Wallet } from '@rainbow-me/rainbowkit'
 import configs from '@/configs'
-
 const { chain } = configs.chain
-
-export const publicClient = createPublicClient({
-  chain,
-  transport: http(),
-})
 
 export const jikoGuestWallet = (): Wallet => {
   let privKey = import.meta.env.VITE_GUEST_PRIV_KEY
   if (!privKey) privKey = generatePrivateKey()
-
   const account = privateKeyToAccount(privKey as `0x${string}`)
+  const walletClient = createWalletClient({ chain, transport: http(), account })
+
   async function ethAccounts() {
     return [account.address]
   }
@@ -37,17 +31,20 @@ export const jikoGuestWallet = (): Wallet => {
   }
 
   async function ethSendTransaction(payload: TransactionRequest) {
-    const chainIdHex = await getChain()
-    const chainId = Number(chainIdHex)
-    const params = {
-      ...payload,
-      account: account.address,
-      chainId,
-    }
-    const tx = await publicClient.prepareTransactionRequest({ ...params })
-    const rawTx = await account.signTransaction(tx as TransactionSerializable)
-    return await publicClient.sendRawTransaction({
-      serializedTransaction: rawTx,
+    return await walletClient.sendTransaction({
+      account,
+      chain,
+      to: payload.to,
+      data: payload.data,
+      value: payload.value ? BigInt(payload.value as any) : undefined,
+      gas: payload.gas ? BigInt(payload.gas as any) : undefined,
+      maxFeePerGas: payload.maxFeePerGas
+        ? BigInt(payload.maxFeePerGas as any)
+        : undefined,
+      maxPriorityFeePerGas: payload.maxPriorityFeePerGas
+        ? BigInt(payload.maxPriorityFeePerGas as any)
+        : undefined,
+      nonce: payload.nonce ? Number(payload.nonce) : undefined,
     })
   }
 
@@ -80,10 +77,10 @@ export const jikoGuestWallet = (): Wallet => {
       }
     },
     on(event: string, listener: (...args: any[]) => void) {
-      console.log('on', event, listener)
+      console.debug('on', event, listener)
     },
     removeListener(event: string, listener: (...args: any[]) => void) {
-      console.log('removeListener', event, listener)
+      console.debug('removeListener', event, listener)
     },
   }
 

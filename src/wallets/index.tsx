@@ -45,7 +45,7 @@ export const jikoGuestWallet = (): Wallet => {
     let gas = payload.gas
     if (!gas) {
       gas = await publicClient.estimateGas({
-        account: account.address as `0x${string}`,
+        account: account.address,
         ...params,
       })
     }

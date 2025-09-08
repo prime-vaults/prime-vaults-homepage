@@ -1,6 +1,8 @@
 import { createConnector, injected } from 'wagmi'
 import {
   createPublicClient,
+  fromHex,
+  Hex,
   http,
   type TransactionRequest,
   type TransactionSerializable,
@@ -29,8 +31,9 @@ export const jikoGuestWallet = (): Wallet => {
     return [account.address]
   }
 
-  async function ethSignMessage(message: string) {
-    return account.signMessage({ message })
+  async function ethSignMessage(message: Hex) {
+    const utf8Message = fromHex(message, 'string')
+    return account.signMessage({ message: utf8Message })
   }
 
   async function ethSendTransaction(payload: TransactionRequest) {

@@ -107,46 +107,12 @@ export const useConnectedGuestWallet = () => {
       const accounts = await provider.request({ method: 'eth_accounts' })
       if (!accounts || accounts.length === 0)
         throw new Error('No accounts found')
-
       const fromAddress = accounts[0]
       const amountWei = parseEther(amount)
-
-      const gasPrice = await publicClient.getGasPrice()
-      const block = await publicClient.getBlock({ blockTag: 'latest' })
-      const nonce = await publicClient.getTransactionCount({
-        address: fromAddress,
-        blockTag: 'pending',
-      })
-      const { maxFeePerGas, maxPriorityFeePerGas } =
-        await publicClient.estimateFeesPerGas()
-      const gas = await publicClient.estimateGas({
-        account: fromAddress,
-        to,
-        value: amountWei,
-      })
-      const params = {
-        from: fromAddress,
-        to,
-        value: `0x${amountWei.toString(16)}`,
-        nonce,
-        gas,
-        gasPrice: `0x${gasPrice.toString(16)}`,
-      }
-      let transaction: any
-
-      if (block.baseFeePerGas) {
-        transaction = {
-          ...params,
-          maxFeePerGas: `0x${maxFeePerGas.toString(16)}`,
-          maxPriorityFeePerGas: `0x${maxPriorityFeePerGas.toString(16)}`,
-        }
-      } else {
-        transaction = { ...params }
-      }
-
+      const tx = { from: fromAddress, to, value: `0x${amountWei.toString(16)}` }
       const hash = await provider.request({
         method: 'eth_sendTransaction',
-        params: [transaction],
+        params: [tx],
       })
       await publicClient.waitForTransactionReceipt({ hash })
       return hash

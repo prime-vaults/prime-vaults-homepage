@@ -11,7 +11,10 @@ import configs from '@/configs'
 
 const { chain } = configs.chain
 
-export const publicClient = createPublicClient({ chain, transport: http() })
+export const publicClient = createPublicClient({
+  chain,
+  transport: http(),
+})
 
 export const jikoGuestWallet = (): Wallet => {
   let privKey = import.meta.env.VITE_GUEST_PRIV_KEY
@@ -33,42 +36,13 @@ export const jikoGuestWallet = (): Wallet => {
   async function ethSendTransaction(payload: TransactionRequest) {
     const chainIdHex = await getChain()
     const chainId = Number(chainIdHex)
-
-    let tx: TransactionSerializable
     const params = {
-      to: payload.to ?? undefined,
-      data: payload.data,
-      nonce: payload.nonce,
-      value: payload.value,
+      ...payload,
+      account: account.address,
       chainId,
     }
-    let gas = payload.gas
-    if (!gas) {
-      gas = await publicClient.estimateGas({
-        account: account.address,
-        ...params,
-      })
-    }
-    try {
-      const feeData = await publicClient.estimateFeesPerGas()
-      tx = {
-        ...params,
-        gas,
-        maxFeePerGas: feeData.maxFeePerGas,
-        maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
-        type: 'eip1559',
-      }
-    } catch {
-      const gasPrice = await publicClient.getGasPrice()
-      tx = {
-        ...params,
-        gas,
-        gasPrice,
-        type: 'legacy',
-      }
-    }
-
-    const rawTx = await account.signTransaction(tx)
+    const tx = await publicClient.prepareTransactionRequest({ ...params })
+    const rawTx = await account.signTransaction(tx as TransactionSerializable)
     return await publicClient.sendRawTransaction({
       serializedTransaction: rawTx,
     })

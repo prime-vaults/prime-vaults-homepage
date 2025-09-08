@@ -9,17 +9,15 @@ import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts'
 import { Wallet } from '@rainbow-me/rainbowkit'
 import configs from '@/configs'
 
-export const publicClient = createPublicClient({
-  chain: configs.chain.chain,
-  transport: http(),
-})
+const { chain } = configs.chain
+
+export const publicClient = createPublicClient({ chain, transport: http() })
 
 export const jikoGuestWallet = (): Wallet => {
   let privKey = import.meta.env.VITE_GUEST_PRIV_KEY
   if (!privKey) privKey = generatePrivateKey()
 
   const account = privateKeyToAccount(privKey as `0x${string}`)
-
   async function ethAccounts() {
     return [account.address]
   }
@@ -36,19 +34,44 @@ export const jikoGuestWallet = (): Wallet => {
     const chainIdHex = await getChain()
     const chainId = Number(chainIdHex)
 
-    const tx: TransactionSerializable = {
+    let tx: TransactionSerializable
+    const params = {
       to: payload.to ?? undefined,
       data: payload.data,
-      gas: payload.gas,
       nonce: payload.nonce,
       value: payload.value,
-      type: payload.type as any,
       chainId,
-      maxFeePerGas: payload.maxFeePerGas,
-      maxPriorityFeePerGas: payload.maxPriorityFeePerGas,
+    }
+    let gas = payload.gas
+    if (!gas) {
+      gas = await publicClient.estimateGas({
+        account: account.address as `0x${string}`,
+        ...params,
+      })
+    }
+    try {
+      const feeData = await publicClient.estimateFeesPerGas()
+      tx = {
+        ...params,
+        gas,
+        maxFeePerGas: feeData.maxFeePerGas,
+        maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+        type: 'eip1559',
+      }
+    } catch {
+      const gasPrice = await publicClient.getGasPrice()
+      tx = {
+        ...params,
+        gas,
+        gasPrice,
+        type: 'legacy',
+      }
     }
 
-    return account.signTransaction(tx)
+    const rawTx = await account.signTransaction(tx)
+    return await publicClient.sendRawTransaction({
+      serializedTransaction: rawTx,
+    })
   }
 
   async function getChain() {
@@ -69,6 +92,7 @@ export const jikoGuestWallet = (): Wallet => {
         case 'eth_requestAccounts':
           return ethRequestAccounts()
         case 'eth_sendTransaction':
+        case 'wallet_sendTransaction':
           return ethSendTransaction(params?.[0])
         case 'personal_sign':
           return ethSignMessage(params?.[0])

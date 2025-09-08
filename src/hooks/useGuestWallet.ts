@@ -1,12 +1,7 @@
 import { useAccount } from 'wagmi'
 import { useEffect, useState } from 'react'
-import { createPublicClient, formatUnits, Hex, http, parseEther } from 'viem'
-import configs from '@/configs'
-
-export const publicClient = createPublicClient({
-  chain: configs.chain.chain,
-  transport: http(),
-})
+import { formatUnits, Hex, parseEther } from 'viem'
+import { publicClient } from '@/wallets'
 
 export const useConnectedGuestWallet = () => {
   const { address, isConnected, connector } = useAccount()
@@ -149,12 +144,9 @@ export const useConnectedGuestWallet = () => {
         transaction = { ...params }
       }
 
-      const rawTx = await provider.request({
+      const hash = await provider.request({
         method: 'eth_sendTransaction',
         params: [transaction],
-      })
-      const hash = await publicClient.sendRawTransaction({
-        serializedTransaction: rawTx,
       })
       await publicClient.waitForTransactionReceipt({ hash })
       return hash

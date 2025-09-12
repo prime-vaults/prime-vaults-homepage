@@ -1,18 +1,28 @@
 @import 'tailwindcss';
 @plugin "daisyui";
 
-/* just testing */
+/* just testing  - theme configs */
 @plugin "daisyui/theme" {
   name: 'light';
   default: true;
   --color-primary: blue;
-  --color-secondary: teal;
+  --color-secondary: cyan;
 }
 @plugin "daisyui/theme" {
   name: 'dark';
   default: true;
   --color-primary: red;
   --color-secondary: gray;
+}
+
+/* components configs */
+@layer components {
+  .card {
+    @apply border-4 border-secondary bg-base-100;
+  }
+  .input {
+    @apply border-base-300;
+  }
 }
 
 body {

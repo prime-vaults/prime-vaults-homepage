@@ -54,7 +54,7 @@ export default function TestGuestWallet() {
     [amount],
   )
   return (
-    <div className="max-w-72 card bg-primary shadow-sm">
+    <div className="max-w-72 card">
       <div className="card-body">
         <p>Test wallet</p>
         <div className="flex flex-row gap-2">

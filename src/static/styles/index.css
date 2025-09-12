@@ -3,16 +3,43 @@
 
 /* just testing  - theme configs */
 @plugin "daisyui/theme" {
-  name: 'light';
-  default: true;
-  --color-primary: blue;
-  --color-secondary: cyan;
-}
-@plugin "daisyui/theme" {
   name: 'dark';
   default: true;
   --color-primary: red;
   --color-secondary: gray;
+}
+
+@plugin "daisyui/theme" {
+  name: 'light';
+  default: false;
+  --color-primary: blue;
+  --color-secondary: cyan;
+  /* --color-primary-content: #000;
+  --color-secondary-content: #000;
+  --color-accent: #000;
+  --color-accent-content: #000;
+  --color-neutral: #000;
+  --color-neutral-content: #000;
+  --color-base-100: #000;
+  --color-base-200: #000;
+  --color-base-300: #000;
+  --color-base-content: #000;
+  --color-info: #000;
+  --color-info-content: #000;
+  --color-success: #000;
+  --color-success-content: #000;
+  --color-warning: #000;
+  --color-warning-content: #000;
+  --color-error: #000;
+  --color-error-content: #000;
+  --radius-selector: #000;
+  --radius-field: #000;
+  --radius-box: #000;
+  --size-selector: #000;
+  --size-field: #000;
+  --border: #000;
+  --depth: #000;
+  --noise: #000; */
 }
 
 /* components configs */

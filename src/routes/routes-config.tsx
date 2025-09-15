@@ -7,7 +7,7 @@ import {
 import { CoreRoutes } from '../constant/router'
 
 import AppLayout from '@/layouts/AppLayout'
-import HomePage from '@/app/Page'
+import PageContainer from '@/app/Page'
 import StakingPage from '@/app/staking/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
@@ -22,7 +22,7 @@ const ROUTES_CONFIG: RouteObject[] = [
       </AppLayout>
     ),
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <PageContainer /> },
       {
         path: CoreRoutes.Staking,
         children: [

@@ -5,8 +5,10 @@
 @plugin "daisyui/theme" {
   name: 'dark';
   default: true;
-  --color-primary: red;
-  --color-secondary: gray;
+  --color-primary: #b2e77b;
+  --color-secondary: #abb1ba;
+  --color-base-300: #141510;
+  --color-neutral: #282b31;
 }
 
 @plugin "daisyui/theme" {
@@ -14,6 +16,9 @@
   default: false;
   --color-primary: blue;
   --color-secondary: cyan;
+  --color-base-300: #eee;
+  --color-neutral: #282b31;
+
   /* --color-primary-content: #000;
   --color-secondary-content: #000;
   --color-accent: #000;
@@ -50,9 +55,12 @@
   .input {
     @apply border-base-300;
   }
+  .btn {
+    @apply !rounded-none;
+  }
 }
 
 body {
   @apply normal-case;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Geist Mono', monospace;
 }

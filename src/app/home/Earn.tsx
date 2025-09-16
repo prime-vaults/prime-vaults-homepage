@@ -4,9 +4,9 @@ export default function EarnPage() {
   return (
     <div className="grid grid-cols-5">
       <div className="col-span-full md:col-span-3 flex flex-col gap-2">
-        <p className="text-2xl md:text-5xl text-primary font-bold">
+        <h3 className="text-2xl md:text-5xl text-primary font-bold">
           Time is the real currency of wealth.
-        </p>
+        </h3>
         <span>
           PrimeVault turns your deposits into continuous growth, harnessing
           real-time DeFi strategies so your assets never stop working.

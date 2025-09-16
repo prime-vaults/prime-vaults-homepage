@@ -1,7 +1,9 @@
 import Container from '@/components/UI/Container'
-import BannerPage from './Banner'
 import EarnPage from './Earn'
 import TimePage from './Time'
+import ScrollingPage from './Scrolling'
+import FAQPage from './FAQ'
+import BannerPage from './banner/Page'
 
 export default function HomePage() {
   return (
@@ -13,6 +15,8 @@ export default function HomePage() {
         <BannerPage />
         <EarnPage />
         <TimePage />
+        <ScrollingPage />
+        <FAQPage />
       </div>
     </Container>
   )

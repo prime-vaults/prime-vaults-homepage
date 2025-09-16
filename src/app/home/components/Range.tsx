@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-export default function Range() {
+type RangeProps = { onChange?: (range: { min: number; max: number }) => void }
+export default function Range({ onChange = () => {} }: RangeProps) {
   const [range, setRange] = useState({ min: 0, max: 1 })
   const rightRef = useRef<HTMLDivElement | null>(null)
   const leftRef = useRef<HTMLDivElement | null>(null)
@@ -48,6 +49,10 @@ export default function Range() {
 
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    onChange(range)
+  }, [onChange, range])
 
   return (
     <div

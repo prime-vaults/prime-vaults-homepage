@@ -21,6 +21,7 @@ interface MatrixCanvasProps {
   contentString?: string
   centerGapFraction?: number
   debug?: boolean
+  listenTarget?: 'window' | 'canvas'
 }
 
 type Cell = {
@@ -41,6 +42,7 @@ export default function MatrixEffect({
   contentString = 'jikostaking JIKOSTAKING 0101010',
   centerGapFraction = 0.3,
   debug = false,
+  listenTarget = 'window', // ✅ default vẫn là window
 }: MatrixCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const animationRef = useRef<number | null>(null)
@@ -341,20 +343,23 @@ export default function MatrixEffect({
 
     resize()
     animationRef.current = requestAnimationFrame(drawLoop)
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseleave', onMouseLeave)
+
+    // ✅ Chọn target lắng nghe event
+    const target: any = listenTarget === 'canvas' ? canvas : window
+    target.addEventListener('mousemove', onMouseMove)
+    target.addEventListener('mouseleave', onMouseLeave)
     window.addEventListener('resize', resize)
     window.addEventListener('keydown', onKey)
 
     return () => {
       mounted = false
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseleave', onMouseLeave)
+      target.removeEventListener('mousemove', onMouseMove)
+      target.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('resize', resize)
       window.removeEventListener('keydown', onKey)
     }
-  }, [cellSize, centerGapFraction, contentString, debug, setBoth])
+  }, [cellSize, centerGapFraction, contentString, debug, listenTarget, setBoth])
 
   const syncFromProps = useCallback(() => {
     setBoth(setMode, modeRef, initialMode)

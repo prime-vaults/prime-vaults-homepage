@@ -20,7 +20,7 @@ export default function BannerPage() {
   const [finished] = useLocalStorage('welcome-finished', false)
   const { textLines } = useTypingDecrypt(TEXTS, {
     start: startTextFade || trigger,
-    speed: { typing: 0.5, flash: 15 },
+    speed: { typing: 1, flash: 30 },
     delay: 1000,
   })
 
@@ -50,7 +50,7 @@ export default function BannerPage() {
           <h3 className="text-2xl md:text-5xl text-primary font-bold">
             {textLines[0]}
           </h3>
-          {textLines[1]}
+          <div>{textLines[1]}</div>
           {!!textLines[2] && (
             <Button className="btn btn-primary w-fit text-base-300">
               {textLines[2]}

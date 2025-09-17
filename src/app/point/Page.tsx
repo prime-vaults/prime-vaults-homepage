@@ -1,12 +1,14 @@
+import { useState } from 'react'
+import { useAccountUser } from '@beraji/web3-sdk'
+
 import CountDown from '@/components/CountDown'
 import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
-import { useAccountUser } from '@beraji/web3-sdk'
-import { useState } from 'react'
 
 const Point = () => {
   const [enable, setEnable] = useState(false)
   const user = useAccountUser()
+  console.log('fix: un-used value to build', user)
 
   return (
     <Container>

@@ -9,7 +9,8 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import pcImg from '@/static/images/banner/pc.png'
 
 const TEXTS = [
-  'Prime Stratgies. Best Returns.',
+  'Prime Stratgies.',
+  'Best Returns.',
   'Your On-Chain Wealth Solution.',
   'Press Enter ↵',
 ]
@@ -26,7 +27,7 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
   const [finished, setFinished] = useLocalStorage('welcome-finished', false)
   const { textLines, running, ended, reset } = useTypingDecrypt(TEXTS, {
     start,
-    speed: { typing: 20, flash: 30 },
+    speed: { typing: 60, flash: 60 },
     lineDelay: 1500,
     delay: 1000,
   })
@@ -228,7 +229,10 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
               textLines.map((t, i) => {
                 if (i === textLines.length - 1 && !ended)
                   return (
-                    <div className="relative text-lg md:text-2xl" key={i}>
+                    <div
+                      className="w-full relative text-lg md:text-xl text-start"
+                      key={i}
+                    >
                       {t}
                     </div>
                   )

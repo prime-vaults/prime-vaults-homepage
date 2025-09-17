@@ -63,6 +63,8 @@
 body {
   @apply normal-case;
   font-family: 'Geist Mono', monospace;
+  @apply bg-contain bg-repeat;
+  background-image: url('/imgs/background.png');
 }
 
 h1,

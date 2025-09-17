@@ -11,12 +11,14 @@ export default function HomePage() {
       className="h-full"
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
-      <div className="flex flex-col gap-4 p-6">
+      <div className="flex flex-col gap-4">
         <BannerPage />
-        <EarnPage />
-        <TimePage />
-        <ScrollingPage />
-        <FAQPage />
+        <div className="flex flex-col gap-4 p-6">
+          <EarnPage />
+          <TimePage />
+          <ScrollingPage />
+          <FAQPage />
+        </div>
       </div>
     </Container>
   )

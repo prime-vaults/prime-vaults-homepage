@@ -1,60 +1,220 @@
-import { Fragment, useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import clsx from 'clsx'
+
+import MatrixEffect from '../components/MatrixEffect'
 
 import { useTypingDecrypt } from '@/hooks/useTyping'
-import screenBg from '@/static/images/banner/screen-bg.png'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+
+import pcImg from '@/static/images/banner/pc.png'
 
 const TEXTS = [
   'Prime Stratgies. Best Returns.',
   'Your On-Chain Wealth Solution.',
+  'Press Enter ↩️',
 ]
 
-export default function Welcome() {
+type WelcomeProps = { onFinished?: () => void }
+export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
   const [start, setStart] = useState(false)
+  const [scaleStatus, setScaleStatus] = useState<
+    'none' | 'processing' | 'finished'
+  >('none')
+  const [finished, setFinished] = useLocalStorage('welcome-finished', false)
   const { textLines, running, ended, reset } = useTypingDecrypt(TEXTS, {
     start,
-    speed: { typing: 5, decrypted: 15 },
+    speed: { typing: 20, flash: 30 },
+    delay: 1000,
   })
 
+  const wRef = useRef<HTMLDivElement | null>(null)
+  const mRef = useRef<HTMLDivElement | null>(null)
+  const pRef = useRef<HTMLDivElement | null>(null)
+
+  const scalingConfigs = useMemo(
+    () => ({
+      fadeDuration: 1000,
+      transformDuration: 1000,
+    }),
+    [],
+  )
+
+  const handleFinishAnimation = useCallback(() => {
+    setScaleStatus('finished')
+    onFinished()
+    setFinished(true)
+  }, [onFinished, setFinished])
+
+  const waitForTransition = useCallback(
+    (element: HTMLDivElement, property: string, duration: number) => {
+      return new Promise<void>((resolve) => {
+        let finished = false
+
+        const handleEnd = (e: TransitionEvent) => {
+          if (e.target !== element || e.propertyName !== property) return
+          if (finished) return
+          finished = true
+          resolve()
+        }
+        setTimeout(() => {
+          if (finished) return
+          finished = true
+          element.removeEventListener('transitionend', handleEnd)
+          resolve()
+        }, duration + 100)
+
+        element.addEventListener('transitionend', handleEnd, { once: true })
+      })
+    },
+    [],
+  )
+
+  const onScaling = useCallback(async () => {
+    if (!ended || !wRef.current || !mRef.current || !pRef.current) return
+    const wrapper = wRef.current
+    const mask = mRef.current
+    const panel = pRef.current
+    const parent = wrapper.parentElement
+    if (!parent) return
+
+    // current bounding rects (viewport coords)
+    const parentRect = parent.getBoundingClientRect()
+    const panelRect = panel.getBoundingClientRect()
+
+    const parentCenterX = parentRect.left + parentRect.width / 2
+    const parentCenterY = parentRect.top + parentRect.height / 2
+    const panelCenterX = panelRect.left + panelRect.width / 2
+    const panelCenterY = panelRect.top + panelRect.height / 2
+
+    // delta needed so that panelCenter + delta === parentCenter
+    const translateX = parentCenterX - panelCenterX
+    const translateY = parentCenterY - panelCenterY
+    mask.style.transition = `opacity ${scalingConfigs.fadeDuration}ms ease`
+    requestAnimationFrame(() => (mask.style.opacity = '0'))
+    await waitForTransition(mask, 'opacity', scalingConfigs.fadeDuration)
+    panel.style.boxSizing = 'border-box'
+    panel.style.width = `${panelRect.width}px`
+    wrapper.style.transition = `transform ${scalingConfigs.transformDuration}ms ease`
+    void wrapper.offsetWidth
+    requestAnimationFrame(() => {
+      wrapper.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`
+    })
+    await waitForTransition(
+      wrapper,
+      'transform',
+      scalingConfigs.transformDuration,
+    )
+    const targetWidthPx = parentRect.width
+    panel.style.transition = `width ${scalingConfigs.transformDuration}ms ease`
+    void panel.offsetWidth
+    requestAnimationFrame(() => (panel.style.width = `${targetWidthPx}px`))
+    await waitForTransition(panel, 'width', scalingConfigs.transformDuration)
+    handleFinishAnimation()
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        panel.style.width = '100%'
+        wrapper.style.transform = ''
+        panel.style.transition = ''
+        wrapper.style.transition = ''
+      }),
+    )
+  }, [ended, handleFinishAnimation, scalingConfigs, waitForTransition])
+
+  // handle welcome
   useLayoutEffect(() => {
+    if (running || finished) return
     window.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && ended) {
+        onScaling()
+      }
+      if (ended) return
       setStart(e.key === 'p')
+      if (e.key === 'r') {
+        setFinished(false)
+        setScaleStatus('none')
+        reset()
+      }
     })
     return () => {
       window.removeEventListener('keypress', () => reset())
     }
-  }, [reset])
+  }, [ended, finished, onScaling, reset, running, setFinished])
 
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen bg-no-repeat z-[999]"
-      style={{
-        backgroundImage: `url(${screenBg})`,
-        backgroundSize: '100% 100%',
-      }}
+      ref={wRef}
+      className={clsx(
+        'w-full h-full z-[999]',
+        { 'fixed top-0 left-0': scaleStatus !== 'finished' && !finished },
+        { relative: scaleStatus === 'finished' && finished },
+      )}
     >
       <div className="relative w-full h-full flex flex-col items-center justify-center">
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-2">
-          {!running && !ended && (
-            <span className="text-xl md:text-5xl">
-              Press <b className="animate-pulse">[P]</b>
-            </span>
-          )}
-          {!!running && (
-            <span className="relative text-xl md:text-3xl">
-              {textLines.map((text) => (
-                <Fragment>
-                  <b key={text}>{text}</b>
-                  <br />
-                </Fragment>
-              ))}{' '}
-              <b
-                className="animate-pulse"
-                style={{ animationDuration: '200ms' }}
+        {/* background */}
+        <div
+          ref={mRef}
+          className={clsx('absolute top-0 left-0 w-full h-full', {
+            hidden: scaleStatus === 'finished' && finished,
+          })}
+        >
+          {scaleStatus !== 'finished' && !finished && <MatrixEffect />}
+        </div>
+        {/* content */}
+        <div
+          ref={pRef}
+          className={clsx('relative h-auto aspect-[684/781] bg-no-repeat', {
+            'w-full md:w-[45%]': !finished,
+            'w-full': finished,
+          })}
+          style={{
+            backgroundImage: `url(${pcImg})`,
+            backgroundSize: '100% 100%',
+          }}
+        >
+          <div
+            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2"
+            style={{
+              top: `${(173 / 781) * 100}%`,
+              left: `${(236 / 684) * 100}%`,
+              width: `${(246 / 684) * 100}%`,
+              height: `${(219 / 781) * 100}%`,
+            }}
+          >
+            {!running && !ended && (
+              <p className="text-sm md:text-base font-bold">
+                Press{' '}
+                <b
+                  className="animate-pulse"
+                  style={{ animationDuration: '500ms' }}
+                >
+                  [P]
+                </b>
+              </p>
+            )}
+            {!!running &&
+              textLines.map((t, i) => {
+                if (i === textLines.length - 1 && !ended)
+                  return (
+                    <div className="relative text-lg md:text-2xl" key={i}>
+                      {t}
+                    </div>
+                  )
+                return null
+              })}
+            {ended && !!textLines.length && scaleStatus == 'finished' && (
+              <div className="relative text-lg md:text-xl">
+                {textLines[textLines.length - 2]}
+              </div>
+            )}
+            {ended && !!textLines.length && scaleStatus !== 'finished' && (
+              <div
+                className="relative text-lg md:text-2xl animate-pulse"
+                style={{ animationDuration: '600ms' }}
               >
-                |
-              </b>
-            </span>
-          )}
+                {textLines[textLines.length - 1]}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

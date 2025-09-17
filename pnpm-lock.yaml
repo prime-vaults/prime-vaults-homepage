@@ -56,6 +56,9 @@ importers:
       react-toastify:
         specifier: ^11.0.5
         version: 11.0.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      swiper:
+        specifier: ^12.0.1
+        version: 12.0.1
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
@@ -2677,6 +2680,10 @@ packages:
   supports-color@8.1.1:
     resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
     engines: {node: '>=10'}
+
+  swiper@12.0.1:
+    resolution: {integrity: sha512-Fi+gNw/tfc4hsGowQU5tRC/f1HFknkh4Vz8PaDI4JTinLUMTwhZyaovcH/va+iXq98BNUHN5ok0c2lEI82Fsgw==}
+    engines: {node: '>= 4.7.0'}
 
   sync-child-process@1.0.2:
     resolution: {integrity: sha512-8lD+t2KrrScJ/7KXCSyfhT3/hRq78rC0wBFqNJXv3mZyn6hW2ypM05JmlSvtqRbeq6jqA94oHbxAr2vYsJ8vDA==}
@@ -6410,6 +6417,8 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
     optional: true
+
+  swiper@12.0.1: {}
 
   sync-child-process@1.0.2:
     dependencies:

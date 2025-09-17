@@ -7,8 +7,8 @@ import SystemProvider from './providers/system'
 
 import '@/static/styles/index.css'
 import '@rainbow-me/rainbowkit/styles.css'
-
-// projectId: '2790502bc1d3749bf21ace753b51966b',
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 function App() {
   return (

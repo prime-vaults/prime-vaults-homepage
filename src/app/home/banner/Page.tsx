@@ -2,9 +2,10 @@ import { useLayoutEffect, useState } from 'react'
 
 import Button from '@/components/UI/Button'
 import Welcome from './Welcome'
+import MatrixEffect from '../components/MatrixEffect'
+
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useTypingDecrypt } from '@/hooks/useTyping'
-import MatrixEffect from '../components/MatrixEffect'
 
 const TEXTS = [
   'Prime Strategies.',
@@ -38,7 +39,7 @@ export default function BannerPage() {
     <div className="relative w-full">
       {finished && (
         <div className="absolute w-full h-full z-0">
-          <MatrixEffect />
+          <MatrixEffect debug />
         </div>
       )}
       <div className="relative w-full min-h-screen grid grid-cols-7 gap-4 p-6 md:gap-24 z-10">

@@ -2,11 +2,10 @@ import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 
 import MatrixEffect from '../components/MatrixEffect'
+import PC from './PC'
 
 import { useTypingDecrypt } from '@/hooks/useTyping'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
-
-import pcImg from '@/static/images/banner/pc.png'
 
 const TEXTS = [
   'Prime Stratgies.',
@@ -160,17 +159,17 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
       if (ended) return
       setStart(e.key === 'p')
       // debug mode
-      if (!debug) return
-      if (e.key === 'r') {
-        setFinished(false)
-        setScaleStatus('none')
-        reset()
-      }
+      // if (!debug) return
+      // if (e.key === 'r') {
+      //   setFinished(false)
+      //   setScaleStatus('none')
+      //   reset()
+      // }
     })
     return () => {
       window.removeEventListener('keypress', () => reset())
     }
-  }, [debug, ended, finished, onScaling, reset, running, setFinished])
+  }, [ended, finished, onScaling, reset, running, setFinished])
 
   return (
     <div
@@ -200,13 +199,12 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             'w-full md:w-[45%]': !finished,
             'w-full': finished,
           })}
-          style={{
-            backgroundImage: `url(${pcImg})`,
-            backgroundSize: '100% 100%',
-          }}
         >
+          <div className="absolute w-full h-full z-[1]">
+            <PC />
+          </div>
           <div
-            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2"
+            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2 z-[2]"
             style={{
               top: `${(173 / 781) * 100}%`,
               left: `${(236 / 684) * 100}%`,

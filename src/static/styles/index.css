@@ -70,6 +70,11 @@ body {
 .font-space {
   font-family: 'Space Grotesk', sans-serif;
 }
+
+h2 {
+  @apply text-[50px] text-primary leading-[63px];
+}
+
 .font-tomorrow {
   font-family: 'Tomorrow', sans-serif;
 }
@@ -84,4 +89,25 @@ body {
 
 .btn-secondary {
   @apply flex items-center justify-center py-4 border border-[#3E3E3E] bg-[#171E17];
+}
+
+.gradient-hover {
+  position: relative;
+  overflow: hidden;
+}
+        
+.gradient-hover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #A3E96B 100%);
+  transition: height 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.gradient-hover:hover::before {
+    height: 100%;
 }

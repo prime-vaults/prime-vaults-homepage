@@ -6,6 +6,7 @@ import FAQPage from './FAQ'
 import BannerPage from './banner/Page'
 import Portfolio from './Portfolio'
 import Integrated from './Integrated'
+import Engines from './Engines'
 
 export default function HomePage() {
   return (
@@ -17,6 +18,7 @@ export default function HomePage() {
         <BannerPage />
         <Portfolio />
         <Integrated />
+        <Engines />
         <EarnPage />
         <TimePage />
         <ScrollingPage />

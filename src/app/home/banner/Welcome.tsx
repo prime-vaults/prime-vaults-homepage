@@ -230,7 +230,7 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
                 if (i === textLines.length - 1 && !ended)
                   return (
                     <div
-                      className="w-full relative text-lg md:text-xl text-start"
+                      className="w-full relative text-base md:text-xl text-center"
                       key={i}
                     >
                       {t}

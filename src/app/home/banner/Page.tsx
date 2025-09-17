@@ -7,11 +7,10 @@ import { useTypingDecrypt } from '@/hooks/useTyping'
 import MatrixEffect from '../components/MatrixEffect'
 
 const TEXTS = [
-  'High returns. Low complexity.',
-  "Achieve 15-25% APY without navigating DeFi's complexity.",
+  'Prime Strategies.',
+  'Best Returns.',
+  'Your On-Chain Wealth Solution.',
   'Start now',
-  `*APY is variable and subject to change. Actual performance may
-              differ, and deposits are not insured or guaranteed.`,
 ]
 
 export default function BannerPage() {
@@ -30,7 +29,7 @@ export default function BannerPage() {
   }, [finished])
 
   useLayoutEffect(() => {
-    const nextEl = document.querySelector('#time_section')
+    const nextEl = document.querySelector('#portfolio_section')
     if (!nextEl || !(finished && startTextFade)) return
     nextEl.scrollIntoView({ block: 'start', behavior: 'smooth' })
   }, [finished, startTextFade])
@@ -46,21 +45,20 @@ export default function BannerPage() {
         <div className=" col-span-full md:col-span-3">
           <Welcome onFinished={() => setStartTextFade(true)} />
         </div>
-        <div className="col-span-full md:col-span-4 flex flex-col gap-2 h-full justify-center">
-          <h3 className="text-2xl md:text-5xl text-primary font-bold">
-            {textLines[0]}
-          </h3>
-          <div>{textLines[1]}</div>
-          {!!textLines[2] && (
-            <Button className="btn btn-primary w-fit text-base-300">
-              {textLines[2]}
+        <div className="col-span-full md:col-span-4 flex flex-col gap-2 md:gap-5 h-full items-center md:items-start justify-center text-center md:text-start uppercase">
+          {[...textLines].splice(0, 3).map((text, i) => (
+            <div
+              className="text-2xl md:text-5xl text-primary font-bold font-space"
+              key={i}
+            >
+              {text}
+            </div>
+          ))}
+          {!!textLines[3] && (
+            <Button className="btn btn-primary btn-block md:w-fit md:min-w-3xs text-base-300">
+              {textLines[3]}
             </Button>
           )}
-          <div className="w-full flex flex-col items-end">
-            <div className="w-full md:w-2/3 text-xs text-end text-secondary">
-              {textLines[3]}
-            </div>
-          </div>
         </div>
       </div>
     </div>

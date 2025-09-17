@@ -160,7 +160,10 @@ function CompareAPR() {
 
 export default function Portfolio() {
   return (
-    <div className="section-container grid grid-cols-2 gap-6">
+    <div
+      id="portfolio_section"
+      className="section-container grid grid-cols-2 gap-6"
+    >
       <div className="flex flex-col gap-4">
         <h1 className="text-primary text-[50px] font-bold">
           WATCH YOUR PORTFOLIO{' '}

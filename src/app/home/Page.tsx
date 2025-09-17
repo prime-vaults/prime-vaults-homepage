@@ -4,6 +4,8 @@ import TimePage from './Time'
 import ScrollingPage from './Scrolling'
 import FAQPage from './FAQ'
 import BannerPage from './banner/Page'
+import Portfolio from './Portfolio'
+import Integrated from './Integrated'
 
 export default function HomePage() {
   return (
@@ -11,14 +13,14 @@ export default function HomePage() {
       className="h-full"
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
         <BannerPage />
-        <div className="flex flex-col gap-4 p-6">
-          <EarnPage />
-          <TimePage />
-          <ScrollingPage />
-          <FAQPage />
-        </div>
+        <Portfolio />
+        <Integrated />
+        <EarnPage />
+        <TimePage />
+        <ScrollingPage />
+        <FAQPage />
       </div>
     </Container>
   )

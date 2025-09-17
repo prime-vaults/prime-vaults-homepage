@@ -78,3 +78,15 @@ h6 {
 .font-tomorrow {
   font-family: 'Tomorrow', sans-serif;
 }
+
+.section-container {
+  @apply px-[30px] py-16 border-y border-[#3E3E3E];
+}
+
+.btn-primary {
+  @apply border-0 p-2 bg-[#B2E77B] text-[#000] shadow-none;
+}
+
+.btn-secondary {
+  @apply flex items-center justify-center py-4 border border-[#3E3E3E] bg-[#171E17];
+}

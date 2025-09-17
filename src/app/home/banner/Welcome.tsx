@@ -173,10 +173,10 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
 
   // touch support
   useLayoutEffect(() => {
-    if (running || finished || ended) return
+    if (running || finished) return
 
     const touchMap: Record<string, () => void> = {
-      p_key: () => setStart(true),
+      p_key: () => !ended && setStart(true),
       enter_key: () => onScaling(),
     }
 

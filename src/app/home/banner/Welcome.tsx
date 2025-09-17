@@ -171,6 +171,16 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
     }
   }, [ended, finished, onScaling, reset, running, setFinished])
 
+  // touch support
+  useLayoutEffect(() => {
+    if (running || finished || ended) return
+    const el = document.getElementById('#p_key')
+    if (!el) return
+    el.addEventListener('touchstart', () => {
+      setStart(true)
+    })
+  }, [ended, finished, running])
+
   return (
     <div
       ref={wRef}

@@ -351,6 +351,23 @@ export default function MatrixEffect({
     window.addEventListener('resize', resize)
     window.addEventListener('keydown', onKey)
 
+    // ✅ touch support
+    const touchMap: Record<string, string> = {
+      enter_key: 'Enter',
+      p_key: 'p',
+      r_key: 'r',
+      i_key: 'i',
+      e_key: 'e',
+      m_key: 'm',
+    }
+    Object.entries(touchMap).forEach(([id, key]) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      el.addEventListener('touchstart', () => {
+        onKey({ key } as KeyboardEvent)
+      })
+    })
+
     return () => {
       mounted = false
       if (animationRef.current) cancelAnimationFrame(animationRef.current)

@@ -42,26 +42,48 @@ export default function PC() {
       m: 'm_key',
     }
 
+    // Common handlers
+    const addPress = (id: string) => {
+      const el = document.getElementById(id)
+      el?.classList.add('anim-press')
+    }
+
+    const removePress = (id: string) => {
+      const el = document.getElementById(id)
+      el?.classList.remove('anim-press')
+    }
+
+    // ---- Keyboard ----
     const handleKeyDown = (e: KeyboardEvent) => {
       const elId = keyMap[e.key]
-      if (!elId) return
-      const el = document.getElementById(elId)
-      if (el) el.classList.add('anim-press')
+      if (elId) addPress(elId)
     }
 
     const handleKeyUp = (e: KeyboardEvent) => {
       const elId = keyMap[e.key]
-      if (!elId) return
-      const el = document.getElementById(elId)
-      if (el) el.classList.remove('anim-press')
+      if (elId) removePress(elId)
     }
 
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
 
+    // ---- Touch ----
+    const touchElements: HTMLElement[] = []
+    Object.values(keyMap).forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      touchElements.push(el)
+      el.addEventListener('touchstart', () => addPress(id))
+      el.addEventListener('touchend', () => removePress(id))
+      el.addEventListener('touchcancel', () => removePress(id))
+    })
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
+      touchElements.forEach((el) => {
+        el.replaceWith(el.cloneNode(true))
+      })
     }
   }, [])
 

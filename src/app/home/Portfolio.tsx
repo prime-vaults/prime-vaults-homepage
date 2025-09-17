@@ -145,14 +145,7 @@ function CompareAPR() {
                   <div className="flex flex-row justify-between items-center">
                     {STATS[tab][item.provider].APR}%
                     {item.provider === Provider.Prime && (
-                      <button
-                        className="btn border-0 p-2 bg-[#B2E77B] text-[#000]"
-                        style={{
-                          boxShadow: '1px 1px 16px 0 rgba(255, 255, 255, 0.25)',
-                        }}
-                      >
-                        Start Earning
-                      </button>
+                      <button className="btn btn-primary">Start Earning</button>
                     )}
                   </div>
                 </td>
@@ -167,7 +160,7 @@ function CompareAPR() {
 
 export default function Portfolio() {
   return (
-    <div className="grid grid-cols-2 px-[30px] py-16 gap-6">
+    <div className="section-container grid grid-cols-2 gap-6">
       <div className="flex flex-col gap-4">
         <h1 className="text-primary text-[50px] font-bold">
           WATCH YOUR PORTFOLIO{' '}

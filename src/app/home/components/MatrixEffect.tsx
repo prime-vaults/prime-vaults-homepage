@@ -360,9 +360,11 @@ export default function MatrixEffect({
       e_key: 'e',
       m_key: 'm',
     }
+    const elements: HTMLElement[] = []
     Object.entries(touchMap).forEach(([id, key]) => {
       const el = document.getElementById(id)
       if (!el) return
+      elements.push(el)
       el.addEventListener('touchstart', () => {
         onKey({ key } as KeyboardEvent)
       })
@@ -375,6 +377,9 @@ export default function MatrixEffect({
       target.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('resize', resize)
       window.removeEventListener('keydown', onKey)
+      elements.forEach((el) => {
+        el.replaceWith(el.cloneNode(true))
+      })
     }
   }, [cellSize, centerGapFraction, contentString, debug, listenTarget, setBoth])
 

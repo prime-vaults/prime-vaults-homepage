@@ -174,12 +174,27 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
   // touch support
   useLayoutEffect(() => {
     if (running || finished || ended) return
-    const el = document.querySelector('#p_key')
-    if (!el) return
-    el.addEventListener('touchstart', () => {
-      setStart(true)
+
+    const touchMap: Record<string, () => void> = {
+      p_key: () => setStart(true),
+      enter_key: () => onScaling(),
+    }
+
+    const elements: [HTMLElement, () => void][] = []
+
+    Object.entries(touchMap).forEach(([id, handler]) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      elements.push([el, handler])
+      el.addEventListener('touchstart', handler)
     })
-  }, [ended, finished, running])
+
+    return () => {
+      elements.forEach(([el, handler]) => {
+        el?.removeEventListener('touchstart', handler)
+      })
+    }
+  }, [ended, finished, onScaling, running])
 
   return (
     <div

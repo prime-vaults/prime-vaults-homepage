@@ -11,19 +11,23 @@ import pcImg from '@/static/images/banner/pc.png'
 const TEXTS = [
   'Prime Stratgies. Best Returns.',
   'Your On-Chain Wealth Solution.',
-  'Press Enter ↩️',
+  'Press Enter ↵',
 ]
+let timer: NodeJS.Timeout | undefined = undefined
 
 type WelcomeProps = { onFinished?: () => void }
 export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
+  const [debug] = useState(true)
   const [start, setStart] = useState(false)
   const [scaleStatus, setScaleStatus] = useState<
     'none' | 'processing' | 'finished'
   >('none')
+  const [effectConfigs, setEffectConfigs] = useState({})
   const [finished, setFinished] = useLocalStorage('welcome-finished', false)
   const { textLines, running, ended, reset } = useTypingDecrypt(TEXTS, {
     start,
     speed: { typing: 20, flash: 30 },
+    lineDelay: 1500,
     delay: 1000,
   })
 
@@ -38,6 +42,31 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
     }),
     [],
   )
+
+  const randomEffectConfig = useCallback(() => {
+    const effects = ['wave', 'attract']
+    const modes = ['sides', 'full']
+    const styles = ['matrix', 'fade']
+
+    const pick = <T,>(arr: readonly T[]): T =>
+      arr[Math.floor(Math.random() * arr.length)]
+
+    return {
+      initialEffect: pick(effects),
+      initialMode: pick(modes),
+      initialStyle: pick(styles),
+    }
+  }, [])
+
+  // trigger glitch
+  useLayoutEffect(() => {
+    if (timer) clearInterval(timer)
+    if (!ended) return
+    timer = setInterval(() => {
+      const configs = randomEffectConfig()
+      setEffectConfigs(configs)
+    }, 3000)
+  }, [ended, randomEffectConfig])
 
   const handleFinishAnimation = useCallback(() => {
     setScaleStatus('finished')
@@ -129,6 +158,8 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
       }
       if (ended) return
       setStart(e.key === 'p')
+      // debug mode
+      if (!debug) return
       if (e.key === 'r') {
         setFinished(false)
         setScaleStatus('none')
@@ -138,7 +169,7 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
     return () => {
       window.removeEventListener('keypress', () => reset())
     }
-  }, [ended, finished, onScaling, reset, running, setFinished])
+  }, [debug, ended, finished, onScaling, reset, running, setFinished])
 
   return (
     <div
@@ -157,7 +188,9 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             hidden: scaleStatus === 'finished' && finished,
           })}
         >
-          {scaleStatus !== 'finished' && !finished && <MatrixEffect />}
+          {scaleStatus !== 'finished' && !finished && (
+            <MatrixEffect debug={debug} {...effectConfigs} />
+          )}
         </div>
         {/* content */}
         <div

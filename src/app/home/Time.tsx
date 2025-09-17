@@ -6,7 +6,7 @@ export default function TimePage() {
   const [range, setRange] = useState({ min: 0, max: 1 })
 
   return (
-    <div className="flex flex-col gap-2">
+    <div id="time_section" className="flex flex-col gap-2">
       <div className="flex flex-col gap-2 items-center">
         <h3 className="text-2xl md:text-5xl text-primary font-bold">
           TIME IS MONEY

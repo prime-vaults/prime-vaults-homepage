@@ -24,9 +24,17 @@ export default function BannerPage() {
     delay: 1000,
   })
 
+  // start typing effect
   useLayoutEffect(() => {
     setTrigger(finished)
   }, [finished])
+
+  useLayoutEffect(() => {
+    const nextEl = document.querySelector('#time_section')
+    if (!nextEl || !(finished && startTextFade)) return
+    nextEl.scrollIntoView({ block: 'start', behavior: 'smooth' })
+  }, [finished, startTextFade])
+
   return (
     <div className="relative w-full">
       {finished && (

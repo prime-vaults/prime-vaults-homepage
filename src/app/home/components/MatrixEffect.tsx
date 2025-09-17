@@ -366,6 +366,5 @@ export default function MatrixEffect({
     syncFromProps()
   }, [syncFromProps])
 
-  console.log('fff: ', initialMode, initialContent, initialStyle, initialEffect)
   return <canvas ref={canvasRef} className="w-full h-full" />
 }

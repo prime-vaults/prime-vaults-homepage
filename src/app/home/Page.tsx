@@ -4,6 +4,7 @@ import TimePage from './Time'
 import ScrollingPage from './Scrolling'
 import FAQPage from './FAQ'
 import BannerPage from './banner/Page'
+import Portfolio from './Portfolio'
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <div className="flex flex-col gap-4">
         <BannerPage />
         <div className="flex flex-col gap-4 p-6">
+          <Portfolio />
           <EarnPage />
           <TimePage />
           <ScrollingPage />

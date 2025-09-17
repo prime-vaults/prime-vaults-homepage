@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 
 import ScrollItem from './ScrollItem'
 import ScrollAnim from './ScrollAnim'

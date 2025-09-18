@@ -76,10 +76,7 @@ function CompareAPR() {
                     <td>
                       <div className="flex items-center gap-2">
                         <img src={logo} alt="" />
-                        <span>
-                          {name}
-                          {isPrime && tab}
-                        </span>
+                        <span>{name}</span>
                       </div>
                     </td>
                     <td

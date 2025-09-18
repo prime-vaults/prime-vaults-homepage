@@ -7,3 +7,6 @@ export enum CACHE_PREFIX {
 export enum SearchQueryKey {
   Tab = 'tab',
 }
+
+export const MIN_FUND = 100
+export const MAX_FUND = 1_000_000

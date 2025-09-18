@@ -3,11 +3,12 @@ import Range from './Range'
 import TimeItems from './TimeItems'
 
 import banner from '@/static/images/banner/banner.png'
+import { MIN_FUND } from '@/constant'
 
 export default function TimePage() {
   const [data, setData] = useState({
-    fund: 0,
-    goal: 0,
+    fund: MIN_FUND,
+    goal: MIN_FUND * 2,
   })
 
   const onChange = useCallback((key: string, value: number) => {

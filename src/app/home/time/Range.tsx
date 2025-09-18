@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { ArrowRight } from 'lucide-react'
 import Corner from '@/components/UI/Corner'
+import { MAX_FUND, MIN_FUND } from '@/constant'
 
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v))
 
@@ -22,7 +23,7 @@ export const RangeItem = ({
   onChange = () => {},
   label,
   min = 0,
-  max = 100000,
+  max = 100,
   value = 0,
 }: RangeItemProps) => {
   const [percentage, setPercentage] = useState(0)
@@ -162,8 +163,8 @@ export default function Range({
       <div className="col-span-3">
         <RangeItem
           label="Your Fund"
-          min={0}
-          max={1000000}
+          min={MIN_FUND}
+          max={MAX_FUND}
           value={fund}
           onChange={(value) => handleChange('fund', value)}
         />

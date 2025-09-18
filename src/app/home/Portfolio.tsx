@@ -1,114 +1,55 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import clsx from 'clsx'
 
 import RandomTextColor from '@/components/RandomTextColor'
+import Corner from '@/components/UI/Corner'
 
-import bank_logo from '@/static/images/logo/bank.svg'
-import money_logo from '@/static/images/logo/money.svg'
-import aave_logo from '@/static/images/logo/aave.svg'
-import prime_logo from '@/static/images/logo/prime.svg'
+import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
+import { SearchQueryKey } from '@/constant'
+import { HOLDING_DATA } from '@/constant/holding'
 
 enum Token {
-  USD = 'USD',
-  BTC = 'BTC',
-  ETH = 'ETH',
-}
-
-enum Provider {
-  Bank = 'Bank',
-  Bond = 'Bond',
-  Aave = 'Aave',
-  Prime = 'Prime',
-}
-
-const LIST = [
-  {
-    provider: Provider.Bank,
-    logo: bank_logo,
-    title: 'Bank',
-  },
-  {
-    provider: Provider.Bond,
-    logo: money_logo,
-    title: 'US Bonds',
-  },
-  {
-    provider: Provider.Aave,
-    logo: aave_logo,
-    title: 'AAVE',
-  },
-  {
-    provider: Provider.Prime,
-    logo: prime_logo,
-    title: 'Prime',
-  },
-]
-
-const STATS: Record<Token, Record<Provider, { APR: string }>> = {
-  USD: {
-    Bank: {
-      APR: '0.5',
-    },
-    Bond: {
-      APR: '4.22',
-    },
-    Aave: {
-      APR: '4.50',
-    },
-    Prime: {
-      APR: '18-25',
-    },
-  },
-  BTC: {
-    Bank: {
-      APR: '0.7',
-    },
-    Bond: {
-      APR: '5.2',
-    },
-    Aave: {
-      APR: '5.8',
-    },
-    Prime: {
-      APR: '20-27',
-    },
-  },
-  ETH: {
-    Bank: {
-      APR: '1.2',
-    },
-    Bond: {
-      APR: '6.6',
-    },
-    Aave: {
-      APR: '7.7',
-    },
-    Prime: {
-      APR: 'Up to 33',
-    },
-  },
+  USD = 'usd',
+  BTC = 'btc',
+  ETH = 'eth',
 }
 
 function CompareAPR() {
+  const { update } = useUpdateSearchParams()
   const [tab, setTab] = useState(Token.USD)
+
+  const onClick = (token: Token) => {
+    setTab(token)
+    update(SearchQueryKey.Tab, token)
+  }
+
+  const data = useMemo(() => {
+    const rs = HOLDING_DATA[tab]
+    if (!rs) return []
+    return rs.sort((a, b) => a.apy - b.apy)
+  }, [tab])
 
   return (
     <div className="flex flex-col">
       <div
         role="tablist"
-        className="tabs w-fit border border-b-0 border-[#3E3E3E]"
+        className="relative tabs w-fit border border-b-0 border-[#3E3E3E]"
       >
-        {Object.values(Token).map((token) => (
-          <button
-            key={token}
-            className={`tab tab-lifted px-11 py-2.5 m-1 font-medium transition-colors duration-100 ${
-              token === tab ? '!text-primary bg-[#a3e96b0d]' : ''
-            }`}
-            onClick={() => setTab(token)}
-          >
-            {token}
-          </button>
-        ))}
+        {Object.values(Token).map((token) => {
+          const active = token === tab
+          return (
+            <button
+              key={token}
+              className={`tab tab-lifted px-11 py-2.5 m-1 font-medium transition-colors duration-100 uppercase ${
+                active ? '!text-primary bg-[#a3e96b0d]' : ''
+              }`}
+              onClick={() => onClick(token)}
+            >
+              {token}
+              {active && <Corner />}
+            </button>
+          )
+        })}
       </div>
 
       <div className="overflow-x-auto border border-[#3E3E3E] bg-[#1E221B] font-bold">
@@ -120,37 +61,41 @@ function CompareAPR() {
             </tr>
           </thead>
           <tbody>
-            {LIST.map((item) => (
-              <tr
-                key={item.provider}
-                className={clsx({
-                  'bg-[#a3e96b3d] text-primary':
-                    item.provider === Provider.Prime,
-                })}
-              >
-                <td>
-                  <div className="flex items-center gap-2">
-                    <img src={item.logo} alt="" />
-                    <span>
-                      {item.title}
-                      {item.provider === Provider.Prime && tab}
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className={clsx('font-medium', {
-                    '!font-bold': item.provider === Provider.Prime,
+            {data.map(({ logo, name, rate }) => {
+              const isPrime = name === 'PrimeUSD'
+              return (
+                <tr
+                  key={name}
+                  className={clsx({
+                    'bg-[#a3e96b3d] text-primary': isPrime,
                   })}
                 >
-                  <div className="flex flex-row justify-between items-center">
-                    {STATS[tab][item.provider].APR}%
-                    {item.provider === Provider.Prime && (
-                      <button className="btn btn-primary">Start Earning</button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  <td>
+                    <div className="flex items-center gap-2">
+                      <img src={logo} alt="" />
+                      <span>
+                        {name}
+                        {isPrime && tab}
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    className={clsx('font-medium', {
+                      '!font-bold': isPrime,
+                    })}
+                  >
+                    <div className="flex flex-row justify-between items-center">
+                      {rate}
+                      {isPrime && (
+                        <button className="btn btn-primary">
+                          Start Earning
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

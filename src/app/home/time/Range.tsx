@@ -6,6 +6,7 @@ import {
   useCallback,
 } from 'react'
 import { ArrowRight } from 'lucide-react'
+import Corner from '@/components/UI/Corner'
 
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v))
 
@@ -128,6 +129,7 @@ export const RangeItem = ({
         <p className="text-primary text-sm text-nowrap font-bold">
           ${Math.round(currentValue).toLocaleString()}
         </p>
+        <Corner />
       </div>
     </div>
   )

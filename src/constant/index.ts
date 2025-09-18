@@ -3,3 +3,7 @@ export enum CACHE_PREFIX {
   TotalStaked = 'total-staked',
   NFTs = 'nfts',
 }
+
+export enum SearchQueryKey {
+  Tab = 'tab',
+}

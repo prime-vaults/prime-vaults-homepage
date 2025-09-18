@@ -1,5 +1,7 @@
 import clsx from 'clsx'
 
+import Corner from '@/components/UI/Corner'
+
 import ai from '@/static/images/ai-security/ai.png'
 import strategy from '@/static/images/ai-security/strategy.png'
 import security from '@/static/images/ai-security/security.png'
@@ -33,17 +35,16 @@ export default function Engines() {
         <div key={index} className="relative overflow-hidden group h-full">
           <div
             className={clsx(
-              'absolute inset-0 bg-gradient-to-t from-[#A3E96B] to-transparent translate-y-full group-hover:translate-y-[20%] transition-transform duration-500 ease-out',
+              'absolute inset-0 bg-gradient-to-t from-[#A3E96B] to-transparent translate-y-full group-hover:translate-y-[20%] transition-transform duration-500 ease-out z-0',
               {
                 '!bg-gradient-to-b !scale-y-0 !origin-top group-hover:!scale-y-80 !translate-y-0':
                   !!item.reverse,
               },
             )}
           />
-
           <div
             className={clsx(
-              'flex flex-col gap-2 p-6 border-r border-[#3E3E3E] relative z-10 h-full bg-cover bg-no-repeat',
+              'relative flex flex-col h-full gap-2 p-6 border-r border-t border-[#3E3E3E] bg-cover bg-no-repeat z-10',
               item.reverse && 'flex-col-reverse',
               index === LIST.length - 1 && 'border-r-0',
             )}
@@ -58,6 +59,8 @@ export default function Engines() {
             <div className="flex-1" />
             <img src={item.img} alt="" className="w-full" />
           </div>
+
+          <Corner />
         </div>
       ))}
     </div>

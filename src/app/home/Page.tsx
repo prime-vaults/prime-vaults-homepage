@@ -17,8 +17,8 @@ export default function HomePage() {
         <BannerPage />
         <Portfolio />
         <Integrated />
-        <Engines />
         <TimePage />
+        <Engines />
         <ScrollingPage />
         <FAQPage />
       </div>

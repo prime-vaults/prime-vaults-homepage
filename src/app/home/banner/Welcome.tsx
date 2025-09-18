@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 import MatrixEffect from '../components/MatrixEffect'
 import PC from './PC'
+import Corner from '@/components/UI/Corner'
 
 import { useTypingDecrypt } from '@/hooks/useTyping'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
@@ -238,15 +239,18 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             }}
           >
             {!running && !ended && (
-              <p className="text-sm md:text-base font-bold">
-                Press{' '}
-                <b
-                  className="animate-pulse"
-                  style={{ animationDuration: '500ms' }}
-                >
-                  [P]
-                </b>
-              </p>
+              <div className="relative flex flex-row items-center px-2 md:px-4 py-1">
+                <p className="text-sm md:text-base font-bold">
+                  Press{' '}
+                  <b
+                    className="animate-pulse"
+                    style={{ animationDuration: '500ms' }}
+                  >
+                    [P]
+                  </b>
+                </p>
+                <Corner />
+              </div>
             )}
             {!!running &&
               textLines.map((t, i) => {

@@ -3,10 +3,9 @@ import { useMemo } from 'react'
 
 import { Timer } from 'lucide-react'
 
-import bank_logo from '@/static/images/logo/bank.svg'
-import money_logo from '@/static/images/logo/money.svg'
-import aave_logo from '@/static/images/logo/aave.svg'
-import prime_logo from '@/static/images/logo/prime.svg'
+import { useSearchParams } from 'react-router'
+import { SearchQueryKey } from '@/constant'
+import { HOLDING_DATA } from '@/constant/holding'
 
 type TimeItemData = {
   name: string
@@ -87,39 +86,19 @@ const calculateYears = (
 
 type TimeItemsProps = { fund: number; goal: number }
 export default function TimeItems({ fund, goal }: TimeItemsProps) {
-  const data = useMemo((): TimeItemData[] => {
-    const items = [
-      {
-        logo: prime_logo,
-        name: 'PrimeUSD',
-        rate: '18-25%',
-        apy: 21.5, // Average of 18-25%
-      },
-      {
-        logo: aave_logo,
-        name: 'AAVE',
-        rate: '4.5%',
-        apy: 4.5,
-      },
-      {
-        logo: money_logo,
-        name: 'US Bonds',
-        rate: '4.22%',
-        apy: 4.22,
-      },
-      {
-        logo: bank_logo,
-        name: 'Bank',
-        rate: '2.1%',
-        apy: 2.1,
-      },
-    ]
+  const [searchParams] = useSearchParams()
+  const tab = searchParams.get(SearchQueryKey.Tab) || 'usd'
 
-    return items.map((item) => ({
-      ...item,
-      time: calculateYears(fund, goal, item.apy),
-    }))
-  }, [fund, goal])
+  const data = useMemo((): TimeItemData[] => {
+    const items = HOLDING_DATA[tab as keyof typeof HOLDING_DATA] || []
+
+    return items
+      .sort((a, b) => b.apy - a.apy)
+      .map((item) => ({
+        ...item,
+        time: calculateYears(fund, goal, item.apy),
+      }))
+  }, [fund, goal, tab])
 
   return (
     <div className="w-full flex flex-col">

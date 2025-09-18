@@ -23,14 +23,14 @@ const TimeItem = ({ highlight, ...props }: TimeItemProps) => {
   return (
     <div
       className={clsx(
-        'grid grid-cols-12 items-center p-4 not-last:border-b-2 not-last:border-base-100',
+        'grid grid-cols-12 gap-2 md:gap-0 items-center p-4 not-last:border-b-2 not-last:border-base-100',
         {
           'bg-[#364826]': highlight,
           'bg-base-200': !highlight,
         },
       )}
     >
-      <div className="col-span-2 flex flex-row items-center">
+      <div className="col-span-8 md:col-span-2 flex flex-row items-center">
         <img className="w-6.5 h-auto object-contain" src={props.logo} />
         <p
           className={clsx('text-base md:text-xl ml-2', {
@@ -41,7 +41,8 @@ const TimeItem = ({ highlight, ...props }: TimeItemProps) => {
           {props.name}
         </p>
       </div>
-      <div className="col-span-2">
+      <div className="col-span-4 md:col-span-2">
+        <p className="md:hidden text-xs">RATE</p>
         <p
           className={clsx('text-base md:text-xl', {
             'text-primary': highlight,
@@ -51,15 +52,16 @@ const TimeItem = ({ highlight, ...props }: TimeItemProps) => {
           {props.rate}
         </p>
       </div>
-      <div className="col-span-8 flex flex-row">
+      <div className="col-span-full md:col-span-8 flex flex-col gap-1">
+        <p className="md:hidden text-xs">TIME</p>
         <div
           style={{
             width: `${Math.min(props.time * 2, 100)}%`,
           }}
-          className="min-w-40 flex flex-row items-center gap-2 px-4 py-2 bg-primary-content transition-all duration-700"
+          className="min-w-40 flex flex-row items-center gap-2 px-4 py-1 md:py-2 bg-primary-content transition-all duration-700"
         >
-          <Timer className="text-base-300 min-w-8" size={32} />
-          <p className="text-base md:text-xl text-base-300 text-nowrap">
+          <Timer className="text-base-300 min-w-5 md:min-w-8" />
+          <p className="text-sm md:text-xl text-base-300 text-nowrap">
             {props.time > 100 ? '100+' : Math.ceil(props.time)} year
             {props.time > 1 ? 's' : ''}
           </p>

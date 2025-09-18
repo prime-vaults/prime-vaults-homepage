@@ -159,8 +159,8 @@ export default function Range({
   const goalMax = fund * 10
 
   return (
-    <div className="grid grid-cols-7 items-center">
-      <div className="col-span-3">
+    <div className="grid grid-cols-7 gap-2 md:gap-4 items-center">
+      <div className="col-span-full md:col-span-3">
         <RangeItem
           label="Your Fund"
           min={MIN_FUND}
@@ -169,10 +169,10 @@ export default function Range({
           onChange={(value) => handleChange('fund', value)}
         />
       </div>
-      <div className="col-span-1 w-full flex flex-col items-center">
+      <div className="hidden md:flex col-span-1 w-full flex-col items-center">
         <ArrowRight className="text-primary" size={24} />
       </div>
-      <div className="col-span-3">
+      <div className="col-span-full md:col-span-3">
         <RangeItem
           label="Your Financial Goal"
           min={goalMin}

@@ -12,6 +12,9 @@ import StakingPage from '@/app/staking/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
 import Point from '@/app/point/Page'
+import TermOfUsePage from '@/app/term-of-use/Page'
+import PolicyPage from '@/app/policy/Page'
+import BrandKitPage from '@/app/brand-kit/Page'
 
 const ROUTES_CONFIG: RouteObject[] = [
   {
@@ -38,6 +41,33 @@ const ROUTES_CONFIG: RouteObject[] = [
           {
             index: true,
             element: <Point />,
+          },
+        ],
+      },
+      {
+        path: CoreRoutes.TermOfUse,
+        children: [
+          {
+            index: true,
+            element: <TermOfUsePage />,
+          },
+        ],
+      },
+      {
+        path: CoreRoutes.BrandKit,
+        children: [
+          {
+            index: true,
+            element: <BrandKitPage />,
+          },
+        ],
+      },
+      {
+        path: CoreRoutes.PrivacyPolicy,
+        children: [
+          {
+            index: true,
+            element: <PolicyPage />,
           },
         ],
       },

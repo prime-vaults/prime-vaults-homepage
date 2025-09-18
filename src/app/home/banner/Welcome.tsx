@@ -177,7 +177,7 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
 
     const touchMap: Record<string, () => void> = {
       p_key: () => !ended && setStart(true),
-      enter_key: () => onScaling(),
+      enter_key: () => ended && onScaling(),
     }
 
     const elements: [HTMLElement, () => void][] = []

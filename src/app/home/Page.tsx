@@ -1,12 +1,11 @@
 import Container from '@/components/UI/Container'
-import EarnPage from './Earn'
-import TimePage from './Time'
 import ScrollingPage from './scrolling/Page'
 import FAQPage from './FAQ'
 import BannerPage from './banner/Page'
 import Portfolio from './Portfolio'
 import Integrated from './Integrated'
 import Engines from './Engines'
+import TimePage from './time/Page'
 
 export default function HomePage() {
   return (
@@ -19,7 +18,6 @@ export default function HomePage() {
         <Portfolio />
         <Integrated />
         <Engines />
-        <EarnPage />
         <TimePage />
         <ScrollingPage />
         <FAQPage />

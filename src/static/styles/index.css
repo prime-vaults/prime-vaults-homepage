@@ -6,8 +6,11 @@
   name: 'dark';
   default: true;
   --color-primary: #b2e77b;
+  --color-primary-content: #a3e96b;
   --color-secondary: #abb1ba;
   --color-base-300: #141510;
+  --color-base-200: #1e221b;
+  --color-base-100: #3e3e3e;
   --color-neutral: #282b31;
 }
 
@@ -80,7 +83,7 @@ h2 {
 }
 
 .section-container {
-  @apply px-[30px] py-16 border-y border-[#3E3E3E];
+  @apply px-[30px] py-16 border-y border-base-100;
 }
 
 .btn-primary {

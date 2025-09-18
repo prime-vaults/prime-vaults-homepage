@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import ScrollItem from './ScrollItem'
 import ScrollAnim from './ScrollAnim'
+import { Mouse } from 'lucide-react'
 
 export default function ScrollingPage() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -13,13 +14,17 @@ export default function ScrollingPage() {
           Beyond Wealth, One Place.
         </p>
       </div>
-      <div className="order-3 md:order-2 col-span-full md:col-span-4 flex flex-col gap-4 md:gap-8">
+      <div className="relative order-3 md:order-2 col-span-full md:col-span-4 flex flex-col gap-4 md:gap-8">
         <p className="hidden md:flex text-primary text-2xl md:text-5xl uppercase">
           Beyond Wealth, One Place.
         </p>
         <div className="flex w-full h-full max-h-96">
           <ScrollItem onActiveIndexChange={setActiveIndex} />
         </div>
+        <Mouse
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 animate-bounce"
+          size={24}
+        />
       </div>
       <div className="order-2 md:order-3 col-span-full md:col-span-3 ">
         <ScrollAnim activeIndex={activeIndex} />

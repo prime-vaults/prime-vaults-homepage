@@ -56,7 +56,7 @@ export default function Engines() {
               <p className="text-2xl md:text-5xl text-primary uppercase">
                 {item.title}
               </p>
-              <span className="text-base md:text-3xl">{item.desc}</span>
+              <span className="text-sm md:text-base">{item.desc}</span>
             </div>
             <div className="flex-1" />
             <img src={item.img} className="w-full h-auto object-contain" />

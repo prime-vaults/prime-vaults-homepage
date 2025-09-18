@@ -3,29 +3,17 @@ import Range from './Range'
 import TimeItems from './TimeItems'
 
 import banner from '@/static/images/banner/banner.png'
-import { MIN_FUND } from '@/constant'
+import { MIN_FUND, MIN_GOAL } from '@/constant'
 
 export default function TimePage() {
   const [data, setData] = useState({
     fund: MIN_FUND,
-    goal: MIN_FUND * 2,
+    goal: MIN_GOAL,
   })
 
   const onChange = useCallback((key: string, value: number) => {
     setData((prev) => {
       const newData = { ...prev, [key]: value }
-
-      // Auto-adjust goal if it becomes invalid when fund changes
-      if (key === 'fund') {
-        const minGoal = value * 2
-        const maxGoal = value * 10
-        if (newData.goal < minGoal) {
-          newData.goal = minGoal
-        } else if (newData.goal > maxGoal) {
-          newData.goal = maxGoal
-        }
-      }
-
       return newData
     })
   }, [])

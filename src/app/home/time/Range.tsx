@@ -4,10 +4,11 @@ import {
   useState,
   useEffect,
   useCallback,
+  useMemo,
 } from 'react'
 import { ArrowRight } from 'lucide-react'
 import Corner from '@/components/UI/Corner'
-import { MAX_FUND, MIN_FUND } from '@/constant'
+import { MAX_FUND, MAX_GOAL, MIN_FUND, MIN_GOAL } from '@/constant'
 
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v))
 
@@ -154,9 +155,9 @@ export default function Range({
     [onChange],
   )
 
-  // Calculate min/max for goal based on fund
-  const goalMin = fund * 2
-  const goalMax = fund * 10
+  const errMsg = useMemo(() => {
+    if (fund >= goal) return 'Your funds are below the required financial goal'
+  }, [fund, goal])
 
   return (
     <div className="grid grid-cols-7 gap-2 md:gap-4 items-center">
@@ -175,12 +176,17 @@ export default function Range({
       <div className="col-span-full md:col-span-3">
         <RangeItem
           label="Your Financial Goal"
-          min={goalMin}
-          max={goalMax}
+          min={MIN_GOAL}
+          max={MAX_GOAL}
           value={goal}
           onChange={(value) => handleChange('goal', value)}
         />
       </div>
+      {errMsg && (
+        <p className="col-span-full animate-pulse text-error text-center">
+          {errMsg}
+        </p>
+      )}
     </div>
   )
 }

@@ -69,6 +69,9 @@ body {
   @apply bg-contain bg-repeat;
   background-image: url('/imgs/background.png');
 }
+body:has(.scroll-not-allow) {
+  @apply overflow-hidden;
+}
 
 .font-space {
   font-family: 'Space Grotesk', sans-serif;

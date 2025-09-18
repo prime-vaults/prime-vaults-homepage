@@ -14,7 +14,7 @@ const SCROLL_ITEMS = [
   {
     key: 'earn',
     label: 'earn',
-    desc: `Your money, elevated. Safe, seamless growth for USD, Bitcoin, and Ethereum — all working harder for you in one place.`,
+    desc: `Your money, elevated. Safe, seamless growth for USD, Bitcoin, and Ethereum — all working smarter for you in one place.`,
   },
   {
     key: 'save',
@@ -22,9 +22,9 @@ const SCROLL_ITEMS = [
     desc: `High returns, full flexibility. Claim yields anytime and withdraw whenever you choose — without losing your earnings.`,
   },
   {
-    key: 'delete',
-    label: 'Delete',
-    desc: `High returns, full flexibility. Claim yields anytime and withdraw whenever you choose — without losing your earnings.`,
+    key: 'invest',
+    label: 'Invest',
+    desc: `Invest smart, grow faster. Automatically reinvest your earnings to compound and maximize returns — all hands-free.`,
   },
 ]
 

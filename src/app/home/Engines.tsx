@@ -10,13 +10,13 @@ import bg_card from '@/static/images/background/bg-card.svg'
 const LIST = [
   {
     title: 'Prime Yield Engines',
-    desc: 'From blue-chip lending to advanced LP strategies, PrimeVault’s AI-driven engine constantly optimizes for performance. All you see is consistent, high yield.',
+    desc: 'From blue-chip lending to advanced LP strategies, PrimeVault’s AI-driven engine constantly optimizes for performance. All you see is consistent, sustainable high yield.',
     img: ai,
     reverse: false,
   },
   {
     title: 'The Financial Shield',
-    desc: 'Your assets stay protected through a dual layer of defense. Dynamic fees manage market shifts, and reserve funds cover unexpected losses.',
+    desc: 'Your assets stay protected through a dual layer of defense. Dynamic fees manage market shifts, and reserve funds cover predicted risks.',
     img: strategy,
     reverse: true,
   },

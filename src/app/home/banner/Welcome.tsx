@@ -212,6 +212,7 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
           ref={mRef}
           className={clsx('absolute top-0 left-0 w-full h-full', {
             hidden: scaleStatus === 'finished' && finished,
+            'scroll-not-allow': !finished,
           })}
         >
           {scaleStatus !== 'finished' && !finished && (

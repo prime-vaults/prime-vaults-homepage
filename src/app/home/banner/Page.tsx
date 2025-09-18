@@ -6,6 +6,7 @@ import MatrixEffect from '../components/MatrixEffect'
 
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useTypingDecrypt } from '@/hooks/useTyping'
+import clsx from 'clsx'
 
 const TEXTS = [
   'Prime Strategies.',
@@ -49,7 +50,10 @@ export default function BannerPage() {
         <div className="col-span-full md:col-span-4 flex flex-col gap-0 md:gap-5 h-fit md:h-full items-center md:items-start justify-center text-center md:text-start uppercase">
           {[...textLines].splice(0, 3).map((text, i) => (
             <div
-              className="text-2xl md:text-5xl text-primary font-bold font-space"
+              className={clsx('text-2xl md:text-5xl font-bold font-space', {
+                'text-primary': i > 0,
+                'text-white': i === 0,
+              })}
               key={i}
             >
               {text}

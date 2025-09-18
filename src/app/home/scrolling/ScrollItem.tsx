@@ -53,7 +53,7 @@ export default function ScrollItem({
       onSlideChange={(swiper) => {
         onChange?.(swiper.activeIndex)
       }}
-      className="h-40 md:h-auto"
+      className="h-52 md:h-auto"
     >
       {SCROLL_ITEMS.map(({ key, label, desc }, idx) => {
         const isActive = activeIndex === idx
@@ -61,7 +61,7 @@ export default function ScrollItem({
         return (
           <SwiperSlide key={key}>
             <div className="flex flex-row gap-8 pl-4">
-              <div className="relative w-0.5 h-full min-h-40 md:min-h-96 flex flex-row justify-center border border-primary border-dashed">
+              <div className="relative w-0.5 h-full min-h-52 md:min-h-96 flex flex-row justify-center border border-primary border-dashed">
                 <div
                   className={clsx(
                     'absolute w-8 h-8 border-2 flex flex-col items-center justify-center',

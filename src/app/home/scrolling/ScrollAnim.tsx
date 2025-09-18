@@ -19,45 +19,55 @@ export default function ScrollAnim({ activeIndex = 0 }: ScrollAnimProps) {
         className="absolute top-0 left-0 w-full object-contain z-[3]"
         src={elm2}
       />
-      <img
+      <div
+        className={clsx('absolute top-0 transition-all duration-1000 z-[2]', {
+          'opacity-100 translate-y-[160%]': activeIndex === 0,
+          'opacity-0 top-0': activeIndex !== 0,
+        })}
         style={{
           width: `${(78.7 / 423) * 100}%`,
         }}
+      >
+        <img
+          className="w-full h-auto object-contain animate-bounce"
+          src={token}
+        />
+      </div>
+
+      <div
         className={clsx(
-          'absolute top-0 h-auto object-contain transition-all duration-1000 z-[2]',
-          {
-            'opacity-100 translate-y-[160%]': activeIndex === 0,
-            'opacity-0': activeIndex !== 0,
-          },
-        )}
-        src={token}
-      />
-      <img
-        style={{
-          width: `${(78.7 / 423) * 100}%`,
-        }}
-        className={clsx(
-          'absolute top-0 h-auto object-contain transition-all duration-1000 z-[2]',
+          'absolute top-0 w-fit h-fit transition-all duration-1000 z-[2]',
           {
             'opacity-100 translate-y-[160%]': activeIndex === 1,
-            'opacity-0': activeIndex !== 1,
+            'opacity-0 top-0': activeIndex !== 1,
           },
         )}
-        src={docs}
-      />
-      <img
         style={{
           width: `${(78.7 / 423) * 100}%`,
         }}
+      >
+        <img
+          className="w-full h-auto object-contain animate-bounce"
+          src={docs}
+        />
+      </div>
+      <div
         className={clsx(
-          'absolute top-0 h-auto object-contain transition-all duration-1000 z-[2]',
+          'absolute top-0 w-fit h-fit transition-all duration-1000 z-[2]',
           {
             'opacity-100 translate-y-[160%]': activeIndex === 2,
             'opacity-0 top-0': activeIndex !== 2,
           },
         )}
-        src={dollar}
-      />
+        style={{
+          width: `${(78.7 / 423) * 100}%`,
+        }}
+      >
+        <img
+          className="w-full h-auto object-contain animate-bounce"
+          src={dollar}
+        />
+      </div>
       <img
         className="absolute top-0 left-0 w-full object-contain z-[4]"
         src={elm3}

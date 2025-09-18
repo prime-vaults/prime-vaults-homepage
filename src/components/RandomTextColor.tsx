@@ -1,28 +1,16 @@
 import { useEffect, useState } from 'react'
 
 const textColors = [
-  'text-red-500',
-  'text-blue-500',
-  'text-green-500',
-  'text-yellow-500',
-  'text-purple-500',
-  'text-pink-500',
-  'text-indigo-500',
-  'text-orange-500',
-  'text-teal-500',
-  'text-cyan-500',
-  'text-emerald-500',
-  'text-lime-500',
-  'text-amber-500',
-  'text-rose-500',
-  'text-violet-500',
-  'text-sky-500',
-  'text-red-600',
-  'text-blue-600',
-  'text-green-600',
-  'text-purple-600',
-  'text-pink-600',
-  'text-indigo-600',
+  'text-[#EAFAF0]',
+  'text-[#26A168]',
+  'text-[#1BC26A]',
+  'text-[#ECF4FC]',
+  'text-[#EFFFB6]',
+  'text-[#BDFFB6]',
+  'text-[#56D9F6]',
+  'text-[#F6C356]',
+  'text-[#56F699]',
+  'text-[#FFC636]',
 ]
 
 type RandomTextColorProps = {

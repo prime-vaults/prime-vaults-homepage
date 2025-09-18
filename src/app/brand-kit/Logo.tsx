@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ArrowDownToLine } from 'lucide-react'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
+import { toast } from 'react-toastify'
 
 import l_black from '@/static/images/logo/brand/logo-black.svg'
 import l_dark from '@/static/images/logo/brand/logo-dark.svg'
@@ -117,18 +118,26 @@ function CardDownLoad({
 
 export default function Logo() {
   const [theme, setTheme] = useState(THEME.Dark)
+  const [loading, setLoading] = useState(false)
 
   const handleDownloadAll = async () => {
-    const zip = new JSZip()
+    try {
+      setLoading(true)
+      const zip = new JSZip()
 
-    for (const [key, url] of Object.entries(LOGOS[theme])) {
-      const response = await fetch(url)
-      const blob = await response.blob()
-      zip.file(`logo-${key}.svg`, blob)
+      for (const [key, url] of Object.entries(LOGOS[theme])) {
+        const response = await fetch(url)
+        const blob = await response.blob()
+        zip.file(`logo-${key}.svg`, blob)
+      }
+
+      const content = await zip.generateAsync({ type: 'blob' })
+      saveAs(content, 'logos.zip')
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setLoading(false)
     }
-
-    const content = await zip.generateAsync({ type: 'blob' })
-    saveAs(content, 'logos.zip')
   }
 
   return (
@@ -153,11 +162,13 @@ export default function Logo() {
           {Object.keys(LOGOS).map((key, idx) => (
             <button
               key={idx}
-              className="btn btn-xl !px-2.5"
+              className="relative btn btn-xl !px-2.5"
               style={{ backgroundColor: LOGOS[key as THEME].bg_color }}
               onClick={() => setTheme(key as THEME)}
+              disabled={loading}
             >
               <img src={LOGOS[key as THEME].logo} width={160} alt="" />
+              {loading && <div className="loading loading-spinner" />}
             </button>
           ))}
         </div>

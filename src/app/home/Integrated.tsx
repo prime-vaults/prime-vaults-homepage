@@ -35,7 +35,7 @@ export default function Integrated() {
 
   return (
     <div className="section-container flex flex-col gap-12">
-      <p className="text-primary font-medium text-[50px] uppercase text-center">
+      <p className="text-primary font-medium text-2xl md:text-5xl uppercase text-center">
         Integrated with gold-standard assets
       </p>
       <div className="grid grid-cols-5 gap-6 mb-8">

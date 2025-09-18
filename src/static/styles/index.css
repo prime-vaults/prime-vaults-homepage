@@ -74,16 +74,12 @@ body {
   font-family: 'Space Grotesk', sans-serif;
 }
 
-h2 {
-  @apply text-[50px] text-primary leading-[63px];
-}
-
 .font-tomorrow {
   font-family: 'Tomorrow', sans-serif;
 }
 
 .section-container {
-  @apply px-[30px] py-16 border-y border-base-100;
+  @apply px-4 md:px-8 py-8 md:py-16 border-y border-base-100;
 }
 
 .btn-primary {

@@ -46,7 +46,7 @@ export default function BannerPage() {
         <div className=" col-span-full md:col-span-3">
           <Welcome onFinished={() => setStartTextFade(true)} />
         </div>
-        <div className="col-span-full md:col-span-4 flex flex-col gap-2 md:gap-5 h-full items-center md:items-start justify-center text-center md:text-start uppercase">
+        <div className="col-span-full md:col-span-4 flex flex-col gap-0 md:gap-5 h-fit md:h-full items-center md:items-start justify-center text-center md:text-start uppercase">
           {[...textLines].splice(0, 3).map((text, i) => (
             <div
               className="text-2xl md:text-5xl text-primary font-bold font-space"
@@ -56,7 +56,7 @@ export default function BannerPage() {
             </div>
           ))}
           {!!textLines[3] && (
-            <Button className="btn btn-primary btn-block md:w-fit md:min-w-3xs text-base-300">
+            <Button className="btn btn-primary btn-block md:w-fit md:min-w-3xs text-base-300 mt-6 md:mt-0">
               {textLines[3]}
             </Button>
           )}

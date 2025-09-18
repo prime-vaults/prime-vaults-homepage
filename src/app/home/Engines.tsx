@@ -30,7 +30,7 @@ const LIST = [
 
 export default function Engines() {
   return (
-    <div className="grid grid-cols-3 border-b border-[#3E3E3E]">
+    <div className="grid grid-cols-1 md:grid-cols-3 px-4 md:px-0 py-8 md:py-16">
       {LIST.map((item, index) => (
         <div key={index} className="relative overflow-hidden group h-full">
           <div
@@ -44,7 +44,7 @@ export default function Engines() {
           />
           <div
             className={clsx(
-              'relative flex flex-col h-full gap-2 p-6 border-r border-t border-[#3E3E3E] bg-cover bg-no-repeat z-10',
+              'relative flex flex-col h-full gap-2 p-6 border-r border-t border-b border-[#3E3E3E] bg-cover bg-no-repeat z-10',
               item.reverse && 'flex-col-reverse',
               index === LIST.length - 1 && 'border-r-0',
             )}
@@ -53,13 +53,14 @@ export default function Engines() {
             }}
           >
             <div className="flex flex-col gap-4 font-medium">
-              <h2 className="uppercase">{item.title}</h2>
-              <h6>{item.desc}</h6>
+              <p className="text-2xl md:text-5xl text-primary uppercase">
+                {item.title}
+              </p>
+              <span className="text-base md:text-3xl">{item.desc}</span>
             </div>
             <div className="flex-1" />
             <img src={item.img} alt="" className="w-full" />
           </div>
-
           <Corner />
         </div>
       ))}

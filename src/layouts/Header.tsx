@@ -1,16 +1,17 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { ChangeEvent, useCallback } from 'react'
+// import { ConnectButton } from '@rainbow-me/rainbowkit'
+// import { ChangeEvent, useCallback } from 'react'
 import { Link } from 'react-router'
 
-import { SunMedium, MoonStar } from 'lucide-react'
+// import { SunMedium, MoonStar } from 'lucide-react'
 import Container from '@/components/UI/Container'
+import Button from '@/components/UI/Button'
 
 function HeaderLayout() {
-  const onSwitch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    let theme = 'night'
-    if (e.target.checked) theme = 'light'
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [])
+  // const onSwitch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  //   let theme = 'night'
+  //   if (e.target.checked) theme = 'light'
+  //   document.documentElement.setAttribute('data-theme', theme)
+  // }, [])
 
   return (
     <Container
@@ -23,9 +24,9 @@ function HeaderLayout() {
             to="/"
             className="text-xl md:text-3xl text-primary font-bold cursor-pointer"
           >
-            Prime Vaults
+            <img src="/logo.svg" />
           </Link>
-          <ul className="menu menu-horizontal">
+          {/* <ul className="menu menu-horizontal">
             <li>
               <Link className="btn btn-link" to="/staking">
                 Staking
@@ -41,12 +42,12 @@ function HeaderLayout() {
                 Earn
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            <li>
+            {/* <li>
               <ConnectButton />
             </li>
             <li>
@@ -55,6 +56,9 @@ function HeaderLayout() {
                 <SunMedium aria-label="enabled" size={16} />
                 <MoonStar aria-label="disabled" size={16} />
               </label>
+            </li> */}
+            <li>
+              <Button className="btn btn-primary">Start now</Button>
             </li>
           </ul>
         </div>

@@ -34,12 +34,12 @@ type Cell = {
 }
 
 export default function MatrixEffect({
-  cellSize = 14,
+  cellSize = 10,
   initialMode = 'sides',
   initialContent = 'string',
   initialStyle = 'fade',
   initialEffect = 'wave',
-  contentString = 'jikostaking JIKOSTAKING 0101010',
+  contentString = 'primevaults PRIMEVAULTS 0101010 ｱｶｸﾂﾛ░▒▓│┃╱╲╳╔╚╬═╦╩∆∑∏∂√∞≈≠≡⊗⊕⊙⋆⋈⟠αβγδελμξπρστωЖЯИФЦШЮЭДБГЛПЧ',
   centerGapFraction = 0.3,
   debug = false,
   listenTarget = 'window', // ✅ default vẫn là window
@@ -325,20 +325,20 @@ export default function MatrixEffect({
 
     function onKey(e: KeyboardEvent) {
       if (!debug) return
-      if (e.key === 'ArrowLeft') setBoth(setMode, modeRef, 'left')
-      if (e.key === 'ArrowRight') setBoth(setMode, modeRef, 'right')
-      if (e.key === 'ArrowUp') setBoth(setMode, modeRef, 'full')
-      if (e.key === 'ArrowDown') setBoth(setMode, modeRef, 'sides')
-      if (e.key === 's') setBoth(setContent, contentRef, 'square')
-      if (e.key === 't') setBoth(setContent, contentRef, 'string')
-      if (e.key === 'r') setBoth(setContent, contentRef, 'rowcol')
-      if (e.key === 'f') setBoth(setStyle, styleRef, 'fade')
-      if (e.key === 'm') setBoth(setStyle, styleRef, 'matrix')
-      if (e.key === '1') setBoth(setEffect, effectRef, 'none')
-      if (e.key === '2') setBoth(setEffect, effectRef, 'repulse')
-      if (e.key === '3') setBoth(setEffect, effectRef, 'attract')
-      if (e.key === '4') setBoth(setEffect, effectRef, 'orbit')
-      if (e.key === '5') setBoth(setEffect, effectRef, 'wave')
+      // if (e.key === 'ArrowLeft') setBoth(setMode, modeRef, 'left')
+      // if (e.key === 'ArrowRight') setBoth(setMode, modeRef, 'right')
+      // if (e.key === 's') setBoth(setContent, contentRef, 'square')
+      // if (e.key === 't') setBoth(setContent, contentRef, 'string')
+      // if (e.key === 'r') setBoth(setContent, contentRef, 'rowcol')
+      // if (e.key === '1') setBoth(setEffect, effectRef, 'none')
+      // if (e.key === 'i') setBoth(setEffect, effectRef, 'attract')
+      // if (e.key === '2') setBoth(setEffect, effectRef, 'repulse')
+      if (e.key === 'e') setBoth(setMode, modeRef, 'full')
+      if (e.key === 'm') setBoth(setMode, modeRef, 'sides')
+      if (e.key === 'p') setBoth(setStyle, styleRef, 'fade')
+      if (e.key === 'r') setBoth(setStyle, styleRef, 'matrix')
+      if (e.key === 'i') setBoth(setEffect, effectRef, 'orbit')
+      if (e.key === 'Enter') setBoth(setEffect, effectRef, 'wave')
     }
 
     resize()
@@ -351,6 +351,25 @@ export default function MatrixEffect({
     window.addEventListener('resize', resize)
     window.addEventListener('keydown', onKey)
 
+    // ✅ touch support
+    const touchMap: Record<string, string> = {
+      enter_key: 'Enter',
+      p_key: 'p',
+      r_key: 'r',
+      i_key: 'i',
+      e_key: 'e',
+      m_key: 'm',
+    }
+    const elements: HTMLElement[] = []
+    Object.entries(touchMap).forEach(([id, key]) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      elements.push(el)
+      el.addEventListener('touchstart', () => {
+        onKey({ key } as KeyboardEvent)
+      })
+    })
+
     return () => {
       mounted = false
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
@@ -358,6 +377,9 @@ export default function MatrixEffect({
       target.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('resize', resize)
       window.removeEventListener('keydown', onKey)
+      elements.forEach((el) => {
+        el.replaceWith(el.cloneNode(true))
+      })
     }
   }, [cellSize, centerGapFraction, contentString, debug, listenTarget, setBoth])
 

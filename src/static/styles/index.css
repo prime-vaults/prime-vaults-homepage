@@ -95,7 +95,7 @@ h2 {
   position: relative;
   overflow: hidden;
 }
-        
+
 .gradient-hover::before {
   content: '';
   position: absolute;
@@ -103,11 +103,15 @@ h2 {
   left: 0;
   right: 0;
   height: 0%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #A3E96B 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #a3e96b 100%);
   transition: height 0.4s ease-in-out;
   z-index: 1;
 }
 
 .gradient-hover:hover::before {
-    height: 100%;
+  height: 100%;
+}
+
+.anim-press {
+  @apply scale-90 translate-y-1.5 origin-bottom;
 }

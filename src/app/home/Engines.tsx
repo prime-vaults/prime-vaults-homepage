@@ -59,7 +59,7 @@ export default function Engines() {
               <span className="text-base md:text-3xl">{item.desc}</span>
             </div>
             <div className="flex-1" />
-            <img src={item.img} alt="" className="w-full" />
+            <img src={item.img} className="w-full h-auto object-contain" />
           </div>
           <Corner />
         </div>

@@ -90,7 +90,7 @@ export default function LoadingCanvas({
     let tick = 0
     function animate() {
       if (!ctx) return
-      ctx.fillStyle = 'rgba(0,0,0,0.25)'
+      ctx.fillStyle = '#141510'
       ctx.fillRect(0, 0, w, h)
 
       particles.forEach((p) => {

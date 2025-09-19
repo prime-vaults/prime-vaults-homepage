@@ -45,7 +45,7 @@ function FooterLayout() {
             <img width={30} src={prime} alt="" />
             <p className="text-3xl font-bold text-primary">Prime Vaults</p>
           </div>
-          <p>Proof of Liquidity in one click</p>
+          <p>Prime Strategies. Best Returns.</p>
           <p>PRIME VAULTS © 2025. All rights reserved.</p>
           <div className="flex flex-row gap-4 mt-2">
             {LIST_LOGO.map((item, index) => (

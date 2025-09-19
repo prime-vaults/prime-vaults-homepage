@@ -10,7 +10,6 @@ const textColors = [
   'text-[#56D9F6]',
   'text-[#F6C356]',
   'text-[#56F699]',
-  'text-[#FFC636]',
 ]
 
 type RandomTextColorProps = {

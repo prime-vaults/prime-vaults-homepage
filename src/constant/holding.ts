@@ -25,8 +25,8 @@ export const HOLDING_DATA: HoldingApy = {
     {
       name: 'PrimeUSD',
       logo: prime_logo,
-      rate: '18-25%',
-      apy: 21.5,
+      rate: '15-19%',
+      apy: 17,
       key: 'prime',
     },
     { name: 'AAVE', logo: aave_logo, rate: '5.1%', apy: 5.1, key: 'aave' },

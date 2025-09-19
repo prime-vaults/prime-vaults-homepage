@@ -11,7 +11,7 @@ import { useTypingDecrypt } from '@/hooks/useTyping'
 const TEXTS = [
   'Prime Strategies.',
   'Best Returns.',
-  'Your On-Chain Wealth Solution.',
+  'Your On-Chain SMART SAVING ACCOUNTS.',
   'Start now',
 ]
 

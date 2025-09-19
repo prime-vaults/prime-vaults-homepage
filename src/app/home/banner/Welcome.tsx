@@ -11,7 +11,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 const TEXTS = [
   'Prime Stratgies.',
   'Best Returns.',
-  'Your On-Chain Wealth Solution.',
+  'Your On-Chain SMART SAVING ACCOUNTS.',
   'Press Enter ↵',
 ]
 let timer: NodeJS.Timeout | undefined = undefined

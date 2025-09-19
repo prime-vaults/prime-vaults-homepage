@@ -8,6 +8,7 @@ import { JHubProvider } from '@beraji/web3-sdk'
 import App from './App.tsx'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
+import LoadingCanvas from './components/UI/Loading.tsx'
 
 dayjs.extend(relativeTime)
 
@@ -22,7 +23,7 @@ createRoot(document.getElementById('root')!).render(
           env={import.meta.env.VITE_ENV}
           loadingPage={
             <div className="fixed w-screen h-screen top-0 left-0 flex flex-row justify-center">
-              <span>loading...</span>
+              <LoadingCanvas />
             </div>
           }
         >

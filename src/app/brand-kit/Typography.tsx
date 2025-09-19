@@ -54,7 +54,7 @@ export default function Typography() {
           digital aesthetics.
         </p>
       </div>
-      <div className="col-span-full md:col-span-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-4">
         {TYPOGRAPHY.map((typo, idx) => (
           <TypographyCard key={idx} {...typo} />
         ))}

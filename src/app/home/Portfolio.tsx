@@ -129,11 +129,15 @@ export default function Portfolio() {
           BETTER INTEREST
         </h1>
         <p className="font-tomorrow text-primary">
-          DYNAMIC SMART ASSET ALLOCATION{' '}
+          INTELLIGENT WEALTH ALLOCATION{' '}
           <span className="text-[#D6F3E9]">
-            unlock the earning opportunities that traditional finance kept
-            off-limits
+            unlocks the earning opportunities that traditional finance kept
+            off-limits.
           </span>
+        </p>
+        <p className="font-tomorrow text-primary">
+          YOUR PRINCIAL
+          <span className="text-[#D6F3E9]">is guaranteed.</span>
         </p>
       </div>
 

@@ -7,8 +7,6 @@ const textColors = [
   'text-[#ECF4FC]',
   'text-[#EFFFB6]',
   'text-[#BDFFB6]',
-  'text-[#56D9F6]',
-  'text-[#F6C356]',
   'text-[#56F699]',
 ]
 

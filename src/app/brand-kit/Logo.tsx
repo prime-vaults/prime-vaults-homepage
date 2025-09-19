@@ -99,14 +99,15 @@ function CardDownLoad({
         <a
           href={logo}
           download={`logo-${type}.svg`}
-          className="flex flex-row gap-2 cursor-pointer hover:px-1 hover:bg-[#fff] group transition-all duration-200"
+          className="flex flex-row gap-2 cursor-pointer hover:px-1 hover:bg-[#ddd] group transition-all duration-200"
         >
           <ArrowDownToLine
             width={18}
+            className="group-hover:!text-black"
             style={{ color: LOGOS[theme].text_color }}
           />
           <p
-            className="hidden group-hover:block"
+            className="hidden group-hover:block group-hover:!text-black"
             style={{ color: LOGOS[theme].text_color }}
           >
             SVG

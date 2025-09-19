@@ -75,7 +75,10 @@ function CompareAPR() {
                   >
                     <td>
                       <div className="flex items-center gap-2">
-                        <img src={logo} alt="" />
+                        <img
+                          className="w-6 h-auto aspect-square object-contain"
+                          src={logo}
+                        />
                         <span>{name}</span>
                       </div>
                     </td>

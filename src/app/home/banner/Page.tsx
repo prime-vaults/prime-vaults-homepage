@@ -2,16 +2,17 @@ import { useLayoutEffect, useState } from 'react'
 
 import Button from '@/components/UI/Button'
 import Welcome from './Welcome'
-import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { useTypingDecrypt } from '@/hooks/useTyping'
 import MatrixEffect from '../components/MatrixEffect'
 
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useTypingDecrypt } from '@/hooks/useTyping'
+import clsx from 'clsx'
+
 const TEXTS = [
-  'High returns. Low complexity.',
-  "Achieve 15-25% APY without navigating DeFi's complexity.",
+  'Prime Strategies.',
+  'Best Returns.',
+  'Your On-Chain Wealth Solution.',
   'Start now',
-  `*APY is variable and subject to change. Actual performance may
-              differ, and deposits are not insured or guaranteed.`,
 ]
 
 export default function BannerPage() {
@@ -20,39 +21,49 @@ export default function BannerPage() {
   const [finished] = useLocalStorage('welcome-finished', false)
   const { textLines } = useTypingDecrypt(TEXTS, {
     start: startTextFade || trigger,
-    speed: { typing: 0.5, flash: 15 },
+    speed: { typing: 1, flash: 30 },
     delay: 1000,
   })
 
+  // start typing effect
   useLayoutEffect(() => {
     setTrigger(finished)
   }, [finished])
+
+  useLayoutEffect(() => {
+    const nextEl = document.querySelector('#portfolio_section')
+    if (!nextEl || !(finished && startTextFade)) return
+    nextEl.scrollIntoView({ block: 'start', behavior: 'smooth' })
+  }, [finished, startTextFade])
+
   return (
     <div className="relative w-full">
       {finished && (
         <div className="absolute w-full h-full z-0">
-          <MatrixEffect />
+          <MatrixEffect debug />
         </div>
       )}
       <div className="relative w-full min-h-screen grid grid-cols-7 gap-4 p-6 md:gap-24 z-10">
         <div className=" col-span-full md:col-span-3">
           <Welcome onFinished={() => setStartTextFade(true)} />
         </div>
-        <div className="col-span-full md:col-span-4 flex flex-col gap-2 h-full justify-center">
-          <h3 className="text-2xl md:text-5xl text-primary font-bold">
-            {textLines[0]}
-          </h3>
-          {textLines[1]}
-          {!!textLines[2] && (
-            <Button className="btn btn-primary w-fit text-base-300">
-              {textLines[2]}
+        <div className="col-span-full md:col-span-4 flex flex-col gap-0 md:gap-5 h-fit md:h-full items-center md:items-start justify-center text-center md:text-start uppercase">
+          {[...textLines].splice(0, 3).map((text, i) => (
+            <div
+              className={clsx('text-2xl md:text-5xl font-bold font-space', {
+                'text-primary': i > 0,
+                'text-white': i === 0,
+              })}
+              key={i}
+            >
+              {text}
+            </div>
+          ))}
+          {!!textLines[3] && (
+            <Button className="btn btn-primary btn-block md:w-fit md:min-w-3xs text-base-300 mt-6 md:mt-0">
+              {textLines[3]}
             </Button>
           )}
-          <div className="w-full flex flex-col items-end">
-            <div className="w-full md:w-2/3 text-xs text-end text-secondary">
-              {textLines[3]}
-            </div>
-          </div>
         </div>
       </div>
     </div>

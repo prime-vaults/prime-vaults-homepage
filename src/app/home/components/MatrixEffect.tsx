@@ -1,4 +1,11 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import {
+  RefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 
 type Mode = 'left' | 'right' | 'full' | 'sides'
 type ContentType = 'square' | 'string' | 'rowcol'
@@ -12,17 +19,30 @@ interface MatrixCanvasProps {
   initialStyle?: StyleType
   initialEffect?: EffectType
   contentString?: string
-  centerGapFraction?: number // 0..1 fraction of empty center when mode = sides
+  centerGapFraction?: number
+  debug?: boolean
+  listenTarget?: 'window' | 'canvas'
+}
+
+type Cell = {
+  intensity: number
+  fadeDir: number
+  baseX: number
+  baseY: number
+  orbitAngle: number
+  char: string
 }
 
 export default function MatrixEffect({
-  cellSize = 14,
-  initialMode = 'left',
+  cellSize = 10,
+  initialMode = 'sides',
   initialContent = 'string',
   initialStyle = 'fade',
-  initialEffect = 'repulse',
-  contentString = 'jikostaking JIKOSTAKING 0101010',
+  initialEffect = 'wave',
+  contentString = 'primevaults PRIMEVAULTS 0101010 ｱｶｸﾂﾛ░▒▓│┃╱╲╳╔╚╬═╦╩∆∑∏∂√∞≈≠≡⊗⊕⊙⋆⋈⟠αβγδελμξπρστωЖЯИФЦШЮЭДБГЛПЧ',
   centerGapFraction = 0.3,
+  debug = false,
+  listenTarget = 'window', // ✅ default vẫn là window
 }: MatrixCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const animationRef = useRef<number | null>(null)
@@ -51,21 +71,20 @@ export default function MatrixEffect({
   const shimmerWidthRef = useRef(0)
 
   // constants
-  const repulseRadius = 120
-  const repulseStrength = 15
-  const orbitBaseSpeed = 0.002
-  const waveDuration = 4000
-  const maxWaves = 20
-  const shimmerSpeed = 3
+  const REPULSE_RADIUS = 120
+  const REPULSE_STRENGTH = 15
+  const ORBIT_BASE_SPEED = 0.002
+  const WAVE_DURATION = 4000
+  const MAX_WAVES = 20
+  const SHIMMER_SPEED = 3
 
-  type Cell = {
-    intensity: number
-    fadeDir: number
-    baseX: number
-    baseY: number
-    orbitAngle: number
-    char: string
-  }
+  const setBoth = useCallback(
+    <T,>(stateSetter: (v: T) => void, ref: RefObject<T>, v: T) => {
+      stateSetter(v)
+      ref.current = v
+    },
+    [],
+  )
 
   useLayoutEffect(() => {
     const canvas = canvasRef.current
@@ -101,7 +120,6 @@ export default function MatrixEffect({
           charIndex++
         }
       }
-      // rowcol meta: each row has different length, always starts at left edge
       const rowMeta: { len: number }[] = new Array(rows)
       for (let j = 0; j < rows; j++) {
         const minLen = Math.max(1, Math.floor(cols * 0.15))
@@ -193,16 +211,16 @@ export default function MatrixEffect({
               const dx = drawX + cellSize / 2 - mouseRef.current.x!
               const dy = drawY + cellSize / 2 - mouseRef.current.y!
               const dist = Math.sqrt(dx * dx + dy * dy)
-              if (effectRef.current === 'repulse' && dist < repulseRadius) {
-                const force = (1 - dist / repulseRadius) * repulseStrength
+              if (effectRef.current === 'repulse' && dist < REPULSE_RADIUS) {
+                const force = (1 - dist / REPULSE_RADIUS) * REPULSE_STRENGTH
                 const angle = Math.atan2(dy, dx)
                 drawX += Math.cos(angle) * force
                 drawY += Math.sin(angle) * force
               } else if (
                 effectRef.current === 'attract' &&
-                dist < repulseRadius
+                dist < REPULSE_RADIUS
               ) {
-                const force = (1 - dist / repulseRadius) * repulseStrength
+                const force = (1 - dist / REPULSE_RADIUS) * REPULSE_STRENGTH
                 const angle = Math.atan2(dy, dx)
                 drawX -= Math.cos(angle) * force
                 drawY -= Math.sin(angle) * force
@@ -211,7 +229,7 @@ export default function MatrixEffect({
                 const baseDY = cell.baseY + cellSize / 2 - mouseRef.current.y!
                 const radius = Math.sqrt(baseDX * baseDX + baseDY * baseDY)
                 const speed =
-                  orbitBaseSpeed * (1 + (1 - Math.min(radius / 400, 1)) * 5)
+                  ORBIT_BASE_SPEED * (1 + (1 - Math.min(radius / 400, 1)) * 5)
                 cell.orbitAngle += speed
                 drawX = mouseRef.current.x! + Math.cos(cell.orbitAngle) * radius
                 drawY = mouseRef.current.y! + Math.sin(cell.orbitAngle) * radius
@@ -221,9 +239,9 @@ export default function MatrixEffect({
             if (effectRef.current === 'wave' && wavesRef.current.length > 0) {
               for (const w of wavesRef.current) {
                 const elapsed = now - w.start
-                if (elapsed > waveDuration) continue
+                if (elapsed > WAVE_DURATION) continue
                 const radius =
-                  (elapsed / waveDuration) *
+                  (elapsed / WAVE_DURATION) *
                   Math.sqrt(canvas.width ** 2 + canvas.height ** 2)
                 const dx = drawX + cellSize / 2 - w.x
                 const dy = drawY + cellSize / 2 - w.y
@@ -278,12 +296,12 @@ export default function MatrixEffect({
       grad.addColorStop(1, 'rgba(0,0,0,0.7)')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      shimmerPosRef.current += shimmerSpeed
+      shimmerPosRef.current += SHIMMER_SPEED
       if (shimmerPosRef.current > canvas.width + shimmerWidth)
         shimmerPosRef.current = -shimmerWidth
 
       wavesRef.current = wavesRef.current.filter(
-        (w) => now - w.start < waveDuration,
+        (w) => now - w.start < WAVE_DURATION,
       )
       animationRef.current = requestAnimationFrame(drawLoop)
     }
@@ -294,9 +312,9 @@ export default function MatrixEffect({
       if (effectRef.current === 'wave') {
         const now = performance.now()
         wavesRef.current = wavesRef.current.filter(
-          (w) => now - w.start < waveDuration,
+          (w) => now - w.start < WAVE_DURATION,
         )
-        if (wavesRef.current.length < maxWaves)
+        if (wavesRef.current.length < MAX_WAVES)
           wavesRef.current.push({ x: e.clientX, y: e.clientY, start: now })
       }
     }
@@ -306,46 +324,74 @@ export default function MatrixEffect({
     }
 
     function onKey(e: KeyboardEvent) {
-      const setBoth = <T,>(
-        stateSetter: (v: T) => void,
-        ref: React.MutableRefObject<T>,
-        v: T,
-      ) => {
-        stateSetter(v)
-        ref.current = v
-      }
-      if (e.key === 'ArrowLeft') setBoth(setMode, modeRef, 'left')
-      if (e.key === 'ArrowRight') setBoth(setMode, modeRef, 'right')
-      if (e.key === 'ArrowUp') setBoth(setMode, modeRef, 'full')
-      if (e.key === 'ArrowDown') setBoth(setMode, modeRef, 'sides')
-      if (e.key === 's') setBoth(setContent, contentRef, 'square')
-      if (e.key === 't') setBoth(setContent, contentRef, 'string')
-      if (e.key === 'r') setBoth(setContent, contentRef, 'rowcol')
-      if (e.key === 'f') setBoth(setStyle, styleRef, 'fade')
-      if (e.key === 'm') setBoth(setStyle, styleRef, 'matrix')
-      if (e.key === '1') setBoth(setEffect, effectRef, 'none')
-      if (e.key === '2') setBoth(setEffect, effectRef, 'repulse')
-      if (e.key === '3') setBoth(setEffect, effectRef, 'attract')
-      if (e.key === '4') setBoth(setEffect, effectRef, 'orbit')
-      if (e.key === '5') setBoth(setEffect, effectRef, 'wave')
+      if (!debug) return
+      // if (e.key === 'ArrowLeft') setBoth(setMode, modeRef, 'left')
+      // if (e.key === 'ArrowRight') setBoth(setMode, modeRef, 'right')
+      // if (e.key === 's') setBoth(setContent, contentRef, 'square')
+      // if (e.key === 't') setBoth(setContent, contentRef, 'string')
+      // if (e.key === 'r') setBoth(setContent, contentRef, 'rowcol')
+      // if (e.key === '1') setBoth(setEffect, effectRef, 'none')
+      // if (e.key === 'i') setBoth(setEffect, effectRef, 'attract')
+      // if (e.key === '2') setBoth(setEffect, effectRef, 'repulse')
+      if (e.key === 'e') setBoth(setMode, modeRef, 'full')
+      if (e.key === 'm') setBoth(setMode, modeRef, 'sides')
+      if (e.key === 'p') setBoth(setStyle, styleRef, 'fade')
+      if (e.key === 'r') setBoth(setStyle, styleRef, 'matrix')
+      if (e.key === 'i') setBoth(setEffect, effectRef, 'orbit')
+      if (e.key === 'Enter') setBoth(setEffect, effectRef, 'wave')
     }
 
     resize()
     animationRef.current = requestAnimationFrame(drawLoop)
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseleave', onMouseLeave)
+
+    // ✅ Chọn target lắng nghe event
+    const target: any = listenTarget === 'canvas' ? canvas : window
+    target.addEventListener('mousemove', onMouseMove)
+    target.addEventListener('mouseleave', onMouseLeave)
     window.addEventListener('resize', resize)
     window.addEventListener('keydown', onKey)
+
+    // ✅ touch support
+    const touchMap: Record<string, string> = {
+      enter_key: 'Enter',
+      p_key: 'p',
+      r_key: 'r',
+      i_key: 'i',
+      e_key: 'e',
+      m_key: 'm',
+    }
+    const elements: HTMLElement[] = []
+    Object.entries(touchMap).forEach(([id, key]) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      elements.push(el)
+      el.addEventListener('touchstart', () => {
+        onKey({ key } as KeyboardEvent)
+      })
+    })
 
     return () => {
       mounted = false
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseleave', onMouseLeave)
+      target.removeEventListener('mousemove', onMouseMove)
+      target.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('resize', resize)
       window.removeEventListener('keydown', onKey)
+      elements.forEach((el) => {
+        el.replaceWith(el.cloneNode(true))
+      })
     }
-  }, [cellSize, centerGapFraction, contentString])
+  }, [cellSize, centerGapFraction, contentString, debug, listenTarget, setBoth])
+
+  const syncFromProps = useCallback(() => {
+    setBoth(setMode, modeRef, initialMode)
+    setBoth(setContent, contentRef, initialContent)
+    setBoth(setStyle, styleRef, initialStyle)
+    setBoth(setEffect, effectRef, initialEffect)
+  }, [initialMode, initialContent, initialStyle, initialEffect, setBoth])
+  useEffect(() => {
+    syncFromProps()
+  }, [syncFromProps])
 
   return <canvas ref={canvasRef} className="w-full h-full" />
 }

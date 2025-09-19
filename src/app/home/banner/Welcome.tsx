@@ -2,28 +2,33 @@ import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 
 import MatrixEffect from '../components/MatrixEffect'
+import PC from './PC'
+import Corner from '@/components/UI/Corner'
 
 import { useTypingDecrypt } from '@/hooks/useTyping'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
-import pcImg from '@/static/images/banner/pc.png'
-
 const TEXTS = [
-  'Prime Stratgies. Best Returns.',
+  'Prime Stratgies.',
+  'Best Returns.',
   'Your On-Chain Wealth Solution.',
-  'Press Enter ↩️',
+  'Press Enter ↵',
 ]
+let timer: NodeJS.Timeout | undefined = undefined
 
 type WelcomeProps = { onFinished?: () => void }
 export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
+  const [debug] = useState(true)
   const [start, setStart] = useState(false)
   const [scaleStatus, setScaleStatus] = useState<
     'none' | 'processing' | 'finished'
   >('none')
+  const [effectConfigs, setEffectConfigs] = useState({})
   const [finished, setFinished] = useLocalStorage('welcome-finished', false)
   const { textLines, running, ended, reset } = useTypingDecrypt(TEXTS, {
     start,
-    speed: { typing: 20, flash: 30 },
+    speed: { typing: 60, flash: 60 },
+    lineDelay: 1500,
     delay: 1000,
   })
 
@@ -38,6 +43,31 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
     }),
     [],
   )
+
+  const randomEffectConfig = useCallback(() => {
+    const effects = ['wave', 'attract']
+    const modes = ['sides', 'full']
+    const styles = ['matrix', 'fade']
+
+    const pick = <T,>(arr: readonly T[]): T =>
+      arr[Math.floor(Math.random() * arr.length)]
+
+    return {
+      initialEffect: pick(effects),
+      initialMode: pick(modes),
+      initialStyle: pick(styles),
+    }
+  }, [])
+
+  // trigger glitch
+  useLayoutEffect(() => {
+    if (timer) clearInterval(timer)
+    if (!ended) return
+    timer = setInterval(() => {
+      const configs = randomEffectConfig()
+      setEffectConfigs(configs)
+    }, 3000)
+  }, [ended, randomEffectConfig])
 
   const handleFinishAnimation = useCallback(() => {
     setScaleStatus('finished')
@@ -129,16 +159,43 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
       }
       if (ended) return
       setStart(e.key === 'p')
-      if (e.key === 'r') {
-        setFinished(false)
-        setScaleStatus('none')
-        reset()
-      }
+      // debug mode
+      // if (!debug) return
+      // if (e.key === 'r') {
+      //   setFinished(false)
+      //   setScaleStatus('none')
+      //   reset()
+      // }
     })
     return () => {
       window.removeEventListener('keypress', () => reset())
     }
   }, [ended, finished, onScaling, reset, running, setFinished])
+
+  // touch support
+  useLayoutEffect(() => {
+    if (running || finished) return
+
+    const touchMap: Record<string, () => void> = {
+      p_key: () => !ended && setStart(true),
+      enter_key: () => ended && onScaling(),
+    }
+
+    const elements: [HTMLElement, () => void][] = []
+
+    Object.entries(touchMap).forEach(([id, handler]) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      elements.push([el, handler])
+      el.addEventListener('touchstart', handler)
+    })
+
+    return () => {
+      elements.forEach(([el, handler]) => {
+        el?.removeEventListener('touchstart', handler)
+      })
+    }
+  }, [ended, finished, onScaling, running])
 
   return (
     <div
@@ -155,9 +212,12 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
           ref={mRef}
           className={clsx('absolute top-0 left-0 w-full h-full', {
             hidden: scaleStatus === 'finished' && finished,
+            'scroll-not-allow': !finished,
           })}
         >
-          {scaleStatus !== 'finished' && !finished && <MatrixEffect />}
+          {scaleStatus !== 'finished' && !finished && (
+            <MatrixEffect debug={debug} {...effectConfigs} />
+          )}
         </div>
         {/* content */}
         <div
@@ -166,13 +226,12 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             'w-full md:w-[45%]': !finished,
             'w-full': finished,
           })}
-          style={{
-            backgroundImage: `url(${pcImg})`,
-            backgroundSize: '100% 100%',
-          }}
         >
+          <div className="absolute w-full h-full z-[1]">
+            <PC />
+          </div>
           <div
-            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2"
+            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2 z-[2]"
             style={{
               top: `${(173 / 781) * 100}%`,
               left: `${(236 / 684) * 100}%`,
@@ -181,21 +240,27 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             }}
           >
             {!running && !ended && (
-              <p className="text-sm md:text-base font-bold">
-                Press{' '}
-                <b
-                  className="animate-pulse"
-                  style={{ animationDuration: '500ms' }}
-                >
-                  [P]
-                </b>
-              </p>
+              <div className="relative flex flex-row items-center px-2 md:px-4 py-1">
+                <p className="text-sm md:text-base font-bold">
+                  Press{' '}
+                  <b
+                    className="animate-pulse"
+                    style={{ animationDuration: '500ms' }}
+                  >
+                    [P]
+                  </b>
+                </p>
+                <Corner />
+              </div>
             )}
             {!!running &&
               textLines.map((t, i) => {
                 if (i === textLines.length - 1 && !ended)
                   return (
-                    <div className="relative text-lg md:text-2xl" key={i}>
+                    <div
+                      className="w-full relative text-base md:text-xl text-center"
+                      key={i}
+                    >
                       {t}
                     </div>
                   )

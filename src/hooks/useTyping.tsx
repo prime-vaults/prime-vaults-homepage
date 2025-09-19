@@ -107,12 +107,14 @@ export function useTypingDecrypt(
                   {out}
                   {visible && (
                     <span
+                      className="animate-pulse"
                       style={{
                         display: 'inline-block',
                         width: '0.6em',
                         height: '1em',
                         background: 'currentColor',
                         marginLeft: '2px',
+                        animationDuration: '1000ms',
                       }}
                     />
                   )}

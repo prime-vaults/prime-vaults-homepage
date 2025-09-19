@@ -11,7 +11,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 const TEXTS = [
   'Prime Stratgies.',
   'Best Returns.',
-  'Your On-Chain SMART SAVING ACCOUNTS.',
+  'Your On-Chain Smart Saving Accounts.',
   'Press Enter ↵',
 ]
 let timer: NodeJS.Timeout | undefined = undefined
@@ -231,54 +231,56 @@ export default function Welcome({ onFinished = () => {} }: WelcomeProps) {
             <PC />
           </div>
           <div
-            className="absolute flex flex-col items-center justify-center skew-y-[10deg] px-2 gap-2 z-[2]"
+            className="absolute skew-y-[10deg] z-[2]"
             style={{
               top: `${(173 / 781) * 100}%`,
               left: `${(236 / 684) * 100}%`,
               width: `${(246 / 684) * 100}%`,
-              height: `${(219 / 781) * 100}%`,
+              height: `${(180 / 781) * 100}%`,
             }}
           >
-            {!running && !ended && (
-              <div className="relative flex flex-row items-center px-2 md:px-4 py-1">
-                <p className="text-sm md:text-base font-bold">
-                  Press{' '}
-                  <b
-                    className="animate-pulse"
-                    style={{ animationDuration: '500ms' }}
-                  >
-                    [P]
-                  </b>
-                </p>
-                <Corner />
-              </div>
-            )}
-            {!!running &&
-              textLines.map((t, i) => {
-                if (i === textLines.length - 1 && !ended)
-                  return (
-                    <div
-                      className="w-full relative text-base md:text-xl text-center"
-                      key={i}
+            <div className="relative w-full h-full flex flex-col items-center justify-center px-2 gap-2">
+              {!running && !ended && (
+                <div className="relative flex flex-row items-center px-2 md:px-4 py-1">
+                  <p className="text-sm md:text-base font-bold">
+                    Press{' '}
+                    <b
+                      className="animate-pulse"
+                      style={{ animationDuration: '500ms' }}
                     >
-                      {t}
-                    </div>
-                  )
-                return null
-              })}
-            {ended && !!textLines.length && scaleStatus == 'finished' && (
-              <div className="relative text-lg md:text-xl">
-                {textLines[textLines.length - 2]}
-              </div>
-            )}
-            {ended && !!textLines.length && scaleStatus !== 'finished' && (
-              <div
-                className="relative text-lg md:text-2xl animate-pulse"
-                style={{ animationDuration: '600ms' }}
-              >
-                {textLines[textLines.length - 1]}
-              </div>
-            )}
+                      [P]
+                    </b>
+                  </p>
+                  <Corner />
+                </div>
+              )}
+              {!!running &&
+                textLines.map((t, i) => {
+                  if (i === textLines.length - 1 && !ended)
+                    return (
+                      <div
+                        className="w-full relative text-sm md:text-xl text-center"
+                        key={i}
+                      >
+                        {t}
+                      </div>
+                    )
+                  return null
+                })}
+              {ended && !!textLines.length && scaleStatus == 'finished' && (
+                <div className="relative text-sm md:text-xl">
+                  {textLines[textLines.length - 2]}
+                </div>
+              )}
+              {ended && !!textLines.length && scaleStatus !== 'finished' && (
+                <div
+                  className="relative text-sm md:text-2xl animate-pulse"
+                  style={{ animationDuration: '600ms' }}
+                >
+                  {textLines[textLines.length - 1]}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

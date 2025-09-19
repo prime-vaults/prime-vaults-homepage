@@ -174,7 +174,7 @@ export default function MatrixEffect({
 
     function drawLoop() {
       if (!mounted || !canvas || !ctx) return
-      ctx.fillStyle = 'black'
+      ctx.fillStyle = '#141510'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       const cols = colsRef.current
       const rows = rowsRef.current
@@ -291,9 +291,9 @@ export default function MatrixEffect({
         shimmerPos + shimmerWidth,
         shimmerPos + shimmerWidth,
       )
-      grad.addColorStop(0, 'rgba(0,0,0,0.7)')
-      grad.addColorStop(0.5, 'rgba(0,0,0,0.2)')
-      grad.addColorStop(1, 'rgba(0,0,0,0.7)')
+      grad.addColorStop(0, 'rgba(20,21,15,0.7)')
+      grad.addColorStop(0.5, 'rgba(20,21,15,0.2)')
+      grad.addColorStop(1, 'rgba(20,21,15,0.7)')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       shimmerPosRef.current += SHIMMER_SPEED

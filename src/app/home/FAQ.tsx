@@ -14,7 +14,7 @@ const FAQ = [
   {
     question: 'Is PrimeVaults safe?',
     answer:
-      'Yes. It has two layers of protection: dynamic fees and reserve funds for market risks, plus top-tier audited smart contractsFAQ',
+      'Yes. It features dual protection layers: dynamic fees and reserve funds to mitigate market risks, combined with top-tier audited smart contracts.',
   },
   {
     question: 'Can I withdraw anytime?',

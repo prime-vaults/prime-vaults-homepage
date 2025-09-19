@@ -129,7 +129,7 @@ export default function Portfolio() {
           BETTER INTEREST
         </h1>
         <p className="font-tomorrow text-primary">
-          INTELLIGENTLY AUTOMATED ASSET ALLOCATION{' '}
+          DYNAMIC SMART ASSET ALLOCATION{' '}
           <span className="text-[#D6F3E9]">
             unlock the earning opportunities that traditional finance kept
             off-limits

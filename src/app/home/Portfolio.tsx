@@ -136,8 +136,8 @@ export default function Portfolio() {
           </span>
         </p>
         <p className="font-tomorrow text-primary">
-          YOUR PRINCIAL
-          <span className="text-[#D6F3E9]">is guaranteed.</span>
+          YOUR PRINCIPAL{' '}
+          <span className="text-[#D6F3E9]">is always guaranteed.</span>
         </p>
       </div>
 

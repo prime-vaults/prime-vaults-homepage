@@ -23,6 +23,7 @@ import boxed_dark from '@/static/images/logo/brand/dark/boxed.svg'
 import horizontal_dark from '@/static/images/logo/brand/dark/horizontal.svg'
 import symbol_dark from '@/static/images/logo/brand/dark/symbol.svg'
 import vertical_dark from '@/static/images/logo/brand/dark/vertical.svg'
+import Corner from '@/components/UI/Corner'
 
 enum THEME {
   Dark = 'dark',
@@ -144,10 +145,11 @@ export default function Logo() {
     <div className="section-container grid grid-cols-2 gap-6">
       <div className="col-span-full flex flex-col md:flex-row gap-2 justify-between">
         <p className="text-4xl md:text-8xl font-bold">LOGO</p>
-        <button className="btn btn-primary flex flex-row gap-2 !px-6 py-3">
-          <p onClick={handleDownloadAll} className="font-medium">
-            Download Prime Vaults Logos
-          </p>
+        <button
+          className="btn btn-primary flex flex-row gap-2 !px-6 py-3"
+          onClick={handleDownloadAll}
+        >
+          <p className="font-medium">Download Prime Vaults Logos</p>
           <ArrowDownToLine width={18} />
         </button>
       </div>
@@ -160,16 +162,18 @@ export default function Logo() {
         </p>
         <div className="flex flex-col md:flex-row gap-4">
           {Object.keys(LOGOS).map((key, idx) => (
-            <button
-              key={idx}
-              className="relative btn btn-xl !px-2.5"
-              style={{ backgroundColor: LOGOS[key as THEME].bg_color }}
-              onClick={() => setTheme(key as THEME)}
-              disabled={loading}
-            >
-              <img src={LOGOS[key as THEME].logo} width={160} alt="" />
-              {loading && <div className="loading loading-spinner" />}
-            </button>
+            <div className="relative w-fit h-fit p-0.5" key={idx}>
+              <button
+                className="btn btn-xl !px-2.5"
+                style={{ backgroundColor: LOGOS[key as THEME].bg_color }}
+                onClick={() => setTheme(key as THEME)}
+                disabled={loading}
+              >
+                <img src={LOGOS[key as THEME].logo} width={160} alt="" />
+                {loading && <div className="loading loading-spinner" />}
+              </button>
+              {theme === key && <Corner className="!border-primary-content" />}
+            </div>
           ))}
         </div>
       </div>

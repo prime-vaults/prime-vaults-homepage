@@ -160,7 +160,7 @@ export default function Range({
   }, [fund, goal])
 
   return (
-    <div className="grid grid-cols-7 gap-2 md:gap-4 items-center">
+    <div className="grid grid-cols-7 gap-4 items-center">
       <div className="col-span-full md:col-span-3">
         <RangeItem
           label="Your Fund"

@@ -142,8 +142,8 @@ export default function Logo() {
 
   return (
     <div className="section-container grid grid-cols-2 gap-6">
-      <div className="col-span-full flex flex-row justify-between">
-        <p className="text-[100px] font-bold">LOGO</p>
+      <div className="col-span-full flex flex-col md:flex-row gap-2 justify-between">
+        <p className="text-4xl md:text-8xl font-bold">LOGO</p>
         <button className="btn btn-primary flex flex-row gap-2 !px-6 py-3">
           <p onClick={handleDownloadAll} className="font-medium">
             Download Prime Vaults Logos
@@ -151,14 +151,14 @@ export default function Logo() {
           <ArrowDownToLine width={18} />
         </button>
       </div>
-      <div className="col-span-full flex flex-row gap-4 justify-between">
+      <div className="col-span-full flex flex-col md:flex-row gap-4 justify-between">
         <p className="font-medium flex-1">
           PrimeVaults blends security with{' '}
           <span className="text-primary">AI-driven</span> optimization. The
           radiating mark reflects capital in motion — always protected, always
           compounding, always growing.
         </p>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           {Object.keys(LOGOS).map((key, idx) => (
             <button
               key={idx}
@@ -180,14 +180,14 @@ export default function Logo() {
           theme={theme}
         />
       </div>
-      <div className="col-span-1">
+      <div className="col-span-full md:col-span-1">
         <CardDownLoad
           logo={LOGOS[theme].horizontal}
           type={TypeLogo.Horizontal}
           theme={theme}
         />
       </div>
-      <div className="col-span-1">
+      <div className="col-span-full md:col-span-1">
         <CardDownLoad
           logo={LOGOS[theme].symbol}
           type={TypeLogo.Symbol}

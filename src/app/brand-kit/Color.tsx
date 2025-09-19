@@ -57,7 +57,7 @@ function ColorCard({ hex, name }: { name: string; hex: string }) {
   return (
     <div className="flex flex-col border border-[#3E3E3E]">
       <div className="h-24 w-full" style={{ backgroundColor: hex }} />
-      <div className="flex flex-col p-4 bg-[#fff]">
+      <div className="flex-1 flex flex-col p-4 bg-[#fff]">
         <p className="text-[#121212] font-medium">{name}</p>
         <div
           className="flex flex-row gap-2 items-center cursor-pointer"
@@ -75,24 +75,24 @@ export default function Color() {
   return (
     <div className="section-container flex flex-col gap-12">
       <div className="flex flex-col gap-4 text-[#FCFCFD]">
-        <p className="text-[100px] font-bold">COLOR</p>
-        <p className="font-medium">
+        <p className="text-4xl md:text-8xl font-bold">COLOR</p>
+        <p className="text-sm md:text-base font-medium">
           Green for growth, black for strength — the colors of PrimeVaults.
         </p>
       </div>
       <div className="flex flex-col gap-4 w-full">
         <p className="text-[32px]">Neutral</p>
         <div className="w-full h-[1px] bg-[#3E3E3E]" />
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {NEUTRAL.map((color, idx) => (
             <ColorCard key={idx} hex={color.hex} name={color.name} />
           ))}
         </div>
       </div>
       <div className="flex flex-col gap-4 w-full">
-        <p className="text-[32px]">Primary</p>
+        <p className="text-3xl">Primary</p>
         <div className="w-full h-[1px] bg-[#3E3E3E]" />
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {PRIMARY.map((color, idx) => (
             <ColorCard key={idx} hex={color.hex} name={color.name} />
           ))}

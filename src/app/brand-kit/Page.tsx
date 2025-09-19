@@ -11,8 +11,8 @@ export default function BrandKitPage() {
       className="h-full"
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
-      <div className="section-container flex flex-row">
-        <p className="text-[120px] font-bold uppercase leading-[150px]">
+      <div className="section-container flex flex-col md:flex-row gap-2">
+        <p className="text-4xl md:text-8xl font-bold uppercase">
           Brand Guildelines
         </p>
         <button className="btn btn-primary flex flex-row gap-2 !px-6 py-3">

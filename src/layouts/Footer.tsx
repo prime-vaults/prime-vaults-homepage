@@ -5,27 +5,27 @@ import Container from '@/components/UI/Container'
 import { CoreRoutes } from '@/constant/router'
 
 import prime from '@/static/images/logo/prime.svg'
-import telegram from '@/static/images/logo/telegram.svg'
-import discord from '@/static/images/logo/discord.svg'
-import github from '@/static/images/logo/github.svg'
+// import telegram from '@/static/images/logo/telegram.svg'
+// import discord from '@/static/images/logo/discord.svg'
+// import github from '@/static/images/logo/github.svg'
 import x from '@/static/images/logo/x.svg'
 import bg from '@/static/images/banner/banner.png'
 
 const LIST_LOGO = [
+  // {
+  //   link: 'https://t.me/primevaults',
+  //   img: telegram,
+  // },
+  // {
+  //   link: 'https://discord.com/invite/primevaults',
+  //   img: discord,
+  // },
+  // {
+  //   link: 'https://github.com/primevaults',
+  //   img: github,
+  // },
   {
-    link: 'https://t.me/primevaults',
-    img: telegram,
-  },
-  {
-    link: 'https://discord.com/invite/primevaults',
-    img: discord,
-  },
-  {
-    link: 'https://github.com/primevaults',
-    img: github,
-  },
-  {
-    link: 'https://x.com/primevaults',
+    link: 'https://x.com/PrimeVaultsHQ',
     img: x,
   },
 ]
@@ -65,7 +65,6 @@ function FooterLayout() {
             <h6 className=" text-[#878787]">Company</h6>
             <ul className="ml-6 list-disc mt-4 flex flex-col gap-3">
               <li className="hover:text-primary">
-                {' '}
                 <Link
                   to={`/${CoreRoutes.BrandKit}`}
                   className="hover:text-primary"
@@ -95,7 +94,7 @@ function FooterLayout() {
             <h6 className=" text-[#878787]">Resources</h6>
             <ul className="ml-6 list-disc mt-4 flex flex-col gap-3">
               <li className="hover:text-primary">Docs</li>
-              <li className="hover:text-primary">Ecosystem</li>
+              {/* <li className="hover:text-primary">Ecosystem</li> */}
             </ul>
           </nav>
         </div>

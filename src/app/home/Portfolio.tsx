@@ -63,8 +63,8 @@ function CompareAPR() {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ logo, name, rate }) => {
-              const isPrime = name === 'PrimeUSD'
+            {data.map(({ logo, name, rate, key }) => {
+              const isPrime = key === 'prime'
               return (
                 <Fragment>
                   <tr

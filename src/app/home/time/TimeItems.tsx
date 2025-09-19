@@ -13,6 +13,7 @@ type TimeItemData = {
   apy: number // Actual APY number for calculation
   time: number
   logo: string
+  key: string
 }
 
 type TimeItemProps = {
@@ -119,7 +120,7 @@ export default function TimeItems({ fund, goal }: TimeItemsProps) {
       </div>
       <div className="w-full flex flex-col border border-base-100">
         {data.map((t) => (
-          <TimeItem {...t} highlight={t.name === 'PrimeUSD'} key={t.name} />
+          <TimeItem {...t} highlight={t.key === 'prime'} key={t.name} />
         ))}
       </div>
     </div>

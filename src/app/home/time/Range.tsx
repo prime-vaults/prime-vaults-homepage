@@ -156,7 +156,7 @@ export default function Range({
   )
 
   const errMsg = useMemo(() => {
-    if (fund >= goal) return 'Your funds are below the required financial goal'
+    if (fund >= goal) return 'Your fund is below the financial goal.'
   }, [fund, goal])
 
   return (

@@ -31,6 +31,7 @@ export const RangeItem = ({
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const thumbRef = useRef<HTMLDivElement | null>(null)
+  const frame = useRef<number>(0)
 
   const draggingRef = useRef(false)
   const pointerOffsetRef = useRef(0)
@@ -55,19 +56,24 @@ export const RangeItem = ({
 
     const onPointerMove = (ev: PointerEvent) => {
       if (!draggingRef.current) return
-      const containerRect = container.getBoundingClientRect()
-      const thumbRect = thumb.getBoundingClientRect()
-      const available = Math.max(0, containerRect.width - thumbRect.width)
-      let newLeft = ev.clientX - containerRect.left - pointerOffsetRef.current
-      newLeft = Math.max(0, Math.min(available, newLeft))
-      const newPerc = available > 0 ? newLeft / available : 0
-      const actualValue = min + newPerc * (max - min)
-      setPercentage(newPerc)
-      onChange(actualValue)
+      cancelAnimationFrame(frame.current)
+
+      frame.current = requestAnimationFrame(() => {
+        const containerRect = container.getBoundingClientRect()
+        const thumbRect = thumb.getBoundingClientRect()
+        const available = Math.max(0, containerRect.width - thumbRect.width)
+        let newLeft = ev.clientX - containerRect.left - pointerOffsetRef.current
+        newLeft = Math.max(0, Math.min(available, newLeft))
+        const newPerc = available > 0 ? newLeft / available : 0
+        const actualValue = min + newPerc * (max - min)
+        setPercentage(newPerc)
+        onChange(actualValue)
+      })
     }
 
-    const onPointerUp = () => {
+    const onPointerUp = (ev: PointerEvent) => {
       draggingRef.current = false
+      thumb.releasePointerCapture(ev.pointerId)
       document.body.style.userSelect = ''
       document.body.style.cursor = ''
     }
@@ -75,6 +81,9 @@ export const RangeItem = ({
     const onPointerDown = (ev: PointerEvent) => {
       ev.preventDefault()
       draggingRef.current = true
+      // 👇 capture pointer để không mất event khi kéo ra ngoài thumb
+      thumb.setPointerCapture(ev.pointerId)
+
       const thumbRect = thumb.getBoundingClientRect()
       pointerOffsetRef.current = ev.clientX - thumbRect.left
       document.body.style.userSelect = 'none'
@@ -125,7 +134,7 @@ export const RangeItem = ({
         aria-valuenow={Math.round(currentValue)}
         tabIndex={0}
         className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center px-3 py-1 bg-base-100 cursor-grab z-10"
-        style={{ left: `${leftPx}px` }}
+        style={{ left: `${leftPx}px`, touchAction: 'none' }}
       >
         <p className="text-primary text-xs text-nowrap">{label}</p>
         <p className="text-primary text-sm text-nowrap font-bold">

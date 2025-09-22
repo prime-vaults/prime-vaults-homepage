@@ -93,7 +93,14 @@ function FooterLayout() {
           <nav>
             <h6 className=" text-[#878787]">Resources</h6>
             <ul className="ml-6 list-disc mt-4 flex flex-col gap-3">
-              <li className="hover:text-primary">Docs</li>
+              <li className="hover:text-primary">
+                <Link
+                  to={`https://docs.primevaults.finance/`}
+                  className="hover:text-primary"
+                >
+                  Docs
+                </Link>
+              </li>
               {/* <li className="hover:text-primary">Ecosystem</li> */}
             </ul>
           </nav>

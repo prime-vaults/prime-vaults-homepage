@@ -97,6 +97,7 @@ function FooterLayout() {
                 <Link
                   to={`https://docs.primevaults.finance/`}
                   className="hover:text-primary"
+                  target="_blank"
                 >
                   Docs
                 </Link>

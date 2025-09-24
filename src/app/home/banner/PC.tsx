@@ -26,8 +26,8 @@ export default function PC() {
       { img: pImg, positions: { x: 24, y: -2 }, id: 'p_key' },
       { img: rImg, positions: { x: 43, y: 7 }, id: 'r_key' },
       { img: iImg, positions: { x: 62, y: 18 }, id: 'i_key' },
-      { img: mImg, positions: { x: 12, y: 23 }, id: 'e_key' },
-      { img: eImg, positions: { x: 31, y: 33 }, id: 'm_key' },
+      { img: mImg, positions: { x: 12, y: 23 }, id: 'm_key' },
+      { img: eImg, positions: { x: 31, y: 33 }, id: 'e_key' },
       { img: enterImg, positions: { x: 50, y: 43 }, id: 'enter_key' },
     ]
   }, [])

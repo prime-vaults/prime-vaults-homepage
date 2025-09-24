@@ -157,9 +157,9 @@ export default function Logo() {
       <div className="col-span-full flex flex-col md:flex-row gap-4 justify-between">
         <p className="font-medium flex-1">
           PrimeVaults blends automation with{' '}
-          <span className="text-primary">AI-driven</span>yield optimization. The
-          radiating mark reflects capital in motion — always protected, always
-          compounding, always growing.
+          <span className="text-primary">AI-driven</span> yield optimization.
+          The radiating mark reflects capital in motion — always protected,
+          always compounding, always growing.
         </p>
         <div className="flex flex-col md:flex-row gap-4">
           {Object.keys(LOGOS).map((key, idx) => (

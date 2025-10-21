@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './animation';
 @plugin "daisyui";
 
 /* just testing  - theme configs */
@@ -53,7 +54,7 @@
 /* components configs */
 @layer components {
   .card {
-    @apply border-4 border-secondary bg-base-100;
+    @apply border border-base-100 !rounded-none !bg-base-200;
   }
   .input {
     @apply border-base-300;
@@ -61,24 +62,26 @@
   .btn {
     @apply !rounded-none;
   }
+  .modal-box {
+    @apply relative !p-0 !overflow-visible !bg-base-300 !rounded-none;
+  }
 }
 
 body {
-  @apply normal-case;
-  font-family: 'Geist Mono', monospace;
-  @apply bg-contain bg-repeat;
+  @apply normal-case bg-contain bg-repeat;
+  /* font-family: 'Geist Mono', monospace; */
+  font-family: 'Space Grotesk', sans-serif;
   background-image: url('/imgs/background.png');
 }
 body:has(.scroll-not-allow) {
   @apply overflow-hidden;
 }
 
-.font-space {
-  font-family: 'Space Grotesk', sans-serif;
-}
-
 .font-tomorrow {
   font-family: 'Tomorrow', sans-serif;
+}
+.font-space {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .section-container {
@@ -116,4 +119,65 @@ body:has(.scroll-not-allow) {
 
 .anim-press {
   @apply scale-90 translate-y-1.5 origin-bottom;
+}
+
+/* modal */
+.modal-header,
+.modal-body {
+  @apply relative;
+}
+.modal-header::after {
+  --md-dot-width: 5px;
+  --md-border-offset-s: 2px;
+  --md-border-offset-d: 12px;
+  --md-border-size-short: 1px;
+  --md-border-size-long: calc(100% - 24px);
+  content: '';
+  @apply absolute top-0 left-0 inset-0 pointer-events-none bg-no-repeat;
+  /* background dot */
+  background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      0% top 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right 0% top
+      0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left 0% bottom
+      0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right 0%
+      bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    /* background line */
+      linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-d) top var(--md-border-offset-s) /
+      var(--md-border-size-long) var(--md-border-size-short) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-d) bottom var(--md-border-offset-s) /
+      var(--md-border-size-long) var(--md-border-size-short) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat;
+}
+.modal-body::after {
+  --md-dot-width: 5px;
+  --md-border-offset-s: 2px;
+  --md-border-offset-d: 12px;
+  --md-border-size-short: 1px;
+  --md-border-size-long: calc(100% - 24px);
+  content: '';
+  @apply absolute top-0 left-0 inset-0 pointer-events-none bg-no-repeat;
+  /* background dot */
+  background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      0% bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right 0%
+      bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    /* background line */
+      linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-d) bottom var(--md-border-offset-s) /
+      var(--md-border-size-long) var(--md-border-size-short) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat;
 }

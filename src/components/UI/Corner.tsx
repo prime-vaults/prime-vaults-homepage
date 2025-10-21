@@ -14,18 +14,21 @@ export default function Corner({ className }: CornerProps) {
   )
   return (
     <div
-      className={clsx('absolute w-full h-full top-0 left-0', {
-        'z-20': !className,
-        className,
-      })}
+      className={clsx(
+        'absolute w-full h-full top-0 left-0 pointer-events-none',
+        {
+          'z-20': !className,
+          className,
+        },
+      )}
     >
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full pointer-events-none">
         {cornerConfigs.map((configs, i) => {
           const { className, ...rest } = configs
           return (
             <div
               key={i}
-              className={`absolute w-1/12 h-auto aspect-square bg-transparent border-primary ${className}`}
+              className={`absolute w-1/12 h-auto aspect-square bg-transparent border-primary pointer-events-none ${className}`}
               style={{ ...rest }}
             />
           )

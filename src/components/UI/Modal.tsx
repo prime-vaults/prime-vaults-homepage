@@ -1,13 +1,57 @@
-import { PropsWithChildren, useLayoutEffect, useRef } from 'react'
+import {
+  Children,
+  cloneElement,
+  createContext,
+  isValidElement,
+  PropsWithChildren,
+  useContext,
+  useLayoutEffect,
+  useRef,
+} from 'react'
 
 import { X } from 'lucide-react'
+
+const ModalContext = createContext<{ onClose?: () => void } | null>(null)
+
+function hasHeader(children: React.ReactNode) {
+  let found = false
+  const check = (node: any) => {
+    if (!node) return
+    if (Array.isArray(node)) node.forEach(check)
+    else if (node.type === ModalHeader) found = true
+    else if (node.props?.children) check(node.props.children)
+  }
+  check(children)
+  return found
+}
+
+function ModalHeader({ children }: PropsWithChildren) {
+  const ctx = useContext(ModalContext)
+
+  // inject onClose vào mọi child có prop "data-modal-close"
+  const enhanced = Children.map(children, (child) => {
+    if (!isValidElement(child)) return child
+    const el = child as React.ReactElement<any>
+    if ((el.props as any)['data-modal-close']) {
+      return cloneElement(el, {
+        onClick: ctx?.onClose,
+      })
+    }
+    return child
+  })
+
+  return <div className="modal-header">{enhanced}</div>
+}
+function ModalBody({ children }: PropsWithChildren) {
+  return <div className="modal-body">{children}</div>
+}
 
 type ModalProps = {
   open?: boolean
   onClose?: () => void
   backdrop?: boolean
 }
-export default function Modal({
+function Modal({
   open = false,
   backdrop = true,
   onClose = () => {},
@@ -23,18 +67,24 @@ export default function Modal({
 
   return (
     <dialog ref={modalRef} className="modal">
-      <div className="modal-box">
-        {!!onClose && (
-          <X
-            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-            onClick={onClose}
-          />
+      <ModalContext.Provider value={{ onClose }}>
+        <div className="modal-box">
+          {!hasHeader(children) && !!onClose && (
+            <X
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={onClose}
+            />
+          )}
+          {!!open && children}
+        </div>
+        {!!backdrop && (
+          <form method="dialog" className="modal-backdrop" onClick={onClose} />
         )}
-        {!!open && children}
-      </div>
-      {!!backdrop && (
-        <form method="dialog" className="modal-backdrop" onClick={onClose} />
-      )}
+      </ModalContext.Provider>
     </dialog>
   )
 }
+
+Modal.Header = ModalHeader
+Modal.Body = ModalBody
+export default Modal

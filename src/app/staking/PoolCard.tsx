@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import {
   formatNumber,
   IPool,
@@ -10,13 +11,21 @@ import {
 import Deposit from '@/components/staking/deposit/Page'
 
 import { usePoolStat } from '@/hooks/usePrimePools'
+import { CoreRoutes } from '@/constant/router'
+import { useNavigate } from 'react-router'
 
 const PoolCard = (props: { pool: IPool }) => {
+  const nav = useNavigate()
   const poolStat = usePoolStat(props.pool.poolId)
   // const rewards = useRewards(props.pool.poolId)
 
+  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    nav(CoreRoutes.poolDetails({ id: props.pool.poolId }))
+  }
+
   return (
-    <div className="card w-full bg-base-100 shadow-sm">
+    <div className="card w-full bg-base-100 shadow-sm" onClick={onClick}>
       <div className="card-body">
         <div className="flex justify-between">
           <div className="flex gap-2 items-center">
@@ -68,7 +77,9 @@ const PoolCard = (props: { pool: IPool }) => {
               Prime Point Boost
             </p>
           </div>
-          <Deposit poolId={props.pool.poolId} />
+          <div onClick={(e) => e.stopPropagation()}>
+            <Deposit poolId={props.pool.poolId} />
+          </div>
         </div>
       </div>
     </div>

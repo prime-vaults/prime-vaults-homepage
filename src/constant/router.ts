@@ -24,7 +24,7 @@ function buildQuery(params?: RouterParams) {
 }
 
 export const CoreRoutes = {
-  home: (params?: RouterParams) => `/${RouterKeys.Home}${buildQuery(params)}`,
+  home: (params?: RouterParams) => `${RouterKeys.Home}${buildQuery(params)}`,
   staking: (params?: RouterParams) =>
     `/${RouterKeys.Staking}${buildQuery(params)}`,
   poolDetails: (params?: RouterParams) =>

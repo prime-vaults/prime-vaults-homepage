@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 
 import Container from '@/components/UI/Container'
 
-import { CoreRoutes, RouterKeys } from '@/constant/router'
+import { CoreRoutes } from '@/constant/router'
 
 import prime from '@/static/images/logo/prime.svg'
 // import telegram from '@/static/images/logo/telegram.svg'

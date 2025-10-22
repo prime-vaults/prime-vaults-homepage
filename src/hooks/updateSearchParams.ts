@@ -1,6 +1,7 @@
-import { SearchQueryKey } from '@/constant'
 import { useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
+
+import { SearchQueryKey } from '@/constant/query'
 
 export function useUpdateSearchParams() {
   const [, setSearchParams] = useSearchParams()

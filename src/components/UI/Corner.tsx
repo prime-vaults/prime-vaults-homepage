@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { useMemo } from 'react'
 
-type CornerProps = { className?: string }
-export default function Corner({ className }: CornerProps) {
+type CornerProps = { className?: string; cornerClassName?: string }
+export default function Corner({ className, cornerClassName }: CornerProps) {
   const cornerConfigs = useMemo(
     () => [
       { top: 0, left: 0, className: 'border-t border-l' },
@@ -28,7 +28,7 @@ export default function Corner({ className }: CornerProps) {
           return (
             <div
               key={i}
-              className={`absolute w-1/12 h-auto aspect-square bg-transparent border-primary pointer-events-none ${className}`}
+              className={`absolute w-auto h-1/6 aspect-square bg-transparent border-primary pointer-events-none ${className} ${cornerClassName}`}
               style={{ ...rest }}
             />
           )

@@ -61,7 +61,7 @@ export default function Engines() {
             <div className="flex-1" />
             <img src={item.img} className="w-full h-auto object-contain" />
           </div>
-          <Corner />
+          <Corner cornerClassName="h-auto !w-1/12" />
         </div>
       ))}
     </div>

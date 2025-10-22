@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import Container from '@/components/UI/Container'
 import { shortenString } from '@/helpers/utils'
+import { CoreRoutes } from '@/constant/router'
 
 function HeaderLayout() {
   // const onSwitch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,7 @@ function HeaderLayout() {
       <div className="navbar bg-base-300 px-6">
         <div className="flex-1 flex flex-row items-center">
           <Link
-            to="/"
+            to={CoreRoutes.home()}
             className="text-xl md:text-3xl text-primary font-bold cursor-pointer"
           >
             <img src="/logo.svg" />
@@ -29,12 +30,12 @@ function HeaderLayout() {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link className="btn btn-link" to="/staking">
+              <Link className="btn btn-link" to={CoreRoutes.staking()}>
                 Staking
               </Link>
             </li>
             <li>
-              <Link className="btn btn-link" to="/point">
+              <Link className="btn btn-link" to={CoreRoutes.point()}>
                 Point
               </Link>
             </li>

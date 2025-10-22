@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 
 import Container from '@/components/UI/Container'
 
-import { CoreRoutes } from '@/constant/router'
+import { CoreRoutes, RouterKeys } from '@/constant/router'
 
 import prime from '@/static/images/logo/prime.svg'
 // import telegram from '@/static/images/logo/telegram.svg'
@@ -65,16 +65,13 @@ function FooterLayout() {
             <h6 className=" text-[#878787]">Company</h6>
             <ul className="ml-6 list-disc mt-4 flex flex-col gap-3">
               <li className="hover:text-primary">
-                <Link
-                  to={`/${CoreRoutes.BrandKit}`}
-                  className="hover:text-primary"
-                >
+                <Link to={CoreRoutes.brandKit()} className="hover:text-primary">
                   Brand Kit
                 </Link>
               </li>
               <li>
                 <Link
-                  to={`/${CoreRoutes.PrivacyPolicy}`}
+                  to={CoreRoutes.privacyPolicy()}
                   className="hover:text-primary"
                 >
                   Privacy policy
@@ -82,7 +79,7 @@ function FooterLayout() {
               </li>
               <li className="hover:text-primary">
                 <Link
-                  to={`/${CoreRoutes.TermOfUse}`}
+                  to={CoreRoutes.termOfUse()}
                   className="hover:text-primary"
                 >
                   Term of use

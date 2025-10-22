@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, PropsWithChildren, useState } from 'react'
 
 import { ArrowLeft, XCircle } from 'lucide-react'
 import Modal from '@/components/UI/Modal'
@@ -7,18 +7,24 @@ import DepositForm from './DepositForm'
 
 import { useTokenSelection } from '@/hooks/useTokenAvailable'
 
+function DefaultButton() {
+  return <button className="btn btn-primary">Deposit</button>
+}
+
 export type DepositProps = {
   poolId: number
 }
-export default function Deposit({ poolId }: DepositProps) {
+export default function Deposit({
+  poolId,
+  children = <DefaultButton />,
+}: DepositProps & PropsWithChildren) {
   const [open, setOpen] = useState(false)
   const { token, reset } = useTokenSelection()
 
   return (
     <Fragment>
-      <button className="btn btn-primary" onClick={() => setOpen(true)}>
-        Deposit
-      </button>
+      <div onClick={() => setOpen(true)}>{children}</div>
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <Modal.Header>
           <div className="flex flex-row p-4 justify-between items-center">

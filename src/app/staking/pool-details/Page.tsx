@@ -10,6 +10,7 @@ import { CoreRoutes } from '@/constant/router'
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
 import { SearchQueryKey } from '@/constant/query'
 import Details from './Details'
+import Deposit from '@/components/staking/deposit/Page'
 
 const TAB_ITEMS = [
   {
@@ -93,9 +94,11 @@ export default function PoolDetailsPage() {
               <div className="flex flex-col gap-4 md:gap-6">
                 <div className="grid grid-cols-2 gap-2">
                   <Button className="btn btn-outline">Withdraw</Button>
-                  <Button className="btn bg-white text-black btn-outline">
-                    Deposit
-                  </Button>
+                  <Deposit poolId={Number(poolId)}>
+                    <Button className="btn bg-white text-black btn-outline">
+                      Deposit
+                    </Button>
+                  </Deposit>
                 </div>
                 <Button className="btn btn-primary btn-block">Claim</Button>
               </div>

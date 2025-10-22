@@ -167,6 +167,31 @@ body:has(.scroll-not-allow) {
   @apply absolute top-0 left-0 inset-0 pointer-events-none bg-no-repeat;
   /* background dot */
   background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      0% top 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right 0% top
+      0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left 0% bottom
+      0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right 0%
+      bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
+    /* background line */
+      linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-d) top var(--md-border-offset-s) /
+      var(--md-border-size-long) var(--md-border-size-short) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-d) bottom var(--md-border-offset-s) /
+      var(--md-border-size-long) var(--md-border-size-short) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) right
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      var(--md-border-offset-s) top var(--md-border-offset-d) /
+      var(--md-border-size-short) var(--md-border-size-long) no-repeat;
+}
+
+.modal-box:has(.modal-header) .modal-body::after {
+  /* background dot */
+  background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
       0% bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
     linear-gradient(var(--color-base-100), var(--color-base-100)) right 0%
       bottom 0% / var(--md-dot-width) var(--md-dot-width) no-repeat,
@@ -181,7 +206,6 @@ body:has(.scroll-not-allow) {
       var(--md-border-offset-s) top var(--md-border-offset-d) /
       var(--md-border-size-short) var(--md-border-size-long) no-repeat;
 }
-
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;

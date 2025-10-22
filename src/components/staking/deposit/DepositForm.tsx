@@ -7,7 +7,7 @@ export default function DepositForm() {
   const { reset } = useTokenSelection()
 
   return (
-    <div className="flex flex-col p-4 md:p-6 gap-4">
+    <div className="flex flex-col p-4 md:p-6 gap-1">
       {/* input form */}
       <div className="relative flex flex-col border border-primary p-2 md:p-4 gap-2">
         <p>Amount</p>

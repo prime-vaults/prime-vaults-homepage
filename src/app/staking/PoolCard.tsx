@@ -44,7 +44,7 @@ const PoolCard = (props: { pool: IPool }) => {
                 {formatNumber(poolStat.totalValueLocked, '$')}
               </p>
             </div>
-            <div className="flex flex-col items-center py-1 px-4 border bg-base-300 shadow-[0_0_14px] shadow-primary">
+            <div className="flex flex-col items-center py-1 px-4 shadow-[0_0_14px] shadow-primary">
               <span className="text-secondary">APR</span>
               <p className="text-xl md:text-2xl font-bold">100%</p>
             </div>

@@ -14,7 +14,7 @@ export default function DepositForm() {
         <div className="flex flex-row justify-between items-center">
           <div className="flex-1 flex flex-col">
             <input
-              className="w-full text-3xl outline-none"
+              className="w-full text-3xl outline-none font-bold"
               type="number"
               placeholder="0"
             />
@@ -63,6 +63,7 @@ export default function DepositForm() {
         {/* divider */}
         <div className="divider h-0 after:h-[1px] before:h-[1px]" />
         <div className="flex flex-col gap-2 px-2 md:px-4">
+          <p className="text-base md:text-xl font-medium">DEPOSIT SUMMARY</p>
           <div className="flex flex-row justify-between items-center">
             <p>APR:</p>
             <span className="text-primary">32.75%</span>
@@ -78,7 +79,7 @@ export default function DepositForm() {
         </div>
       </div>
       {/* action */}
-      <Button className="btn btn-primary w-full">Deposit</Button>
+      <Button className="btn btn-primary w-full mt-4">Deposit</Button>
     </div>
   )
 }

@@ -181,3 +181,12 @@ body:has(.scroll-not-allow) {
       var(--md-border-offset-s) top var(--md-border-offset-d) /
       var(--md-border-size-short) var(--md-border-size-long) no-repeat;
 }
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}

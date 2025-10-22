@@ -28,18 +28,30 @@ function hasHeader(children: React.ReactNode) {
 function ModalHeader({ children }: PropsWithChildren) {
   const ctx = useContext(ModalContext)
 
-  // inject onClose vào mọi child có prop "data-modal-close"
-  const enhanced = Children.map(children, (child) => {
-    if (!isValidElement(child)) return child
-    const el = child as React.ReactElement<any>
-    if ((el.props as any)['data-modal-close']) {
-      return cloneElement(el, {
-        onClick: ctx?.onClose,
-      })
-    }
-    return child
-  })
-
+  function injectModalClose(
+    children: React.ReactNode,
+    onClose?: () => void,
+  ): React.ReactNode {
+    return Children.map(children, (child) => {
+      if (!isValidElement(child)) return child
+      const props: any = (child as React.ReactElement).props
+      if (props['data-modal-close']) {
+        return cloneElement(child as React.ReactElement<any>, {
+          onClick: (e: any) => {
+            props.onClick?.(e)
+            onClose?.()
+          },
+        })
+      }
+      if (props.children) {
+        return cloneElement(child as React.ReactElement<any>, {
+          children: injectModalClose(props.children, onClose),
+        })
+      }
+      return child
+    })
+  }
+  const enhanced = injectModalClose(children, ctx?.onClose)
   return <div className="modal-header">{enhanced}</div>
 }
 function ModalBody({ children }: PropsWithChildren) {

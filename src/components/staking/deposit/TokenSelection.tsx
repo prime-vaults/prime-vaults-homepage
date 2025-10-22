@@ -55,7 +55,7 @@ export default function TokenSelection() {
           {new Array(6).fill('').map((_, idx) => {
             return (
               <div
-                className="flex flex-row justify-between items-center gap-2 py-1 px-2"
+                className="flex flex-row justify-between items-center gap-2 py-1 px-2 cursor-pointer select-none nth-of-type-[2n+1]:bg-base-200"
                 onClick={() => setToken(`0xFakeTokenAddress${idx}`)}
                 key={idx}
               >

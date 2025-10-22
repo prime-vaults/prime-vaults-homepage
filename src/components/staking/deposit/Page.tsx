@@ -24,10 +24,9 @@ export default function Deposit({ poolId }: DepositProps) {
           <div className="flex flex-row p-4 justify-between items-center">
             <ArrowLeft className="w-4 cursor-pointer" onClick={reset} />
             <p className="text-base md:text-xl">Deposit Pool#{poolId}</p>
-            <XCircle
-              className="btn btn-sm btn-circle btn-ghost"
-              data-modal-close
-            />
+            <div data-modal-close>
+              <XCircle className="w-6" />
+            </div>
           </div>
         </Modal.Header>
 

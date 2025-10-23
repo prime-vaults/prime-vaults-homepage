@@ -1,5 +1,6 @@
-import { Repeat } from 'lucide-react'
+import { Repeat, WalletMinimal } from 'lucide-react'
 import Button from '@/components/UI/Button'
+
 import { useTokenSelection } from '@/hooks/useTokenAvailable'
 
 const DUMMY_CHAINS = [
@@ -18,6 +19,17 @@ export default function TokenSelection() {
 
   return (
     <div className="flex flex-col p-4 md:p-6 gap-4">
+      <div className="flex flex-row items-center gap-2 border border-primary p-2 md:p-4">
+        <div className="w-12 h-12 rounded-full bg-blue-300" />
+        <div className="flex flex-col">
+          <p className="text-xl md:text-2xl">PrimeUSD</p>
+          <div className="flex flex-row gap-1 text-xs md:text-sm">
+            <span>Your staked:</span>
+            <span className="text-primary">Your staked: $20.01 USDC.e</span>
+            <WalletMinimal className="w-4" />
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-2 border border-base-100 p-2 md:p-4 gap-2">
         <div className="col-span-full flex flex-row justify-between items-center">
           <p>{1} chain</p>

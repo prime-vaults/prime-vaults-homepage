@@ -5,12 +5,13 @@ import { ArrowLeft } from 'lucide-react'
 import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
 import Corner from '@/components/UI/Corner'
+import Details from './Details'
+import Deposit from '@/components/staking/deposit/Page'
+import Withdraw from '@/components/staking/withdraw/Page'
 
 import { CoreRoutes } from '@/constant/router'
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
 import { SearchQueryKey } from '@/constant/query'
-import Details from './Details'
-import Deposit from '@/components/staking/deposit/Page'
 
 const TAB_ITEMS = [
   {
@@ -93,7 +94,9 @@ export default function PoolDetailsPage() {
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
                 <div className="grid grid-cols-2 gap-2">
-                  <Button className="btn btn-outline">Withdraw</Button>
+                  <Withdraw poolId={Number(poolId)}>
+                    <Button className="btn btn-outline">Withdraw</Button>
+                  </Withdraw>
                   <Deposit poolId={Number(poolId)}>
                     <Button className="btn bg-white text-black btn-outline">
                       Deposit
@@ -124,7 +127,13 @@ export default function PoolDetailsPage() {
             })}
           </div>
           {/* tab content */}
-          <Details />
+          {tab === 'details' && <Details />}
+          {tab === 'metric' && (
+            <div className="flex flex-col p-4 bg-base-300 border border-base-100">
+              <p>Metric</p>
+              <span>No metric found</span>
+            </div>
+          )}
         </div>
       </div>
     </Container>

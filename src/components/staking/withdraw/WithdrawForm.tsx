@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import { ArrowDown, WalletMinimal } from 'lucide-react'
-import Button from '@/components/UI/Button'
 import Range from '@/components/UI/Range'
+import Button from '@/components/UI/Button'
 
 import { useTokenSelection } from '@/hooks/useTokenAvailable'
 
-export default function DepositForm() {
+export default function WithdrawForm() {
   const [value, setValue] = useState(0)
+
   const { reset } = useTokenSelection()
 
   return (
@@ -24,18 +25,12 @@ export default function DepositForm() {
             />
             <span className="text-xs text-secondary">$22.22</span>
           </div>
-          <div
-            className="flex flex-row gap-2 items-center py-1 px-2 bg-base-200 border border-base-100 cursor-pointer select-none"
-            onClick={reset}
-          >
-            <div className="w-8 aspect-square rounded-full bg-amber-200" />
-            <div className="flex flex-col">
-              <p>ETH</p>
-              <span className="text-xs text-secondary uppercase">Arbitrum</span>
-            </div>
+          <div className="flex flex-row gap-2 items-center">
+            <p className="text-xl md:text-2xl font-bold">PrimeUSD</p>
+            <div className="w-12 h-12 rounded-full bg-blue-400" />
           </div>
         </div>
-        <div className="flex flex-row gap-6 justify-between items-start">
+        <div className="flex flex-row gap-2 justify-between items-center">
           <div className="w-2/3">
             <Range value={value} onChange={setValue} step={25} />
           </div>
@@ -55,10 +50,20 @@ export default function DepositForm() {
           <p className="text-sm">Received vault</p>
         </div>
         <div className="flex flex-row justify-between items-center px-2 md:px-4">
-          <div className="flex flex-row gap-2 items-center">
+          {/* <div className="flex flex-row gap-2 items-center">
             <div className="w-12 aspect-square rounded-full bg-blue-400" />
             <p className="text-xl md:text-2xl font-bold">PrimeUSD</p>
-          </div>
+          </div> */}
+          <div
+            className="flex flex-row gap-2 items-center py-1 px-2 bg-base-200 border border-base-100 cursor-pointer select-none"
+            onClick={reset}
+          >
+            <div className="w-8 aspect-square rounded-full bg-amber-200" />
+            <div className="flex flex-col">
+              <p>ETH</p>
+              <span className="text-xs text-secondary uppercase">Arbitrum</span>
+            </div>
+          </div>{' '}
           <div className="flex flex-col items-end">
             <p className="text-xl md:text-2xl text-primary font-bold">
               20.00 USDC.e
@@ -85,7 +90,7 @@ export default function DepositForm() {
         </div>
       </div>
       {/* action */}
-      <Button className="btn btn-primary w-full mt-4">Deposit</Button>
+      <Button className="btn btn-primary w-full mt-4">Request withdraw</Button>
     </div>
   )
 }

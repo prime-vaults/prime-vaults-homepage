@@ -71,7 +71,13 @@ const PoolCard = (props: { pool: IPool }) => {
         <div className="flex flex-row gap-4 justify-between mt-6">
           <div className="tooltip">
             <div className="tooltip-content">
-              <p className="text-orange-400 text-2xl">oh! wow wow wow</p>
+              <p className="text-sm md:text-base">
+                <b className="text-primary">Boosted Points</b> are awarded based
+                on deposits staked with{' '}
+                <b className="text-primary">PrimeVaults</b>. The amount earned
+                depends on the allocation of strategies in the vault, boosted by
+                the multiplier. Points will be retroactively awarded.
+              </p>
             </div>
             <p className="border-animate bg-base-100 p-2 cursor-pointer">
               Prime Point Boost

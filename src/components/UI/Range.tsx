@@ -18,24 +18,23 @@ export default function Range({
 }: RangeProps) {
   const { min = 0, max = 100, step } = inputProps
 
-  // build an array of tick values from min to max inclusive with step
   const ticks = useMemo(() => {
     if (!step) return []
-    const s = step
+    const s = Number(step)
     const a: number[] = []
-    // protect against bad input
     if (!isFinite(min) || !isFinite(max) || s <= 0 || max < min) return a
-    // use a for-loop to avoid floating point accumulation issues
-    let v = Number(min)
+    const range = Number(max) - Number(min)
+    const count = Math.floor(range / s)
     const epsilon = 1e-9
-    while (v <= Number(max) + epsilon) {
-      // round to avoid floating precision noise (keep up to 6 decimals)
+    for (let i = 0; i <= count; i++) {
+      const v = Number(min) + i * s
       const rounded = Math.round(v * 1e6) / 1e6
       a.push(rounded)
-      v += s
     }
-    // ensure last value is exactly max
-    if (a.length && a[a.length - 1] !== Number(max)) a.push(Number(max))
+    const last = a[a.length - 1]
+    if (Math.abs(last - Number(max)) > epsilon) {
+      a.push(Number(max))
+    }
     return a
   }, [max, min, step])
 

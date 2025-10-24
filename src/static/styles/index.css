@@ -250,3 +250,8 @@ input[type='number'] {
 .plus-suffix.footer-suffix::after {
   @apply top-0 right-0 -translate-y-1/2;
 }
+.bg-fixed-img {
+  @apply bg-cover bg-no-repeat;
+  background-image: url('/imgs/background.png');
+  background-size: 100vw 100vh;
+}

@@ -1,12 +1,11 @@
 import { Fragment, PropsWithChildren, useState } from 'react'
 
-import { ArrowLeft, XCircle } from 'lucide-react'
+import { MoveLeft, XCircle } from 'lucide-react'
 import Modal from '@/components/UI/Modal'
-
-import { useTokenSelection } from '@/hooks/useTokenAvailable'
 import TokenSelection from './TokenSelection'
 import WithdrawForm from './WithdrawForm'
 
+import { useTokenSelection } from '@/hooks/useTokenAvailable'
 function DefaultButton() {
   return <button className="btn btn-primary">Withdraw</button>
 }
@@ -28,7 +27,7 @@ export default function Withdraw({
       <Modal open={open} onClose={() => setOpen(false)}>
         <Modal.Header>
           <div className="flex flex-row p-4 justify-between items-center">
-            <ArrowLeft className="w-4 cursor-pointer" onClick={reset} />
+            <MoveLeft className="w-6 cursor-pointer" onClick={reset} />
             <p className="text-base md:text-xl">
               Target chain to withdraw #{poolId}
             </p>

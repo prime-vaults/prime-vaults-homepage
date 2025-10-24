@@ -74,7 +74,7 @@ export default function WithdrawForm() {
         {/* divider */}
         <div className="divider h-0 after:h-[1px] before:h-[1px]" />
         <div className="flex flex-col gap-2 px-2 md:px-4">
-          <p className="text-base md:text-xl font-medium">DEPOSIT SUMMARY</p>
+          <p className="text-base md:text-xl font-medium">WITHDRAW SUMMARY</p>
           <div className="flex flex-row justify-between items-center">
             <p>APR:</p>
             <span className="text-primary">32.75%</span>

@@ -1,6 +1,6 @@
 import { Fragment, PropsWithChildren, useState } from 'react'
 
-import { ArrowLeft, XCircle } from 'lucide-react'
+import { MoveLeft, XCircle } from 'lucide-react'
 import Modal from '@/components/UI/Modal'
 import TokenSelection from './TokenSelection'
 import DepositForm from './DepositForm'
@@ -28,7 +28,7 @@ export default function Deposit({
       <Modal open={open} onClose={() => setOpen(false)}>
         <Modal.Header>
           <div className="flex flex-row p-4 justify-between items-center">
-            <ArrowLeft className="w-4 cursor-pointer" onClick={reset} />
+            <MoveLeft className="w-6 cursor-pointer" onClick={reset} />
             <p className="text-base md:text-xl">Deposit Pool#{poolId}</p>
             <div data-modal-close>
               <XCircle className="w-6" />

@@ -214,3 +214,39 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+.plus-suffix {
+  @apply relative;
+}
+.plus-suffix::before,
+.plus-suffix::after {
+  @apply absolute w-6 h-6 pointer-events-none;
+}
+.plus-suffix::before {
+  content: '';
+  @apply -translate-x-1/2 text-base-content;
+  background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      0 top 50% / 100% 3px no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left 50% top 0 /
+      3px 100% no-repeat;
+}
+.plus-suffix::after {
+  content: '';
+  @apply translate-x-1/2 text-base-content;
+  background: linear-gradient(var(--color-base-100), var(--color-base-100)) left
+      0 top 50% / 100% 3px no-repeat,
+    linear-gradient(var(--color-base-100), var(--color-base-100)) left 50% top 0 /
+      3px 100% no-repeat;
+}
+.plus-suffix.header-suffix::before {
+  @apply bottom-0 left-0 translate-y-1/2;
+}
+.plus-suffix.header-suffix::after {
+  @apply bottom-0 right-0 translate-y-1/2;
+}
+
+.plus-suffix.footer-suffix::before {
+  @apply top-0 left-0 -translate-y-1/2;
+}
+.plus-suffix.footer-suffix::after {
+  @apply top-0 right-0 -translate-y-1/2;
+}

@@ -8,10 +8,12 @@ import Corner from '@/components/UI/Corner'
 import Details from './Details'
 import Deposit from '@/components/staking/deposit/Page'
 import Withdraw from '@/components/staking/withdraw/Page'
+import SimilarVault from './SimilarVault'
 
 import { CoreRoutes } from '@/constant/router'
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
 import { SearchQueryKey } from '@/constant/query'
+import VaultPerformance from './VaultPerformance'
 
 const TAB_ITEMS = [
   {
@@ -41,7 +43,7 @@ export default function PoolDetailsPage() {
 
   return (
     <Container>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-4">
         <Button
           className="btn w-fit my-2"
           onClick={() => nav(CoreRoutes.staking())}
@@ -135,6 +137,8 @@ export default function PoolDetailsPage() {
             </div>
           )}
         </div>
+        <VaultPerformance />
+        <SimilarVault />
       </div>
     </Container>
   )

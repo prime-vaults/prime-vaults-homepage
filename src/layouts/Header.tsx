@@ -15,7 +15,7 @@ function HeaderLayout() {
   return (
     <Container
       className="border-b border-neutral"
-      innerClassName="border-x border-neutral"
+      innerClassName="plus-suffix header-suffix"
     >
       <div className="navbar bg-base-300 px-6">
         <div className="flex-1 flex flex-row items-center">

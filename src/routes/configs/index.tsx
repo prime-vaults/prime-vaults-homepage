@@ -10,6 +10,7 @@ import { pointRoutes } from './point.routers'
 import { brandKitRoutes } from './brand-kit.routers'
 import { policyRoutes } from './policy.routers'
 import { termRoutes } from './term.routers'
+import { portfolioRoutes } from './portfolio.routers'
 
 export const routes = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const routes = createBrowserRouter([
       brandKitRoutes,
       policyRoutes,
       termRoutes,
+      portfolioRoutes,
     ],
     ErrorBoundary,
   },

@@ -40,10 +40,7 @@ export default function FAQPage() {
     setOpen((prev) => ({ ...prev, [key]: value }))
   }
   return (
-    <div
-      className="section-container grid grid-cols-12 gap-6 bg-cover bg-no-repeat"
-      style={{ backgroundImage: 'url(/imgs/background.png)' }}
-    >
+    <div className="section-container grid grid-cols-12 gap-6 bg-repeating bg-repeating-body">
       <div className="col-span-full md:col-span-3 flex flex-col h-full gap-2">
         <h3 className="text-xl md:text-5xl text-primary">FAQ</h3>
         <span>Common Questions</span>

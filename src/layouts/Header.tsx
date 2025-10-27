@@ -40,6 +40,11 @@ function HeaderLayout() {
               </Link>
             </li>
             <li>
+              <Link className="btn btn-link" to={CoreRoutes.portfolio()}>
+                Portfolio
+              </Link>
+            </li>
+            <li>
               <ConnectButton.Custom>
                 {({ openAccountModal, openConnectModal, account }) => {
                   if (!!account)

@@ -1,8 +1,9 @@
 import Container from '@/components/UI/Container'
-import { usePrimePools } from '@/hooks/usePrimePools'
-import PoolCard from './PoolCard'
+import VaultCard from './VaultCard'
 
-export default function StakingPage() {
+import { usePrimePools } from '@/hooks/usePrimePools'
+
+export default function VaultPage() {
   const pools = usePrimePools()
   return (
     <Container>
@@ -19,7 +20,7 @@ export default function StakingPage() {
         </div>
         <div className="grid grid-cols-1">
           {pools.data.map((pool) => (
-            <PoolCard pool={pool} />
+            <VaultCard pool={pool} />
           ))}
         </div>
       </div>

@@ -7,21 +7,21 @@ import {
   TokenSymbol,
   // useRewards,
 } from '@beraji/web3-sdk'
+import { useNavigate } from 'react-router'
 
-import Deposit from '@/components/staking/deposit/Page'
+import Deposit from '@/components/vaults/deposit/Page'
 
 import { usePoolStat } from '@/hooks/usePrimePools'
 import { CoreRoutes } from '@/constant/router'
-import { useNavigate } from 'react-router'
 
-const PoolCard = (props: { pool: IPool }) => {
+const VaultCard = (props: { pool: IPool }) => {
   const nav = useNavigate()
   const poolStat = usePoolStat(props.pool.poolId)
   // const rewards = useRewards(props.pool.poolId)
 
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
-    nav(CoreRoutes.poolDetails({ id: props.pool.poolId }))
+    nav(CoreRoutes.vaultDetails(props.pool.poolId))
   }
 
   return (
@@ -92,4 +92,4 @@ const PoolCard = (props: { pool: IPool }) => {
   )
 }
 
-export default PoolCard
+export default VaultCard

@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router'
+import { useNavigate, useParams, useSearchParams } from 'react-router'
 
 import { ArrowLeft } from 'lucide-react'
 import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
 import Corner from '@/components/UI/Corner'
 import Details from './Details'
-import Deposit from '@/components/staking/deposit/Page'
-import Withdraw from '@/components/staking/withdraw/Page'
+import Deposit from '@/components/vaults/deposit/Page'
+import Withdraw from '@/components/vaults/withdraw/Page'
 import SimilarVault from './SimilarVault'
+import VaultPerformance from './VaultPerformance'
 
 import { CoreRoutes } from '@/constant/router'
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
 import { SearchQueryKey } from '@/constant/query'
-import VaultPerformance from './VaultPerformance'
 
 const TAB_ITEMS = [
   {
@@ -26,9 +26,9 @@ const TAB_ITEMS = [
   },
 ]
 
-export default function PoolDetailsPage() {
+export default function VaultDetailsPage() {
   const [searchParams] = useSearchParams()
-  const poolId = searchParams.get('id') || ''
+  const { vaultId } = useParams()
   const tab = searchParams.get('tab') || TAB_ITEMS[0].key
   const nav = useNavigate()
   const { update } = useUpdateSearchParams()
@@ -38,15 +38,15 @@ export default function PoolDetailsPage() {
   }
 
   useEffect(() => {
-    if (!poolId) nav(CoreRoutes.staking())
-  }, [nav, poolId])
+    if (!vaultId) nav(CoreRoutes.vaults())
+  }, [nav, vaultId])
 
   return (
     <Container>
       <div className="flex flex-col gap-4">
         <Button
           className="btn w-fit my-2"
-          onClick={() => nav(CoreRoutes.staking())}
+          onClick={() => nav(CoreRoutes.vaults())}
         >
           <ArrowLeft className="w-6" />
           Back
@@ -55,7 +55,7 @@ export default function PoolDetailsPage() {
           {/* token */}
           <div className="flex flex-col items-center justify-center p-4 text-center">
             <div className="w-12 h-12 rounded-full bg-amber-400" />
-            <p className="text-xl md:text-3xl">PrimeUSD #{poolId}</p>
+            <p className="text-xl md:text-3xl">PrimeUSD #{vaultId}</p>
             <span className="text-sm md:text-base">
               <b className="text-primary">PrimeUSD</b> delivers stable yield on
               USD-based assets by tapping into top-tier money markets. It
@@ -96,10 +96,10 @@ export default function PoolDetailsPage() {
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
                 <div className="grid grid-cols-2 gap-2">
-                  <Withdraw poolId={Number(poolId)}>
+                  <Withdraw poolId={Number(vaultId)}>
                     <Button className="btn btn-outline">Withdraw</Button>
                   </Withdraw>
-                  <Deposit poolId={Number(poolId)}>
+                  <Deposit poolId={Number(vaultId)}>
                     <Button className="btn bg-white text-black btn-outline">
                       Deposit
                     </Button>

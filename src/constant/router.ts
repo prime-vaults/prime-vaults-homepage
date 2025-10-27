@@ -1,10 +1,9 @@
 export enum RouterKeys {
   Home = '/',
-  Staking = 'staking',
+  Vaults = 'vaults',
   TermOfUse = 'term-of-use',
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
-  PoolDetails = 'pool-details',
   Point = 'point',
 }
 
@@ -25,10 +24,10 @@ function buildQuery(params?: RouterParams) {
 
 export const CoreRoutes = {
   home: (params?: RouterParams) => `${RouterKeys.Home}${buildQuery(params)}`,
-  staking: (params?: RouterParams) =>
-    `/${RouterKeys.Staking}${buildQuery(params)}`,
-  poolDetails: (params?: RouterParams) =>
-    `/${RouterKeys.Staking}/${RouterKeys.PoolDetails}${buildQuery(params)}`,
+  vaults: (params?: RouterParams) =>
+    `/${RouterKeys.Vaults}${buildQuery(params)}`,
+  vaultDetails: (vaultId: string | number, params?: RouterParams) =>
+    `/${RouterKeys.Vaults}/${vaultId}${buildQuery(params)}`,
   termOfUse: (params?: RouterParams) =>
     `/${RouterKeys.TermOfUse}${buildQuery(params)}`,
   privacyPolicy: (params?: RouterParams) =>

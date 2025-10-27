@@ -5,7 +5,7 @@ import PageContainer from '@/app/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { RouterKeys } from '@/constant/router'
-import { stakingRoutes } from './staking.routers'
+import { vaultRoutes } from './vaults.routers'
 import { pointRoutes } from './point.routers'
 import { brandKitRoutes } from './brand-kit.routers'
 import { policyRoutes } from './policy.routers'
@@ -21,7 +21,7 @@ export const routes = createBrowserRouter([
     ),
     children: [
       { index: true, element: <PageContainer /> },
-      stakingRoutes,
+      vaultRoutes,
       pointRoutes,
       brandKitRoutes,
       policyRoutes,

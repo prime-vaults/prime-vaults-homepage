@@ -30,8 +30,8 @@ function HeaderLayout() {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link className="btn btn-link" to={CoreRoutes.staking()}>
-                Staking
+              <Link className="btn btn-link" to={CoreRoutes.vaults()}>
+                Vaults
               </Link>
             </li>
             <li>

@@ -5,8 +5,8 @@ import RandomTextColor from '@/components/RandomTextColor'
 import Corner from '@/components/UI/Corner'
 
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
-import { SearchQueryKey } from '@/constant'
 import { HOLDING_DATA } from '@/constant/holding'
+import { SearchQueryKey } from '@/constant/query'
 
 enum Token {
   USD = 'usd',

@@ -1,19 +1,31 @@
-import { usePoolStat } from '@/hooks/usePrimePools'
+import { MouseEvent } from 'react'
 import {
   formatNumber,
   IPool,
   TokenAvatar,
   TokenName,
   TokenSymbol,
-  useRewards,
+  // useRewards,
 } from '@beraji/web3-sdk'
 
+import Deposit from '@/components/staking/deposit/Page'
+
+import { usePoolStat } from '@/hooks/usePrimePools'
+import { CoreRoutes } from '@/constant/router'
+import { useNavigate } from 'react-router'
+
 const PoolCard = (props: { pool: IPool }) => {
+  const nav = useNavigate()
   const poolStat = usePoolStat(props.pool.poolId)
-  const rewards = useRewards(props.pool.poolId)
+  // const rewards = useRewards(props.pool.poolId)
+
+  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    nav(CoreRoutes.poolDetails({ id: props.pool.poolId }))
+  }
 
   return (
-    <div className="card w-full bg-base-100 shadow-sm">
+    <div className="card w-full bg-base-100 shadow-sm" onClick={onClick}>
       <div className="card-body">
         <div className="flex justify-between">
           <div className="flex gap-2 items-center">
@@ -34,32 +46,46 @@ const PoolCard = (props: { pool: IPool }) => {
               />
             </div>
           </div>
+          <div className="flex flex-row gap-4 md:gap-8">
+            <div className="flex flex-col items-center py-1 px-4 border border-base-100 bg-base-300">
+              <span className="text-secondary">TVL</span>
+              <p className="text-xl md:text-2xl font-bold">
+                {formatNumber(poolStat.totalValueLocked, '$')}
+              </p>
+            </div>
+            <div className="flex flex-col items-center py-1 px-4 shadow-[0_0_14px] shadow-primary">
+              <span className="text-secondary">APR</span>
+              <p className="text-xl md:text-2xl font-bold">100%</p>
+            </div>
+          </div>
         </div>
 
         <div>
-          <div className="flex items-center border-b-base-content/20 justify-between border-b border-dashed py-2">
-            Total Value Locked:
-            <span className="font-mono font-bold">
-              {formatNumber(poolStat.totalValueLocked, '$')}
-            </span>
-          </div>
-          <div className="flex items-center border-b-base-content/20 justify-between border-b border-dashed py-2">
-            Rewards:
-            <div className="flex gap-2">
-              {rewards.data.map((rw) => (
-                <div className="avatar">
-                  <TokenAvatar token={rw.token} className="size-6" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center border-b-base-content/20 justify-between border-b border-dashed py-2">
-            Lock duration:
-            <span className="badge  badge-soft">8 days</span>
-          </div>
+          <p>
+            PrimeUSD delivers stable yield on USD-based assets by tapping into
+            top-tier money markets. It balances safety and performance with
+            automated execution, ensuring consistent returns on stablecoins for
+            risk-averse investors.
+          </p>
         </div>
-        <div className="mt-6">
-          <button className="btn btn-primary">Deposit</button>
+        <div className="flex flex-row gap-4 justify-between mt-6">
+          <div className="tooltip">
+            <div className="tooltip-content">
+              <p className="text-sm md:text-base">
+                <b className="text-primary">Boosted Points</b> are awarded based
+                on deposits staked with{' '}
+                <b className="text-primary">PrimeVaults</b>. The amount earned
+                depends on the allocation of strategies in the vault, boosted by
+                the multiplier. Points will be retroactively awarded.
+              </p>
+            </div>
+            <p className="border-animate bg-base-100 p-2 cursor-pointer">
+              Prime Point Boost
+            </p>
+          </div>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Deposit poolId={props.pool.poolId} />
+          </div>
         </div>
       </div>
     </div>

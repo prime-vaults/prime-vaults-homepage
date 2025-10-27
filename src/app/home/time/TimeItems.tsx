@@ -4,8 +4,8 @@ import { useMemo } from 'react'
 import { Timer } from 'lucide-react'
 
 import { useSearchParams } from 'react-router'
-import { SearchQueryKey } from '@/constant'
 import { HOLDING_DATA } from '@/constant/holding'
+import { SearchQueryKey } from '@/constant/query'
 
 type TimeItemData = {
   name: string

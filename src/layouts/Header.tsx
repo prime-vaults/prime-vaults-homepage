@@ -1,10 +1,9 @@
-// import { ConnectButton } from '@rainbow-me/rainbowkit'
-// import { ChangeEvent, useCallback } from 'react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Link } from 'react-router'
 
-// import { SunMedium, MoonStar } from 'lucide-react'
 import Container from '@/components/UI/Container'
-import Button from '@/components/UI/Button'
+import { shortenString } from '@/helpers/utils'
+import { CoreRoutes } from '@/constant/router'
 
 function HeaderLayout() {
   // const onSwitch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -16,50 +15,65 @@ function HeaderLayout() {
   return (
     <Container
       className="border-b border-neutral"
-      innerClassName="border-x border-neutral"
+      innerClassName="plus-suffix header-suffix"
     >
       <div className="navbar bg-base-300 px-6">
         <div className="flex-1 flex flex-row items-center">
           <Link
-            to="/"
+            to={CoreRoutes.home()}
             className="text-xl md:text-3xl text-primary font-bold cursor-pointer"
           >
             <img src="/logo.svg" />
           </Link>
-          {/* <ul className="menu menu-horizontal">
-            <li>
-              <Link className="btn btn-link" to="/staking">
-                Staking
-              </Link>
-            </li>
-            <li>
-              <Link className="btn btn-link" to="/point">
-                Point
-              </Link>
-            </li>
-            <li>
-              <Link className="btn btn-link" to="/earn">
-                Earn
-              </Link>
-            </li>
-          </ul> */}
         </div>
 
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            {/* <li>
-              <ConnectButton />
+            <li>
+              <Link className="btn btn-link" to={CoreRoutes.staking()}>
+                Staking
+              </Link>
             </li>
             <li>
+              <Link className="btn btn-link" to={CoreRoutes.point()}>
+                Point
+              </Link>
+            </li>
+            <li>
+              <ConnectButton.Custom>
+                {({ openAccountModal, openConnectModal, account }) => {
+                  if (!!account)
+                    return (
+                      <div
+                        className="flex flex-row gap-0 p-0"
+                        onClick={openAccountModal}
+                      >
+                        <div className="py-2 px-4 bg-base-200">
+                          {account.displayBalance}
+                        </div>
+                        <div className="py-2 px-4 bg-base-100">
+                          {shortenString(account.address, { maxLength: 4 })}
+                        </div>
+                      </div>
+                    )
+                  return (
+                    <div
+                      className="py-2 px-4 bg-base-100 rounded-none"
+                      onClick={openConnectModal}
+                    >
+                      Connect wallet
+                    </div>
+                  )
+                }}
+              </ConnectButton.Custom>
+            </li>
+            {/* <li>
               <label className="toggle text-base-content">
                 <input type="checkbox" onChange={onSwitch} />
                 <SunMedium aria-label="enabled" size={16} />
                 <MoonStar aria-label="disabled" size={16} />
               </label>
             </li> */}
-            <li>
-              <Button className="btn btn-primary">Start now</Button>
-            </li>
           </ul>
         </div>
       </div>

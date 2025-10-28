@@ -47,14 +47,14 @@ export default function WithdrawCard() {
           <div className="w-12 h-12 rounded-full bg-emerald-200" />
           <p className="text-xl md:text-2xl font-medium">PrimeUSD</p>
         </div>
-        <div className="flex flex-row gap-2 items-center border border-base-100 py-2 px-4 bg-fixed-img">
+        <div className="flex flex-row gap-2 items-center border border-base-100 py-2 px-4 bg-repeating">
           <p>Total Withdrawing:</p>
           <p className="text-primary">$19.001</p>
         </div>
       </div>
       <div className="flex flex-col border-t border-base-100">
         {/* header */}
-        <div className="col-span-full grid grid-cols-12 border-b border-base-100 p-4 bg-fixed-img">
+        <div className="col-span-full grid grid-cols-12 border-b border-base-100 p-4 bg-repeating">
           <div className="col-span-3">
             <p className="text-secondary">Claim Timer</p>
           </div>

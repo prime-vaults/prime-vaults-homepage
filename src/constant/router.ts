@@ -5,6 +5,7 @@ export enum RouterKeys {
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
   Point = 'point',
+  Portfolio = 'portfolio',
 }
 
 export type RouterParams = Record<string, string | number | undefined>
@@ -28,6 +29,8 @@ export const CoreRoutes = {
     `/${RouterKeys.Vaults}${buildQuery(params)}`,
   vaultDetails: (vaultId: string | number, params?: RouterParams) =>
     `/${RouterKeys.Vaults}/${vaultId}${buildQuery(params)}`,
+  portfolio: (params?: RouterParams) =>
+    `/${RouterKeys.Portfolio}${buildQuery(params)}`,
   termOfUse: (params?: RouterParams) =>
     `/${RouterKeys.TermOfUse}${buildQuery(params)}`,
   privacyPolicy: (params?: RouterParams) =>

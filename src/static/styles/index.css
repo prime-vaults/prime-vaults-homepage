@@ -68,10 +68,9 @@
 }
 
 body {
-  @apply normal-case bg-contain bg-repeat;
+  @apply normal-case;
   /* font-family: 'Geist Mono', monospace; */
   font-family: 'Space Grotesk', sans-serif;
-  background-image: url('/imgs/background.png');
 }
 body:has(.scroll-not-allow) {
   @apply overflow-hidden;
@@ -250,8 +249,12 @@ input[type='number'] {
 .plus-suffix.footer-suffix::after {
   @apply top-0 right-0 -translate-y-1/2;
 }
-.bg-fixed-img {
-  @apply bg-cover bg-no-repeat;
-  background-image: url('/imgs/background.png');
-  background-size: 100vw 100vh;
+.bg-repeating {
+  --bg-color: #141510;
+  --line-color: #3e3e3e3d;
+  --line-deg: 115deg;
+  @apply bg-[var(--bg-color)] bg-[repeating-linear-gradient(var(--line-deg),var(--line-color)_0_1px,transparent_1px_8px)];
+}
+.bg-repeating.bg-repeating-body {
+  --bg-color: #121212;
 }

@@ -31,6 +31,22 @@ export default function PortfolioPage() {
                 </span>
               </div>
             </div>
+            <div className="flex flex-row gap-2">
+              <div className="flex flex-col py-1 px-4 md:px-8 border border-base-100 bg-repeating items-center text-center">
+                <span className="text-sm md:text-base text-secondary">APR</span>
+                <p className="text-xl md:text-2xl font-medium text-primary">
+                  22.75%
+                </p>
+              </div>
+              <div className="flex flex-col py-1 px-4 md:px-8 border border-base-100 bg-repeating items-center text-center">
+                <span className="text-sm md:text-base text-secondary">
+                  Boosted Points
+                </span>
+                <p className="text-xl md:text-2xl font-medium text-primary">
+                  x2
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

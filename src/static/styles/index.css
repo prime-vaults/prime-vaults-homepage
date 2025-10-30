@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './animation';
+@import './intro';
 @plugin "daisyui";
 
 /* just testing  - theme configs */

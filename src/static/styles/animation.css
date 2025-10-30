@@ -1,34 +1,8 @@
-@keyframes borderImageRotate {
-  0% {
-    border-image: linear-gradient(
-        0deg,
-        var(--color-primary),
-        var(--color-base-100)
-      )
-      1;
-  }
+@keyframes spin-reverse {
   100% {
-    border-image: linear-gradient(
-        360deg,
-        var(--color-primary),
-        var(--color-base-100)
-      )
-      1;
+    transform: rotate(-360deg);
   }
 }
-.border-animate {
-  @apply relative bg-base-100;
-}
-.border-animate::before {
-  content: '';
-  @apply absolute inset-0 top-0 left-0;
-  background: linear-gradient(
-    to right,
-    var(--color-primary),
-    var(--color-base-100)
-  );
-}
-.border-animate::after {
-  content: '';
-  @apply absolute w-[calc(100%-2px)] h-[calc(100%-2px)] bg-[inherit] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1];
+.animate-spin-reverse {
+  animation: spin-reverse linear infinite;
 }

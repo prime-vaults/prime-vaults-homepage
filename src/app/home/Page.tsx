@@ -6,6 +6,7 @@ import Portfolio from './Portfolio'
 import Integrated from './Integrated'
 import Engines from './Engines'
 import TimePage from './time/Page'
+import IntroPage from './intro/Page'
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <div className="flex flex-col">
         <BannerPage />
         <Portfolio />
+        <IntroPage />
         <Integrated />
         <TimePage />
         <Engines />

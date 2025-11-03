@@ -7,6 +7,7 @@ import COG_4 from '@/static/images/intro/clock/cog-4.png'
 import HH from '@/static/images/intro/clock/hour-hand.png'
 import MH from '@/static/images/intro/clock/minute-hand.png'
 import CIRCLE from '@/static/images/intro/clock/cir.png'
+import clsx from 'clsx'
 
 const COG_RATIO_1 = 1
 const COG_RATIO_2 = 0.67
@@ -47,11 +48,13 @@ interface ClockProps {
   fadeInDuration?: number
   showDuration?: number
   fadeOutDuration?: number
+  infinite?: boolean
 }
 
 export default function Clock({
   trigger = false,
-  onDone,
+  onDone = () => {},
+  infinite = false,
   fadeInDuration = 1000,
   showDuration = 3000,
   fadeOutDuration = 1000,
@@ -59,8 +62,7 @@ export default function Clock({
   const ref = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (!trigger || !ref.current) return
-
+    if (!trigger || !ref.current || infinite) return
     const el = ref.current
     let timeoutFadeOut: NodeJS.Timeout
     let timeoutDone: NodeJS.Timeout
@@ -82,7 +84,7 @@ export default function Clock({
 
       // schedule done callback
       timeoutDone = setTimeout(() => {
-        onDone?.()
+        onDone()
       }, fadeInDuration + showDuration + fadeOutDuration)
     })
 
@@ -90,10 +92,15 @@ export default function Clock({
       clearTimeout(timeoutFadeOut)
       clearTimeout(timeoutDone)
     }
-  }, [fadeInDuration, fadeOutDuration, onDone, showDuration, trigger])
+  }, [fadeInDuration, fadeOutDuration, infinite, onDone, showDuration, trigger])
 
   return (
-    <div ref={ref} className="relative w-fit h-fit opacity-0">
+    <div
+      ref={ref}
+      className={clsx('relative w-fit h-fit', {
+        'opacity-0': !infinite,
+      })}
+    >
       <img src={BG} className="relative w-60 h-auto object-contain z-0" />
       {/* absolute content: cog, hand */}
       <div className="absolute w-full h-auto aspect-square bottom-0 left-0 z-10">

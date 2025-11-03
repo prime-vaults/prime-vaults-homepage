@@ -1,8 +1,5 @@
 .trapezoid {
-  position: relative;
-  width: 200px;
-  height: 500px;
-  mix-blend-mode: screen;
+  @apply relative w-[100px] h-[500px] mix-blend-screen bg-blend-screen opacity-0 z-50;
   background:
     /* nhiều lớp tia sáng chéo */ conic-gradient(
       from 184deg at 50% 0%,
@@ -49,28 +46,14 @@
         transparent 90%
       );
 
-  background-blend-mode: screen;
-  opacity: 0.9;
   filter: blur(18px) brightness(1.15);
-  /* box-shadow: 0 20px 40px rgba(255, 200, 50, 0.3); */
   transform-origin: top center;
-  /* animation: sunEffect 7s linear infinite; */
-  transform: perspective(35px) rotateX(14deg) translateX(50vw) skewX(60deg);
+  transform: perspective(35px) rotateX(14deg) translateX(0) skewX(27deg);
+  transition-timing-function: cubic-bezier(0.55, 0.05, 0.45, 0.9);
 }
-.trapezoid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 200, 0.12) 0 1px,
-    rgba(255, 255, 255, 0) 1px 3px,
-    rgba(255, 255, 200, 0.08) 3px 7px,
-    rgba(255, 255, 255, 0) 7px 10px
-  );
-  opacity: 0.25;
-  mix-blend-mode: screen;
-  filter: blur(1.5px);
-  transform: skewX(-4deg) translateX(-1%);
-  pointer-events: none;
+
+@keyframes move {
+  to {
+    offset-distance: 100%;
+  }
 }

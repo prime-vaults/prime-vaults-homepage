@@ -28,7 +28,7 @@ export default function IntroPage() {
 
   return (
     <div
-      // ref={elmRef}
+      ref={elmRef}
       className="fixed top-0 left-0 w-screen h-screen bg-base-300 transition-all z-[999]"
     >
       <div className="relative w-full h-full">

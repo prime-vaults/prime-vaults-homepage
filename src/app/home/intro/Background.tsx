@@ -80,11 +80,11 @@ export default function Background({
               {/* tree 1 */}
               <img
                 src={TREE_1}
-                className="absolute w-[29%] h-auto bottom-[15%] right-[36%] object-contain z-20"
+                className="absolute w-[29%] h-auto bottom-[15%] right-[35%] object-contain z-20"
               />
               <img
                 src={TREE_2}
-                className="absolute w-[34%] h-auto bottom-[19%] right-[7%] object-contain z-20"
+                className="absolute w-[34%] h-auto bottom-[19%] right-[5%] object-contain z-20"
               />
               <div
                 className="w-[18%] h-auto aspect-[0.4202] absolute bottom-0 right-0 opacity-55 z-10"
@@ -97,7 +97,7 @@ export default function Background({
                   className="w-full h-full object-contain"
                   style={{
                     transform: `rotate(${rotate}deg) scaleY(${scaleY}`,
-                    transformOrigin: '75% 100%',
+                    transformOrigin: '76% 98%',
                   }}
                 />
               </div>

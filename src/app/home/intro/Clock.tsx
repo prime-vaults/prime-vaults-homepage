@@ -1,4 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
+import clsx from 'clsx'
+
 import BG from '@/static/images/intro/clock/background.png'
 import COG_1 from '@/static/images/intro/clock/cog-1.png'
 import COG_2 from '@/static/images/intro/clock/cog-2.png'
@@ -7,7 +9,6 @@ import COG_4 from '@/static/images/intro/clock/cog-4.png'
 import HH from '@/static/images/intro/clock/hour-hand.png'
 import MH from '@/static/images/intro/clock/minute-hand.png'
 import CIRCLE from '@/static/images/intro/clock/cir.png'
-import clsx from 'clsx'
 
 const COG_RATIO_1 = 1
 const COG_RATIO_2 = 0.67

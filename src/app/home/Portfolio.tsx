@@ -66,9 +66,8 @@ function CompareAPR() {
             {data.map(({ logo, name, rate, key }) => {
               const isPrime = key === 'prime'
               return (
-                <Fragment>
+                <Fragment key={key}>
                   <tr
-                    key={name}
                     className={clsx({
                       'bg-[#a3e96b3d] text-primary': isPrime,
                     })}

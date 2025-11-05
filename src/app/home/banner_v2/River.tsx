@@ -108,7 +108,10 @@ export default function River() {
   }
 
   return (
-    <div ref={elmRef} className="relative w-full h-full">
+    <div
+      ref={elmRef}
+      className="relative w-full h-full pointer-events-none select-none"
+    >
       <img className="relative w-full h-auto object-contain z-0" src={RIVER} />
 
       {tokens.map((t) => {

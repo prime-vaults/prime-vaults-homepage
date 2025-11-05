@@ -28,7 +28,7 @@ function HeaderLayout() {
         </div>
 
         <div className="flex-none">
-          {/* <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1">
             <li>
               <Link className="btn btn-link" to={CoreRoutes.vaults()}>
                 Vaults
@@ -72,14 +72,14 @@ function HeaderLayout() {
                 }}
               </ConnectButton.Custom>
             </li>
-            <li>
+            {/* <li>
               <label className="toggle text-base-content">
                 <input type="checkbox" onChange={onSwitch} />
                 <SunMedium aria-label="enabled" size={16} />
                 <MoonStar aria-label="disabled" size={16} />
               </label>
-            </li>
-          </ul> */}
+            </li> */}
+          </ul>
         </div>
       </div>
     </Container>

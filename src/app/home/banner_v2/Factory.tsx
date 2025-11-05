@@ -1,3 +1,5 @@
+import WrappedTokenPath from './TokenPath'
+
 import AURA_1 from '@/static/images/intro/factory/aura-1.png'
 import AURA_2 from '@/static/images/intro/factory/aura-2.png'
 import BOX_A from '@/static/images/intro/factory/box-a.png'
@@ -5,13 +7,12 @@ import BOX_B from '@/static/images/intro/factory/box-b.png'
 import PRIME_TOKEN from '@/static/images/intro/factory/pt-4.png'
 import STAND from '@/static/images/intro/factory/stand.png'
 import PIPE_LINE from '@/static/images/intro/factory/pipe-line.png'
-import WrappedTokenPath from './TokenPath'
 
 export default function Factory() {
   return (
     <div className="flex flex-row items-end">
       {/* pipe line */}
-      <div className="relative -mr-4">
+      <div className="relative w-fit h-fit -mr-4">
         <img
           className="relative w-auto h-44 object-contain z-10"
           src={PIPE_LINE}
@@ -21,10 +22,7 @@ export default function Factory() {
       {/* factory */}
       <div className="relative w-fit flex flex-col items-center">
         {/* box */}
-        <div
-          className="relative w-fit h-fit flex flex-col items-center bouncing"
-          style={{ animationDuration: '1200ms' }}
-        >
+        <div className="relative w-fit h-fit flex flex-col items-center bouncing">
           <img
             src={BOX_A}
             className="relative w-32 h-auto object-contain z-10"

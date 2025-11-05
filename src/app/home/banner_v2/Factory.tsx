@@ -10,22 +10,20 @@ import PIPE_LINE from '@/static/images/intro/factory/pipe-line.png'
 
 export default function Factory() {
   return (
-    <div className="flex flex-row items-end">
-      {/* pipe line */}
-      <div className="relative w-fit h-fit -mr-4">
-        <img
-          className="relative w-auto h-44 object-contain z-10"
-          src={PIPE_LINE}
-        />
-        <WrappedTokenPath />
+    <div className="flex flex-row gap-4 justify-between">
+      <div className="flex flex-col gap-2 text-2xl md:text-5xl font-bold uppercase px-6">
+        <p className="text-primary">Your principal stays safe</p>
+        <p>in the vault.</p>
+        <p>When your rewards</p>
+        <p className="text-primary">accumulated every second.</p>
       </div>
       {/* factory */}
-      <div className="relative w-fit flex flex-col items-center">
+      <div className="relative w-fit flex flex-col items-center pb-72">
         {/* box */}
         <div className="relative w-fit h-fit flex flex-col items-center bouncing">
           <img
             src={BOX_A}
-            className="relative w-32 h-auto object-contain z-10"
+            className="relative w-60 h-auto object-contain z-10"
           />
           <img
             src={BOX_B}
@@ -44,12 +42,22 @@ export default function Factory() {
         <div className="relative w-fit h-fit">
           <img
             src={STAND}
-            className="relative w-44 h-auto object-contain z-0"
+            className="relative w-96 h-auto object-contain z-10"
           />
           <img
             src={AURA_1}
-            className="absolute w-full h-auto bottom-[58%] object-contain opacity-35 z-10"
+            className="absolute w-full h-auto bottom-[58%] object-contain opacity-35 z-20"
           />
+          {/* pipe line */}
+          <div className="absolute w-fit h-fit bottom-0 translate-y-3/4 left-0 -translate-x-2/3 z-0">
+            <div className="relative w-auto h-96 aspect-[1.72]">
+              <img
+                className="relative w-full h-full object-contain z-10"
+                src={PIPE_LINE}
+              />
+              <WrappedTokenPath />
+            </div>
+          </div>
         </div>
       </div>
     </div>

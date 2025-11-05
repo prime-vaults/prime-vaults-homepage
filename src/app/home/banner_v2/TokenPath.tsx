@@ -3,7 +3,6 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { useElementSize, useScaledPath } from '@/hooks/useMotionPath'
 
 import PRIME_TOKEN from '@/static/images/intro/factory/pt-4.png'
-import PRIME_TOKEN_2 from '@/static/images/intro/factory/pt-1.png'
 
 const PATHS: {
   path: string
@@ -26,7 +25,7 @@ const PATHS: {
   {
     path: 'M31.083 612.91L69.083 450.402L1.58301 390.402L62.083 345.402L19.583 278.402L117.083 265.402L261.583 220.402L453.83 261.349C453.996 261.384 454.168 261.376 454.33 261.327L621.583 210.402L745.083 269.402L884.583 246.902L838.083 188.902L916.083 139.902L847.083 103.902L892.583 0.402344',
     viewBoxDelta: [0, 0],
-    img: PRIME_TOKEN_2,
+    img: PRIME_TOKEN,
     duration: 12000,
   },
 ]
@@ -47,7 +46,11 @@ function TokenPath({
   viewBoxDelta,
   onCompleted = () => {},
 }: TokenPathProps) {
-  const scaledPath = useScaledPath(path, parentBox, viewBoxDelta)
+  const scaledPath = useScaledPath({
+    basePath: path,
+    parentSize: parentBox,
+    viewBoxDelta,
+  })
   const fallbackTimer = useRef<number | null>(null)
 
   useLayoutEffect(() => {
@@ -73,12 +76,12 @@ function TokenPath({
 
   return (
     <img
-      className="absolute w-4 h-auto top-[18px] left-0 object-contain"
+      className="absolute w-[5%] h-auto top-[18px] left-0 object-contain"
       src={img}
       style={{
         offsetPath: `path("${scaledPath}")`,
         offsetRotate: 'auto',
-        animation: `move-reverse ${duration}ms cubic-bezier(0.4, 0.8, 0.6, 1.9)`,
+        animation: `move-reverse ${duration}ms cubic-bezier(0.4, 0.8, 0.6, 1.9), spin-reverse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite`,
       }}
       onAnimationEnd={handleAnimationEnd}
     />

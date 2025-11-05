@@ -1,31 +1,36 @@
+import { useLayoutEffect, useRef, useState } from 'react'
+import { useElementSize, useScaledPath } from '@/hooks/useMotionPath'
+
 import VAULT_B from '@/static/images/intro/factory/vault-b.png'
 import VAULT_T from '@/static/images/intro/factory/vault-t.png'
 import BTC from '@/static/images/intro/factory/btc.png'
 import ETH from '@/static/images/intro/factory/eth.png'
 import COG from '@/static/images/intro/factory/cog.png'
 import USD from '@/static/images/intro/factory/usd.png'
-import { useLayoutEffect, useRef, useState } from 'react'
-import { useElementSize, useScaledPath } from '@/hooks/useMotionPath'
 
 const PATHS: {
   path: string
   img: string
   duration: number // millisecond
+  originalViewBox: [number, number, number, number]
 }[] = [
   {
-    path: 'M0 0.5H13C67.6762 0.5 112 44.8238 112 99.5V385.5',
+    path: 'M0.078125 0.494141L48.9102 8.26848C99.19 16.2733 141.955 49.2832 162.434 95.896C170.772 114.876 175.078 135.381 175.078 156.112V186.048V397.494',
     img: BTC,
-    duration: 14000,
+    duration: 4000,
+    originalViewBox: [0, 0, 350, 398],
   },
   {
-    path: 'M0 0.5C22.0914 0.5 40 18.4086 40 40.5V385.5',
+    path: 'M200 0.5C172.386 0.5 150 22.8858 150 50.5V397.5',
     img: ETH,
-    duration: 8000,
+    duration: 2000,
+    originalViewBox: [0, 0, 350, 398],
   },
   {
-    path: 'M105.5 0.5C53.1505 0.5 10.2998 42.1452 8.80626 94.4734L0.500001 385.5',
+    path: 'M200 0.5C172.386 0.5 150 22.8858 150 50.5V397.5',
     img: USD,
-    duration: 12000,
+    duration: 3200,
+    originalViewBox: [0, 0, 350, 398],
   },
 ]
 
@@ -34,7 +39,7 @@ type TokenProps = {
   img: string
   duration: number
   parentBox: [number, number]
-  viewBoxDelta?: [number, number]
+  originalViewBox?: [number, number, number, number]
   onCompleted?: () => void
 }
 function Token({
@@ -42,10 +47,14 @@ function Token({
   path,
   duration,
   parentBox,
-  viewBoxDelta,
+  originalViewBox,
   onCompleted = () => {},
 }: TokenProps) {
-  const scaledPath = useScaledPath(path, parentBox, viewBoxDelta)
+  const scaledPath = useScaledPath({
+    basePath: path,
+    parentSize: parentBox,
+    originalViewBox,
+  })
   const fallbackTimer = useRef<number | null>(null)
 
   useLayoutEffect(() => {
@@ -70,18 +79,16 @@ function Token({
   }
 
   return (
-    <div className="absolute w-1/4 -top-[50%] h-fit z-0">
-      <img
-        className="w-full h-auto object-contain animate-bounce"
-        src={img}
-        style={{
-          offsetPath: `path("${scaledPath}")`,
-          offsetRotate: 'auto',
-          animation: `move ${duration}ms cubic-bezier(0.25, 0.85, 0.45, 1)`,
-        }}
-        onAnimationEnd={handleAnimationEnd}
-      />
-    </div>
+    <img
+      className="absolute w-1/4 h-auto -top-1/2 left-0 object-contain z-0"
+      src={img}
+      style={{
+        offsetPath: `path("${scaledPath}")`,
+        offsetRotate: 'auto',
+        animation: `move ${duration}ms cubic-bezier(0.39, 0.575, 0.565, 1)`,
+      }}
+      onAnimationEnd={handleAnimationEnd}
+    />
   )
 }
 
@@ -93,7 +100,7 @@ export default function Vault() {
   const elmRef = useRef<HTMLDivElement | null>(null)
   const [tokens, setTokens] = useState<TokenInstance[]>([])
   const { width, height } = useElementSize(elmRef)
-  const spawnInterval = 2000
+  const spawnInterval = 1000
 
   useLayoutEffect(() => {
     const interval = setInterval(() => {
@@ -111,9 +118,18 @@ export default function Vault() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center">
-      <img className="relative w-44 h-auto object-contain z-0" src={VAULT_T} />
-      <img className="relative w-44 h-auto object-contain z-10" src={VAULT_B} />
+    <div
+      ref={elmRef}
+      className="relative w-fit h-fit flex flex-col items-center justify-center"
+    >
+      <img
+        className="relative w-64 md:w-96 h-auto object-contain z-0"
+        src={VAULT_T}
+      />
+      <img
+        className="relative w-64 md:w-96 h-auto object-contain z-10"
+        src={VAULT_B}
+      />
       <img
         className="absolute w-1/2 h-auto object-contain animate-spin z-20"
         style={{ animationTimingFunction: 'steps(5, end)' }}

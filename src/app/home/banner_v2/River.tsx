@@ -45,7 +45,11 @@ function RiverTokenPath({
   viewBoxDelta,
   onCompleted = () => {},
 }: RiverTokenPathProps) {
-  const scaledPath = useScaledPath(path, parentBox, viewBoxDelta)
+  const scaledPath = useScaledPath({
+    basePath: path,
+    parentSize: parentBox,
+    viewBoxDelta,
+  })
   const fallbackTimer = useRef<number | null>(null)
 
   useLayoutEffect(() => {

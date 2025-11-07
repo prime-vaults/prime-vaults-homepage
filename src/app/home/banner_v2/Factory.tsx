@@ -6,7 +6,7 @@ import BOX_A from '@/static/images/intro/factory/box-a.png'
 import BOX_B from '@/static/images/intro/factory/box-b.png'
 import PRIME_TOKEN from '@/static/images/intro/factory/pt-4.png'
 import STAND from '@/static/images/intro/factory/stand.png'
-import PIPE_LINE from '@/static/images/intro/factory/pipe-line.png'
+import PIPE_LINE from '@/static/images/intro/factory/pipe-line.svg'
 
 export default function Factory() {
   return (
@@ -49,7 +49,7 @@ export default function Factory() {
             className="absolute w-full h-auto bottom-[58%] object-contain opacity-35 z-20"
           />
           {/* pipe line */}
-          <div className="absolute w-fit h-fit bottom-0 translate-y-3/4 left-0 -translate-x-2/3 z-0">
+          <div className="absolute w-fit h-fit top-1/4 left-0 -translate-x-10/12 z-0">
             <div className="relative w-auto h-96 aspect-[1.72]">
               <img
                 className="relative w-full h-full object-contain z-10"

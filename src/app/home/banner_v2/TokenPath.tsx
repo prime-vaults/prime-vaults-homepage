@@ -6,25 +6,25 @@ import PRIME_TOKEN from '@/static/images/intro/factory/pt-4.png'
 
 const PATHS: {
   path: string
-  viewBoxDelta: [number, number]
+  originalViewBox: [number, number, number, number]
   img: string
   duration: number // millisecond
 }[] = [
   {
-    path: 'M25.8174 618.32L56.3174 497.32L1.31738 444.32L56.3174 367.82L16.8174 295.82L119.317 246.32L257.817 295.82L453.317 258.82L624.469 295.745C624.694 295.794 624.929 295.763 625.135 295.658L721.817 246.32L855.317 283.32L896.817 198.32L855.317 138.32L896.817 69.8203L873.317 0.320312',
-    viewBoxDelta: [0, 0],
+    path: 'M50.5 514L82.6881 378.741L46 310.6L96.1559 250.674L46 195.567L82.6881 57.8477L159.5 102L261.5 39L375.849 89.5916C376.071 89.6897 376.321 89.7039 376.552 89.6315L538.5 39L687.81 89.7437L868 57.8477',
+    originalViewBox: [0, 0, 869, 516],
     img: PRIME_TOKEN,
     duration: 14000,
   },
   {
-    path: 'M24.1284 592.164L52.6582 414.664L1.1582 346.664L52.6582 234.164L140.658 270.164L274.158 225.664L458.658 270.164L584.418 225.749C584.576 225.693 584.745 225.678 584.91 225.704L821.158 263.664L900.158 196.664L848.658 116.664L906.158 54.1641L858.658 0.664062',
-    viewBoxDelta: [0, 0],
+    path: 'M54.9172 516L97.2415 316.29L44 236.205L68.3816 70.0306L147 101.063L322.15 41L463.961 101.564L628.695 43.666C628.988 43.563 629.312 43.6021 629.572 43.7717L718.227 101.564L868 71.5321',
+    originalViewBox: [0, 0, 869, 516],
     img: PRIME_TOKEN,
     duration: 8000,
   },
   {
-    path: 'M31.083 612.91L69.083 450.402L1.58301 390.402L62.083 345.402L19.583 278.402L117.083 265.402L261.583 220.402L453.83 261.349C453.996 261.384 454.168 261.376 454.33 261.327L621.583 210.402L745.083 269.402L884.583 246.902L838.083 188.902L916.083 139.902L847.083 103.902L892.583 0.402344',
-    viewBoxDelta: [0, 0],
+    path: 'M67.6262 516L76.0012 381L46 332L92.6929 265L46 177.5L76.0012 63.0206L243 95L402.721 50.0785C402.903 50.0272 403.096 50.0288 403.278 50.0829L553.724 95L697.734 50L865.5 70',
+    originalViewBox: [0, 0, 869, 516],
     img: PRIME_TOKEN,
     duration: 12000,
   },
@@ -35,7 +35,7 @@ type TokenPathProps = {
   img: string
   duration: number
   parentBox: [number, number]
-  viewBoxDelta?: [number, number]
+  originalViewBox?: [number, number, number, number]
   onCompleted?: () => void
 }
 function TokenPath({
@@ -43,13 +43,13 @@ function TokenPath({
   path,
   duration,
   parentBox,
-  viewBoxDelta,
+  originalViewBox,
   onCompleted = () => {},
 }: TokenPathProps) {
   const scaledPath = useScaledPath({
     basePath: path,
     parentSize: parentBox,
-    viewBoxDelta,
+    originalViewBox,
   })
   const fallbackTimer = useRef<number | null>(null)
 
@@ -76,12 +76,12 @@ function TokenPath({
 
   return (
     <img
-      className="absolute w-[5%] h-auto top-[18px] left-0 object-contain"
+      className="absolute w-[6%] h-auto top-0 left-0 object-contain"
       src={img}
       style={{
         offsetPath: `path("${scaledPath}")`,
         offsetRotate: 'auto',
-        animation: `move-reverse ${duration}ms cubic-bezier(0.4, 0.8, 0.6, 1.9), spin-reverse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite`,
+        animation: `move-reverse ${duration}ms cubic-bezier(0.4, 0.8, 0.6, 1.9), spin-reverse 3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s 2`,
       }}
       onAnimationEnd={handleAnimationEnd}
     />
@@ -115,7 +115,7 @@ export default function WrappedTokenPath() {
   }
 
   return (
-    <div className="absolute w-full h-full bottom-0" ref={elmRef}>
+    <div className="absolute w-full h-full top-0 left-0" ref={elmRef}>
       {tokens.map((t) => {
         const p = PATHS[t.pathIndex]
         return (

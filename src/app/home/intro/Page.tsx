@@ -5,6 +5,8 @@ import Clock from './Clock'
 import LoadingCanvas from '@/components/UI/Loading'
 import Background from './Background'
 
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+
 let timer: NodeJS.Timeout
 const DURATION = 600
 
@@ -12,6 +14,7 @@ export default function IntroPage() {
   const [step, setStep] = useState(0)
   const [visible, setVisible] = useState(true)
   const elmRef = useRef<HTMLDivElement | null>(null)
+  const [finished, setFinished] = useLocalStorage('intro-finished', false)
 
   const onFinish = () => {
     if (!elmRef.current) return
@@ -22,9 +25,10 @@ export default function IntroPage() {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
       setVisible(false)
+      setFinished(true)
     }, DURATION)
   }
-  if (!visible) return null
+  if (!visible || finished) return null
 
   return (
     <div

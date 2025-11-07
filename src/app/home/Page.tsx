@@ -7,6 +7,7 @@ import Engines from './Engines'
 import TimePage from './time/Page'
 import IntroPage from './intro/Page'
 import BannerV2Page from './banner_v2/Page'
+import YieldFlowPage from './yield-flow/Page'
 
 export default function HomePage() {
   return (
@@ -15,10 +16,11 @@ export default function HomePage() {
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
       <div className="flex flex-col">
-        {/* <IntroPage /> */}
+        <IntroPage />
         <BannerV2Page />
         <Portfolio />
         <Integrated />
+        <YieldFlowPage />
         <TimePage />
         <Engines />
         <ScrollingPage />

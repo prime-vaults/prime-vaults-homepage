@@ -20,9 +20,9 @@ export default function HomePage() {
         <BannerV2Page />
         <Portfolio />
         <Integrated />
-        <YieldFlowPage />
         <TimePage />
         <Engines />
+        <YieldFlowPage />
         <ScrollingPage />
         <FAQPage />
       </div>

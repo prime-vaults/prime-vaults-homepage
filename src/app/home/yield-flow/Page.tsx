@@ -1,12 +1,13 @@
+import BranchRight from './stroke/BranchRight'
+import BranchLeft from './stroke/BranchLeft'
+import StrokeVertical from './stroke/StrokeVertical'
+import StrokeHorizontal from './stroke/StrokeHorizontal'
+
 import USER from '@/static/images/yield/user.png'
 import FACTORY from '@/static/images/yield/factory.png'
 import REWARD from '@/static/images/yield/reward.png'
 import TOKEN from '@/static/images/yield/token.png'
 import VAULT from '@/static/images/yield/vault.png'
-import LINE_1 from '@/static/images/yield/line-1.svg'
-import LINE_2 from '@/static/images/yield/line-2.svg'
-import LINE_3 from '@/static/images/yield/line-3.svg'
-import LINE_5 from '@/static/images/yield/line-5.svg'
 import STAND from '@/static/images/yield/stand.svg'
 
 export default function YieldFlowPage() {
@@ -15,16 +16,16 @@ export default function YieldFlowPage() {
       <p className="text-2xl md:text-5xl font-black text-primary">
         Prime Yield flow
       </p>
-      <div className="grid grid-cols-12 pointer-events-none select-none">
+      <div className="grid grid-cols-12 select-none">
         {/* left side */}
         <div className="col-span-7 grid grid-cols-6 pt-12">
           <div className="col-span-1 flex flex-col w-full h-fit justify-center items-center">
             <img className="w-3/4 h-auto object-contain" src={USER} />
           </div>
-          <img
-            className="col-span-2 w-full h-auto object-contain"
-            src={LINE_1}
-          />
+          <div className="relative col-span-2 w-full h-auto">
+            <BranchRight />
+          </div>
+
           <div className="col-span-1 flex flex-col items-center -mt-[22%]">
             {new Array(4).fill('').map((_, idx) => {
               return (
@@ -36,10 +37,9 @@ export default function YieldFlowPage() {
               )
             })}
           </div>
-          <img
-            className="col-span-2 w-full h-auto object-contain"
-            src={LINE_2}
-          />
+          <div className="relative col-span-2 w-full h-auto">
+            <BranchLeft />
+          </div>
         </div>
         {/* right side */}
         <div className="col-span-5 grid grid-cols-12">
@@ -55,10 +55,9 @@ export default function YieldFlowPage() {
             />
           </div>
           {/* stroke */}
-          <img
-            className="col-span-4 w-auto h-1 object-contain scale-x-150 origin-left mb-11 self-end"
-            src={LINE_3}
-          />
+          <div className="col-span-4 w-auto h-1 object-contain scale-x-150 origin-left mb-11 self-end">
+            <StrokeHorizontal />
+          </div>
           {/* factory */}
           <div className="col-span-4 relative flex flex-col justify-end">
             <img
@@ -68,29 +67,26 @@ export default function YieldFlowPage() {
           </div>
           {/* reward */}
           <div className="col-span-4 flex flex-col items-center">
-            <img
-              className="relative w-1 h-auto flex-1 scale-y-[1.9] object-contain z-10"
-              src={LINE_5}
-            />
+            <div className="relative w-1 h-auto flex-1 scale-y-[1.9] origin-top object-contain z-10">
+              <StrokeVertical reverse />
+            </div>
             <img className="w-full h-auto object-contain z-0" src={REWARD} />
           </div>
           {/* stroke */}
-          <img
-            className="col-span-4 w-auto h-1 object-contain scale-x-125 origin-left mb-11 self-end"
-            src={LINE_3}
-          />
+          <div className="col-span-4 w-auto h-1 object-contain scale-x-110 origin-right mb-11 self-end">
+            <StrokeHorizontal reverse />
+          </div>
           {/* yield resources */}
           <div className="col-span-4 flex flex-col items-center">
             <div className="w-full bg-primary p-6 rounded-2xl">
-              <p className="text-black text-center font-medium">
+              <p className="text-xs md:text-sm text-black text-center font-medium">
                 Assets are matched with each other to execute the yield
                 strategy.
               </p>
             </div>
-            <img
-              className="flex-1 relative w-1 h-auto object-contain z-10"
-              src={LINE_5}
-            />
+            <div className="flex-1 relative w-1 h-auto object-contain z-10">
+              <StrokeVertical />
+            </div>
             <div className="w-full bg-primary p-6 rounded-2xl">
               <p className="text-black font-bold text-center">
                 Dex Lending Staking

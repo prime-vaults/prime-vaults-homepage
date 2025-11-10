@@ -73,3 +73,17 @@
 .bouncing {
   animation: bouncing 1200ms cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
+
+@keyframes path-dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 100;
+  }
+}
+
+.path-dash {
+  animation: path-dash 3s ease-in-out infinite;
+  animation-delay: 2s; /* sẽ lặp lại delay mỗi lần restart */
+}

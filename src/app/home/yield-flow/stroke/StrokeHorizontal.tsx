@@ -30,7 +30,7 @@ export default function StrokeHorizontal({
       {/* animate */}
       <path
         d={d}
-        stroke="orange"
+        stroke="#BAE678"
         strokeWidth="10"
         fill="none"
         strokeLinecap="round"

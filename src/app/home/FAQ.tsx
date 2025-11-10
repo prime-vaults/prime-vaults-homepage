@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 
+import BG_DOT from '@/static/images/bg-dot-long.png'
+
 const FAQ = [
   {
     question: 'What’s PrimeVaults?',
@@ -19,12 +21,12 @@ const FAQ = [
   {
     question: 'Can I withdraw anytime?',
     answer:
-      'You can withdraw after the 8-day lock period. Your principal is always guaranteed, regardless of market volatility.',
+      'You can withdraw after the 3-day lock period. Your principal is always guaranteed, regardless of market volatility.',
   },
   {
-    question: 'Why is there an 8-day lock?',
+    question: 'Why is there an 3-day lock?',
     answer:
-      'The 8-day lock ensures safe unwinding of positions and accurate redistribution of assets. Yield generated during this period is distributed to active stakers, encouraging long-term commitment.',
+      'The 3-day lock ensures safe unwinding of positions and accurate redistribution of assets. Yield generated during this period is distributed to active stakers, encouraging long-term commitment.',
   },
   {
     question: 'Do I need deep DeFi knowledge to use it?',
@@ -41,7 +43,11 @@ export default function FAQPage() {
   }
   return (
     <div className="section-container grid grid-cols-12 gap-6 bg-repeating bg-repeating-body">
-      <div className="col-span-full md:col-span-3 flex flex-col h-full gap-2">
+      <div className="relative col-span-full md:col-span-3 flex flex-col h-full gap-2">
+        <img
+          src={BG_DOT}
+          className="absolute w-full h-auto object-contain -top-4 -left-4 md:-top-8 md:-left-8 md:scale-125 origin-top-left"
+        />
         <h3 className="text-xl md:text-5xl text-primary">FAQ</h3>
         <span>Common Questions</span>
         <span className="text-xs text-secondary self-end">

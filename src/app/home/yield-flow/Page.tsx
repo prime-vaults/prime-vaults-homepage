@@ -68,7 +68,7 @@ export default function YieldFlowPage() {
           {/* reward */}
           <div className="col-span-4 flex flex-col items-center">
             <div className="relative w-1 h-auto flex-1 scale-y-[1.9] origin-top object-contain z-10">
-              <StrokeVertical />
+              <StrokeVertical reverse begin="7s" />
             </div>
             <img className="w-full h-auto object-contain z-0" src={REWARD} />
           </div>

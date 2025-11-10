@@ -9,8 +9,8 @@ function AnimatePath({
   dur = '3s',
   begin = '0s',
   repeatCount = 'indefinite',
-  array = { from: '50 500', to: '50 500' },
-  offset = { from: '850', to: '50' },
+  array = { from: '2 500', to: '2 500' },
+  offset = { from: '742', to: '2' },
 }: {
   d: string
   id?: string
@@ -23,12 +23,12 @@ function AnimatePath({
   return (
     <path
       d={`${d}`}
-      stroke="orange"
+      stroke="#BAE678"
       strokeWidth="10"
       fill="none"
       strokeLinecap="round"
-      strokeDasharray="50 500"
-      strokeDashoffset="600"
+      strokeDasharray="2 500"
+      strokeDashoffset="502"
     >
       <animate
         id={id}
@@ -79,8 +79,8 @@ export default function BranchRight() {
       <AnimatePath d={d6} />
       <AnimatePath
         d={d1}
-        array={{ from: '50 500', to: '50 500' }}
-        offset={{ from: '600', to: '50' }}
+        array={{ from: '2 500', to: '2 500' }}
+        offset={{ from: '502', to: '2' }}
       />
       <defs>
         <linearGradient

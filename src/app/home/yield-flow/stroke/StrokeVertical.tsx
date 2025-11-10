@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 export default function StrokeVertical({
   dur = '3s',
-  begin = '9s',
+  begin = '4s',
   reverse = false,
 }: {
   dur?: string

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 export default function StrokeHorizontal({
   dur = '3s',
-  begin = '8s',
+  begin = '4s',
   reverse = false,
 }: {
   dur?: string

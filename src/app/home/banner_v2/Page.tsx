@@ -10,7 +10,7 @@ export default function BannerV2Page() {
     <Container innerClassName="relative flex flex-col border-none">
       <div className="relative flex flex-row justify-between items-start gap-4 px-6 z-30">
         {/* vault - left side */}
-        <div className="mt-2 md:mt-16 md:ml-4">
+        <div className="mt-[4dvw] md:ml-4">
           <Vault />
         </div>
         {/* text - right side */}
@@ -24,7 +24,7 @@ export default function BannerV2Page() {
         </div>
       </div>
       {/* river */}
-      <div className="w-9/12 md:w-10/12 -mt-16 mx-auto h-auto object-contain">
+      <div className="w-9/12 md:w-10/12 -mt-[10dvw] mx-auto h-auto object-contain">
         <River />
       </div>
       <Factory />

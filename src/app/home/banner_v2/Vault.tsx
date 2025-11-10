@@ -123,11 +123,11 @@ export default function Vault() {
       className="relative w-fit h-fit flex flex-col items-center justify-center"
     >
       <img
-        className="relative w-64 md:w-96 h-auto object-contain z-0"
+        className="relative w-[26.5dvw] h-auto object-contain z-0"
         src={VAULT_T}
       />
       <img
-        className="relative w-64 md:w-96 h-auto object-contain z-10"
+        className="relative w-[26.5dvw] h-auto object-contain z-10"
         src={VAULT_B}
       />
       <img

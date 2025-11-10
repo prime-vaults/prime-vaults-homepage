@@ -40,7 +40,7 @@ export default function Factory() {
           />
           {/* pipe line */}
           <div className="flex flex-col items-end absolute md:w-fit md:h-fit top-1/4 left-0 -translate-x-9/12 md:-translate-x-10/12 z-0">
-            <div className="relative w-full md:w-auto h-auto md:h-96 aspect-[1.72]">
+            <div className="relative w-[46dvw] h-auto aspect-[1.72]">
               <img
                 className="relative w-full h-full object-contain z-10"
                 src={PIPE_LINE}

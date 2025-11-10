@@ -3,28 +3,30 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { useElementSize, useScaledPath } from '@/hooks/useMotionPath'
 
 import RIVER from '@/static/images/intro/factory/river.png'
-import PT_1 from '@/static/images/intro/factory/pt-1.png'
-import PT_2 from '@/static/images/intro/factory/pt-2.png'
-import PT_3 from '@/static/images/intro/factory/pt-3.png'
+import PT_1 from '@/static/images/intro/factory/pt-4.png'
 
 const PATHS: {
   path: string
   img: string
   duration: number // millisecond
+  originalViewBox: [number, number, number, number]
 }[] = [
   {
-    path: 'M26.6951 0.352539C-0.805458 73.3525 -37.8442 301.24 105.194 329.353C266.981 361.15 533.394 135.544 635.694 107.853C762.194 73.6109 932.194 96.8525 823.194 445.853',
+    path: 'M97.0382 0.399414C60.3987 84.5871 22.2221 339.724 152.461 375.322C299.77 415.586 597.354 169.964 690.5 134.899C755.892 110.283 901.5 87.8994 837.5 642.399',
+    originalViewBox: [0, 0, 972, 643],
     img: PT_1,
     duration: 5000,
   },
   {
-    path: 'M37.5272 0.427734C-0.573563 80.9277 -40.4716 325.889 94.9611 359.928C248.145 398.428 541.166 183.957 638.027 150.428C706.027 126.889 890.527 84.9277 770.027 448.928',
-    img: PT_2,
+    path: 'M97.2702 0.399414C70.8713 76.7586 38.8674 316.179 176.176 345.585C331.482 378.845 587.079 144.426 685.426 113.892C854.5 61.3994 898.5 165.899 837.5 642.399',
+    originalViewBox: [0, 0, 972, 643],
+    img: PT_1,
     duration: 4000,
   },
   {
-    path: 'M52.1995 0.386719C20.2782 76.4651 -67.3207 352.054 102.015 388.159C271.349 424.265 531.626 216.83 638.7 185.387C682.2 172.612 914.698 122.887 690.198 444.387',
-    img: PT_3,
+    path: 'M97.2667 0.399414C66.6053 79.8818 -21.1878 367.279 141.464 405C304.115 442.721 554.12 226.005 656.968 193.154C698.751 179.809 899.5 16.8994 837.5 642.399',
+    originalViewBox: [0, 0, 972, 643],
+    img: PT_1,
     duration: 7000,
   },
 ]
@@ -34,7 +36,7 @@ type RiverTokenPathProps = {
   img: string
   duration: number
   parentBox: [number, number]
-  viewBoxDelta?: [number, number]
+  originalViewBox?: [number, number, number, number]
   onCompleted?: () => void
 }
 function RiverTokenPath({
@@ -42,13 +44,13 @@ function RiverTokenPath({
   path,
   duration,
   parentBox,
-  viewBoxDelta,
+  originalViewBox,
   onCompleted = () => {},
 }: RiverTokenPathProps) {
   const scaledPath = useScaledPath({
     basePath: path,
     parentSize: parentBox,
-    viewBoxDelta,
+    originalViewBox,
   })
   const fallbackTimer = useRef<number | null>(null)
 
@@ -76,10 +78,10 @@ function RiverTokenPath({
   return (
     <img
       onAnimationEnd={handleAnimationEnd}
-      className="absolute top-0 left-[4%] w-1/12 h-auto object-contain z-0"
+      className="absolute top-0 left-[4%] w-1/12 h-auto object-contain z-10"
       style={{
         offsetPath: `path("${scaledPath}")`,
-        offsetRotate: 'auto',
+        offsetRotate: 'auto -90deg',
         animation: `move ${duration}ms cubic-bezier(0.25, 0.85, 0.45, 1)`,
       }}
       src={img}

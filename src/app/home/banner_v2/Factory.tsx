@@ -3,6 +3,10 @@ import WrappedTokenPath from './TokenPath'
 import AURA_1 from '@/static/images/intro/factory/aura-1.png'
 import BOX_A from '@/static/images/intro/factory/box-a.png'
 import BOX_B from '@/static/images/intro/factory/box-b.png'
+import CHART_1 from '@/static/images/intro/factory/chart1.png'
+import CHART_2 from '@/static/images/intro/factory/chart2.png'
+import SECURITY from '@/static/images/intro/factory/security.png'
+import FAQ from '@/static/images/intro/factory/faq.png'
 import STAND from '@/static/images/intro/factory/stand.png'
 import PIPE_LINE from '@/static/images/intro/factory/pipe-line.svg'
 
@@ -18,16 +22,36 @@ export default function Factory() {
         </div>
       </div>
       {/* factory */}
-      <div className="relative w-fit flex flex-col items-center px-6 pb-28 md:pb-72">
+      <div className="relative w-fit flex flex-col items-center px-6 pb-28 md:pb-72 pointer-events-none select-none">
         {/* box */}
         <div className="relative w-fit h-fit flex flex-col items-center">
           <img
             src={BOX_A}
-            className="relative w-[20dvw] h-auto object-contain bouncing z-10"
+            className="relative w-[20dvw] h-auto object-contain bouncing z-30"
           />
           <img
             src={BOX_B}
-            className="absolute w-full h-full top-0 left-0 object-contain bouncing z-0"
+            className="absolute w-full h-full top-0 left-0 object-contain bouncing z-10"
+          />
+          <img
+            src={CHART_1}
+            className="absolute w-auto h-3/4 top-0 left-0 -translate-x-1/2 -translate-y-1/3 object-contain bouncing z-0"
+            style={{ animationDelay: '600ms' }}
+          />
+          <img
+            src={FAQ}
+            className="absolute w-auto h-3/4 top-0 right-0 translate-x-1/2 -translate-y-1/3 object-contain bouncing z-0"
+            style={{ animationDelay: '600ms' }}
+          />
+          <img
+            src={CHART_2}
+            className="absolute w-auto h-3/4 bottom-0 left-0 -translate-x-1/2 translate-y-1/3 object-contain bouncing z-50"
+            style={{ animationDelay: '600ms' }}
+          />
+          <img
+            src={SECURITY}
+            className="absolute w-auto h-3/4 bottom-0 right-0 translate-x-1/2 translate-y-1/3 object-contain bouncing z-50"
+            style={{ animationDelay: '600ms' }}
           />
         </div>
         {/* stand */}

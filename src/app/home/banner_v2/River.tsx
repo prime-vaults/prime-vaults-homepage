@@ -78,7 +78,7 @@ function RiverTokenPath({
   return (
     <img
       onAnimationEnd={handleAnimationEnd}
-      className="absolute top-0 left-[4%] w-1/12 h-auto object-contain z-10"
+      className="absolute top-0 left-[4%] w-1/12 h-auto object-contain z-20"
       style={{
         offsetPath: `path("${scaledPath}")`,
         offsetRotate: 'auto -90deg',

@@ -120,7 +120,7 @@ export default function Vault() {
   return (
     <div
       ref={elmRef}
-      className="relative w-fit h-fit flex flex-col items-center justify-center"
+      className="relative w-fit h-fit flex flex-col items-center justify-center pointer-events-none select-none"
     >
       <img
         className="relative w-[26.5dvw] h-auto object-contain z-0"

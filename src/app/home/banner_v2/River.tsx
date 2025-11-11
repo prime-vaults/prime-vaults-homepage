@@ -97,7 +97,7 @@ export default function River() {
   const elmRef = useRef<HTMLDivElement | null>(null)
   const { height, width } = useElementSize(elmRef)
   const [tokens, setTokens] = useState<TokenInstance[]>([])
-  const spawnInterval = 2000
+  const spawnInterval = 1500
 
   useLayoutEffect(() => {
     const interval = setInterval(() => {

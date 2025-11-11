@@ -9,6 +9,7 @@ import SECURITY from '@/static/images/intro/factory/security.png'
 import FAQ from '@/static/images/intro/factory/faq.png'
 import STAND from '@/static/images/intro/factory/stand.png'
 import PIPE_LINE from '@/static/images/intro/factory/pipe-line.svg'
+import TOKENS from '@/static/images/intro/factory/tokens.png'
 
 export default function Factory() {
   return (
@@ -72,6 +73,10 @@ export default function Factory() {
                 src={PIPE_LINE}
               />
               <WrappedTokenPath />
+              <img
+                className="absolute bottom-0 left-0 translate-y-1/2 w-1/6 h-auto object-contain z-10"
+                src={TOKENS}
+              />
             </div>
           </div>
         </div>

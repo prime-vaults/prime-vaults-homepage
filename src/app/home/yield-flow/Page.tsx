@@ -42,7 +42,7 @@ export default function YieldFlowPage() {
             )
           })}
           <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md">
-            <p className="text-xs text-primary text-center text-nowrap">
+            <p className="text-xs text-primary text-center text-nowrap whitespace-nowrap">
               User Vaults
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function YieldFlowPage() {
         {/* vault */}
         <div className="col-span-2 md:col-span-2 relative flex flex-col items-center">
           <div className="absolute w-fit md:w-full top-0 right-0 -translate-y-full px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-20">
-            <p className="text-xs text-primary text-center text-nowrap">
+            <p className="text-xs text-primary text-center text-nowrap whitespace-nowrap">
               Cross-assets Vaults
             </p>
           </div>
@@ -123,7 +123,7 @@ export default function YieldFlowPage() {
               className="block md:hidden w-1.5 h-auto scale-y-[2.7] origin-top object-contain"
             />
             <div className="absolute w-fit h-fit bottom-1/6 md:top-1/2 right-0 md:right-1/2 md:translate-x-1/2 px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-10">
-              <p className="text-xs text-primary text-center text-nowrap">
+              <p className="text-xs text-primary text-center text-nowrap whitespace-nowrap">
                 Compounding
               </p>
             </div>

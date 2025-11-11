@@ -17,7 +17,7 @@ function HeaderLayout() {
       className="border-b border-neutral"
       innerClassName="plus-suffix header-suffix"
     >
-      <div className="navbar bg-base-300 px-6">
+      <div className="relative navbar bg-base-300 px-6 z-[999]">
         <div className="flex-1 flex flex-row items-center">
           <Link
             to={CoreRoutes.home()}

@@ -1,16 +1,22 @@
+import { useMemo } from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 
 import Container from '@/components/UI/Container'
 import { shortenString } from '@/helpers/utils'
 import { CoreRoutes } from '@/constant/router'
+import clsx from 'clsx'
+
+const MENUS: { label: string; path: string }[] = [
+  { label: 'Vaults', path: CoreRoutes.vaults() },
+  { label: 'Portfolio', path: CoreRoutes.portfolio() },
+  { label: 'Prime Point', path: CoreRoutes.point() },
+]
 
 function HeaderLayout() {
-  // const onSwitch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-  //   let theme = 'night'
-  //   if (e.target.checked) theme = 'light'
-  //   document.documentElement.setAttribute('data-theme', theme)
-  // }, [])
+  const location = useLocation()
+
+  const activePath = useMemo(() => location.pathname, [location.pathname])
 
   return (
     <Container
@@ -29,34 +35,37 @@ function HeaderLayout() {
 
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link className="btn btn-link" to={CoreRoutes.vaults()}>
-                Vaults
-              </Link>
-            </li>
-            <li>
-              <Link className="btn btn-link" to={CoreRoutes.point()}>
-                Point
-              </Link>
-            </li>
-            <li>
-              <Link className="btn btn-link" to={CoreRoutes.portfolio()}>
-                Portfolio
-              </Link>
-            </li>
+            {MENUS.map((item) => {
+              const isActive =
+                item.path === CoreRoutes.home()
+                  ? item.path === activePath
+                  : activePath.includes(item.path)
+              return (
+                <li key={item.path}>
+                  <Link
+                    className={clsx('btn min-w-32', {
+                      'btn-primary': isActive,
+                    })}
+                    to={item.path}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              )
+            })}
             <li>
               <ConnectButton.Custom>
                 {({ openAccountModal, openConnectModal, account }) => {
                   if (!!account)
                     return (
                       <div
-                        className="flex flex-row gap-0 p-0"
+                        className="flex flex-row gap-0 p-0 h-full"
                         onClick={openAccountModal}
                       >
-                        <div className="py-2 px-4 bg-base-200">
+                        <div className="flex flex-col justify-center h-full py-2 px-4 bg-base-200">
                           {account.displayBalance}
                         </div>
-                        <div className="py-2 px-4 bg-base-100">
+                        <div className="flex flex-col justify-center h-full py-2 px-4 bg-base-100">
                           {shortenString(account.address, { maxLength: 4 })}
                         </div>
                       </div>

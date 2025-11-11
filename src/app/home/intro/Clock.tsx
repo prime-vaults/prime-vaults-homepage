@@ -56,9 +56,9 @@ export default function Clock({
   trigger = false,
   onDone = () => {},
   infinite = false,
-  fadeInDuration = 1000,
-  showDuration = 3000,
-  fadeOutDuration = 1000,
+  fadeInDuration = 800,
+  showDuration = 800,
+  fadeOutDuration = 800,
 }: ClockProps) {
   const ref = useRef<HTMLDivElement>(null)
 

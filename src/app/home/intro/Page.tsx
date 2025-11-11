@@ -49,17 +49,14 @@ export default function IntroPage() {
           <div className="relative w-full h-full">
             <LoadingCanvas mode={[]} />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <Clock
-                trigger={step === 0}
-                onDone={() => setStep((prev) => prev + 1)}
-              />
+              <Clock trigger={step === 0} onDone={() => setStep(1)} />
             </div>
           </div>
         </div>
         <Background
           step={step}
           onDone={onFinish}
-          onNextStep={() => setStep((prev) => prev + 1)}
+          onNextStep={() => setStep(2)}
         />
       </div>
     </div>

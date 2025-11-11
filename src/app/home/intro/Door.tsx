@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 
+import DOOR_BORDER from '@/static/images/intro/door/door-border.svg'
 import DOOR_L from '@/static/images/intro/door/door-l.png'
 import DOOR_R from '@/static/images/intro/door/door-r.png'
 import TOKEN_L from '@/static/images/intro/door/token-l.png'
@@ -15,7 +16,7 @@ interface DoorProps {
 export default function Door({
   trigger = false,
   onDone = () => {},
-  tokenDuration = 6000,
+  tokenDuration = 3000,
 }: DoorProps) {
   const leftRef = useRef<HTMLDivElement>(null)
   const rightRef = useRef<HTMLDivElement>(null)
@@ -67,6 +68,11 @@ export default function Door({
 
   return (
     <div className="relative w-full h-fit flex flex-row items-center justify-center">
+      {/* door border */}
+      <img
+        className="absolute top-0 left-0 w-full h-auto object-contain"
+        src={DOOR_BORDER}
+      />
       {/* door */}
       <div
         ref={leftRef}

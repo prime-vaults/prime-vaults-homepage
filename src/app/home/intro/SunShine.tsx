@@ -1,7 +1,7 @@
 import { useLayoutEffect, useEffect, useRef, useState } from 'react'
 
 const BASE_LIGHT_WIDTH = 100
-const ANIM_DURATION = 8000
+const ANIM_DURATION = 3000
 
 interface SunShineProps {
   trigger?: boolean

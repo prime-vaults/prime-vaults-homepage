@@ -1,6 +1,6 @@
 import { useId, useMemo } from 'react'
 
-export default function StrokeHorizontal({
+export default function StrokeV({
   dur = '3s',
   begin = '4s',
   reverse = false,
@@ -14,22 +14,18 @@ export default function StrokeHorizontal({
   const gradientId = useId()
 
   const d = useMemo(() => {
-    if (reverse) return 'M163.285 2.47363 L0 2.47363'
-    return 'M0 2.47363L163.285 2.47363'
+    if (reverse) return 'M0 123H207V0'
+    return 'M207 0V123H0'
   }, [reverse])
 
   return (
     <svg
-      viewBox="0 -2.5 164 10"
+      viewBox="2.5 2.5 208 124"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <path
-        d="M0 2.47363L163.285 2.47363"
-        stroke={`url(#${gradientId})`}
-        strokeWidth="4.94803"
-      />
+      <path d="M207 0V123H0" stroke={`url(#${gradientId})`} strokeWidth="4" />
       {/* animate */}
       <path
         d={d}
@@ -47,7 +43,6 @@ export default function StrokeHorizontal({
           dur={dur}
           begin={begin}
           repeatCount="indefinite"
-          fill="freeze"
         />
         <animate
           from="600"
@@ -56,16 +51,15 @@ export default function StrokeHorizontal({
           dur={dur}
           begin={begin}
           repeatCount="indefinite"
-          fill="freeze"
         />
       </path>
       <defs>
         <linearGradient
           id={gradientId}
-          x1="9.9433e-06"
-          y1="2.44155"
-          x2="163.285"
-          y2="2.42277"
+          x1="-61.6058"
+          y1="-0.141144"
+          x2="-61.6055"
+          y2="28.5345"
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#B7E578" />

@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 type DashType = {
   from: string
   to: string
@@ -52,6 +54,8 @@ function AnimatePath({
 }
 
 export default function BranchLeft() {
+  const gradientId = useId()
+
   const d1 = 'M113.211 91.2004H256.061'
   const d2 =
     'M-8.84533e-05 185.551H98.3184C106.543 185.551 113.211 178.883 113.211 170.658V127.441 91.2004'
@@ -66,14 +70,13 @@ export default function BranchLeft() {
 
   return (
     <svg
-      width="257"
-      height="194"
       viewBox="0 -2.5 257 194"
       fill="none"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-auto object-contain"
     >
-      <path d={path} stroke="url(#paint0_linear_2664_478284)" strokeWidth="5" />
+      <path d={path} stroke={`url(#${gradientId})`} strokeWidth="5" />
 
       <AnimatePath d={d2} />
       <AnimatePath d={d3} />
@@ -86,7 +89,7 @@ export default function BranchLeft() {
       />
       <defs>
         <linearGradient
-          id="paint0_linear_2664_478284"
+          id={gradientId}
           x1="128.03"
           y1="2.47364"
           x2="128.03"

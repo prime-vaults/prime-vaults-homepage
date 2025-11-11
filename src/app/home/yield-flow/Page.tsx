@@ -9,6 +9,7 @@ import REWARD from '@/static/images/yield/reward.png'
 import TOKEN from '@/static/images/yield/token.png'
 import VAULT from '@/static/images/yield/vault.png'
 import STAND from '@/static/images/yield/stand.svg'
+import StrokeV from './stroke/StrokeV'
 
 export default function YieldFlowPage() {
   return (
@@ -16,82 +17,142 @@ export default function YieldFlowPage() {
       <p className="text-2xl md:text-5xl font-black text-primary">
         Prime Yield flow
       </p>
-      <div className="grid grid-cols-12 select-none">
-        {/* left side */}
-        <div className="col-span-7 grid grid-cols-6 pt-12">
-          <div className="col-span-1 flex flex-col w-full h-fit justify-center items-center">
-            <img className="w-3/4 h-auto object-contain" src={USER} />
-          </div>
-          <div className="relative col-span-2 w-full h-auto">
-            <BranchRight />
-          </div>
 
-          <div className="col-span-1 flex flex-col items-center -mt-[22%]">
-            {new Array(4).fill('').map((_, idx) => {
-              return (
-                <img
-                  className="w-[45%] h-auto object-contain"
-                  src={TOKEN}
-                  key={idx}
-                />
-              )
-            })}
-          </div>
-          <div className="relative col-span-2 w-full h-auto">
-            <BranchLeft />
+      <div className="col-span-full grid grid-cols-12 pt-12 select-none">
+        {/* user */}
+        <div className="col-span-1 flex flex-col w-full h-fit justify-center items-center pt-3 md:pt-0 scale-125 md:scale-100 origin-left">
+          <img className="w-full md:w-3/4 h-auto object-contain" src={USER} />
+          <div className="self-start md:self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md">
+            <p className="text-xs text-primary text-center">Deposit</p>
           </div>
         </div>
-        {/* right side */}
-        <div className="col-span-5 grid grid-cols-12">
-          {/* vault */}
-          <div className="col-span-4 relative">
-            <img
-              className="relative w-full h-auto object-contain z-10"
-              src={VAULT}
+        {/* branch right */}
+        <div className="relative col-span-4 md:col-span-2 w-full h-auto">
+          <BranchRight />
+        </div>
+        {/* token */}
+        <div className="col-span-1 flex flex-col items-center -mt-[65%] md:-mt-[22%]">
+          {new Array(4).fill('').map((_, idx) => {
+            return (
+              <img
+                className="w-full md:w-[45%] h-auto object-contain"
+                src={TOKEN}
+                key={idx}
+              />
+            )
+          })}
+          <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md">
+            <p className="text-xs text-primary text-center text-nowrap">
+              User Vaults
+            </p>
+          </div>
+        </div>
+        {/* branch left */}
+        <div className="relative col-span-4 md:col-span-2 w-full h-auto">
+          <BranchLeft />
+        </div>
+        {/* vault */}
+        <div className="col-span-2 md:col-span-2 relative flex flex-col items-center">
+          <div className="absolute w-fit md:w-full top-0 right-0 -translate-y-full px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-20">
+            <p className="text-xs text-primary text-center text-nowrap">
+              Cross-assets Vaults
+            </p>
+          </div>
+          <img
+            className="relative w-full h-auto object-contain z-10"
+            src={VAULT}
+          />
+          <img
+            className="absolute w-full h-auto object-contain bottom-0 scale-125 origin-center z-0"
+            src={STAND}
+          />
+        </div>
+        {/* stroke */}
+        <div className="hidden md:block col-span-2 w-auto h-1 object-contain scale-x-150 origin-left mb-24 self-end">
+          <StrokeHorizontal />
+        </div>
+        {/* factory */}
+        <div className="col-span-5 md:col-span-2 relative flex flex-col justify-end items-center">
+          <img
+            className="relative w-2/3 md:w-full h-auto object-contain z-10"
+            src={FACTORY}
+          />
+          <div className="w-full bg-primary p-2 md:p-6 rounded-2xl">
+            <p className="text-xs md:text-sm text-black text-center font-medium">
+              Assets are matched with each other to execute the yield strategy.
+            </p>
+          </div>
+          <div className="block md:hidden col-span-2 md:origin-left self-center">
+            <StrokeVertical
+              begin="6s"
+              className="w-1.5 h-auto object-contain"
             />
-            <img
-              className="absolute w-full h-auto object-contain bottom-0 scale-125 origin-center z-0"
-              src={STAND}
-            />
           </div>
-          {/* stroke */}
-          <div className="col-span-4 w-auto h-1 object-contain scale-x-150 origin-left mb-11 self-end">
-            <StrokeHorizontal />
-          </div>
-          {/* factory */}
-          <div className="col-span-4 relative flex flex-col justify-end">
-            <img
-              className="relative w-full h-auto object-contain z-10"
-              src={FACTORY}
-            />
-          </div>
-          {/* reward */}
-          <div className="col-span-4 flex flex-col items-center">
-            <div className="relative w-1 h-auto flex-1 scale-y-[1.9] origin-top object-contain z-10">
-              <StrokeVertical reverse begin="7s" />
-            </div>
-            <img className="w-full h-auto object-contain z-0" src={REWARD} />
-          </div>
-          {/* stroke */}
-          <div className="col-span-4 w-auto h-1 object-contain scale-x-110 origin-right mb-11 self-end">
-            <StrokeHorizontal reverse begin="6s" />
-          </div>
-          {/* yield resources */}
-          <div className="col-span-4 flex flex-col items-center">
-            <div className="w-full bg-primary p-6 rounded-2xl">
-              <p className="text-xs md:text-sm text-black text-center font-medium">
-                Assets are matched with each other to execute the yield
-                strategy.
-              </p>
-            </div>
-            <div className="flex-1 relative w-1 h-auto object-contain z-10">
-              <StrokeVertical begin="5s" />
-            </div>
-            <div className="w-full bg-primary p-6 rounded-2xl">
-              <p className="text-black font-bold text-center">
+          <div className="flex md:hidden flex-col p-1 md:p-6 gap-1 border border-base-100 bg-base-200 md:border-none md:bg-primary rounded-lg md:rounded-2xl">
+            <p className="block md:hidden text-xs text-primary font-bold text-center">
+              Yield resources
+            </p>
+            <div className="w-full bg-primary rounded-lg">
+              <p className="text-sm text-black text-center">
                 Dex Lending Staking
               </p>
             </div>
+          </div>
+          {/* stroke */}
+          <div className="block md:hidden absolute w-fit h-fit right-0 translate-x-[80%] top-0">
+            <StrokeV className="w-[45dvw] h-auto object-contain" />
+          </div>
+        </div>
+        {/* stroke */}
+        <div className="block md:hidden col-span-2 mb-10 self-end">
+          <StrokeHorizontal className="w-auto h-1.5 object-contain" />
+        </div>
+        {/* offset */}
+        <div className="hidden md:block col-span-6" />
+        {/* reward */}
+        <div className="col-span-5 md:col-span-2 flex flex-col items-end md:items-center">
+          <div className="relative flex-1 pr-6 md:pr-0 z-10">
+            <StrokeVertical
+              reverse
+              begin="7s"
+              className="hidden md:block w-3 h-auto scale-y-[1.4] origin-[50%_60%] object-contain"
+            />
+            <StrokeVertical
+              reverse
+              begin="8s"
+              className="block md:hidden w-1.5 h-auto scale-y-[2.7] origin-top object-contain"
+            />
+            <div className="absolute w-fit h-fit bottom-1/6 md:top-1/2 right-0 md:right-1/2 md:translate-x-1/2 px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-10">
+              <p className="text-xs text-primary text-center text-nowrap">
+                Compounding
+              </p>
+            </div>
+          </div>
+          <img className="w-full h-auto object-contain z-0" src={REWARD} />
+          <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md">
+            <p className="text-xs text-primary text-center">Reward vault</p>
+          </div>
+        </div>
+        {/* stroke */}
+        <div className="hidden md:block col-span-2 mb-11 self-end">
+          <StrokeHorizontal
+            reverse
+            begin="6s"
+            className="w-auto h-3 scale-x-[1.22] origin-[80%_50%] object-contain"
+          />
+        </div>
+        {/* yield resources */}
+        <div className="hidden md:flex flex-col col-span-2 items-center">
+          <div className="hidden md:block flex-1 relative z-10">
+            <StrokeVertical
+              begin="5s"
+              className="w-3 h-auto scale-y-150 origin-top object-contain"
+            />
+          </div>
+          <div className="w-full bg-primary px-4 rounded-2xl py-10">
+            <p className="text-black font-medium text-center">
+              Dex Lending Staking
+            </p>
           </div>
         </div>
       </div>

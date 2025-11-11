@@ -9,11 +9,13 @@ import PIPE_LINE from '@/static/images/intro/factory/pipe-line.svg'
 export default function Factory() {
   return (
     <div className="flex flex-row gap-4 md:justify-between -mt-16 md:-mt-40">
-      <div className="flex-1 flex flex-col md:gap-2 text-sm md:text-5xl font-medium md:font-bold uppercase px-4 md:px-6">
-        <p className="text-primary">Your principal stays safe</p>
-        <p>in the vault.</p>
-        <p>When your rewards</p>
-        <p className="text-primary">accumulated every second.</p>
+      <div className="relative flex-1">
+        <div className="absolute top-0 left-0 w-full flex flex-col md:gap-2 text-base md:text-5xl font-medium md:font-bold uppercase px-4 md:px-6 pt-6 z-20">
+          <p className="text-primary">Your principal stays safe</p>
+          <p>in the vault.</p>
+          <p>When your rewards</p>
+          <p className="text-primary">accumulated every second.</p>
+        </div>
       </div>
       {/* factory */}
       <div className="relative w-fit flex flex-col items-center px-6 pb-28 md:pb-72">

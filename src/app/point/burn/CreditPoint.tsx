@@ -1,7 +1,9 @@
+import dayjs from 'dayjs'
 import { useState } from 'react'
 
 import Button from '@/components/UI/Button'
 import Corner from '@/components/UI/Corner'
+import RawCountDown from '@/components/RawCountDown'
 
 import FIRE from '@/static/images/prime-point/fire.svg'
 
@@ -53,9 +55,13 @@ export default function CreditPointPage() {
             <img src={FIRE} alt="burn to earn" />
             <div className="flex flex-col">
               <p className="text-lg md:text-2xl font-medium">Burn-To-Earn</p>
-              <span className="text-secondary">
-                Next reset in: <b className="text-primary">2D : 15H : 20M</b>
-              </span>
+              <div className="flex flex-row gap-2 items-center">
+                <span className="text-secondary">Next reset in:</span>
+                <RawCountDown
+                  finishAt={dayjs().add(5, 'day').toISOString()}
+                  className="text-primary font-bold"
+                />
+              </div>
             </div>
           </div>
           <p className="text-secondary">

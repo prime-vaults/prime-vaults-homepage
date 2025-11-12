@@ -29,7 +29,7 @@ export default function BurnHistory() {
                 </div>
                 <div
                   className={clsx(
-                    'col-span-5 text-primary p-4 border-t border-base-100 uppercase',
+                    'col-span-5 text-primary p-4 border-t border-base-100 font-bold uppercase',
                     { 'text-red-600': r < 5 },
                   )}
                 >

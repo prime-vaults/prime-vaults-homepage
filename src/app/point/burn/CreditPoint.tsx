@@ -88,7 +88,7 @@ export default function CreditPointPage() {
               </div>
             </div>
             <label className="w-full input input-lg bg-base-300 !outline-none pr-2.5">
-              <input type="text" placeholder="0" />
+              <input type="number" placeholder="0" />
               <Button className="btn btn-primary btn-xs">Max</Button>
             </label>
             <Button className="btn btn-primary">Burn Now</Button>

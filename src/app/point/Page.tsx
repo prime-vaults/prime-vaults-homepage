@@ -1,37 +1,49 @@
-import { useState } from 'react'
-import { useAccountUser } from '@beraji/web3-sdk'
+import { Link, useSearchParams } from 'react-router'
+// import { useAccountUser } from '@beraji/web3-sdk'
 
-import CountDown from '@/components/CountDown'
-import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
+import BurnPage from './burn/Page'
+import clsx from 'clsx'
+import BankPage from './bank/Page'
+
+const POINT_TABS = [
+  { path: 'burn', label: 'Burn' },
+  { path: 'bank', label: 'Bank' },
+  { path: 'referral', label: 'Referral' },
+]
 
 const Point = () => {
-  const [enable, setEnable] = useState(false)
-  const user = useAccountUser()
-  console.log('fix: un-used value to build', user)
+  const [searchParams] = useSearchParams()
+  const tab = searchParams.get('tab') || POINT_TABS[0].path
 
   return (
-    <Container>
-      <div className="">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold text-primary">TIER 10</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+    <Container innerClassName="p-4 md:p-6">
+      <div className="flex flex-col">
+        <div
+          role="tablist"
+          className="tabs tabs-border py-4 md:py-6 bg-base-300"
+        >
+          {POINT_TABS.map(({ label, path }) => {
+            const isActive = tab === path
 
-            <CountDown
-              finishAt={new Date().getTime() + 100000}
-              onFinish={() => setEnable(true)}
-            />
-
-            <Button disabled={!enable} className="btn btn-primary mt-4">
-              Claim 890 Point
-            </Button>
-          </div>
+            return (
+              <Link
+                role="tab"
+                to={`?tab=${path}`}
+                className={clsx(
+                  'tab text-2xl md:text-4xl uppercase hover:text-primary',
+                  {
+                    'text-primary tab-active': isActive,
+                  },
+                )}
+              >
+                {label}
+              </Link>
+            )
+          })}
         </div>
+        {tab === 'burn' && <BurnPage />}
+        {tab === 'bank' && <BankPage />}
       </div>
     </Container>
   )

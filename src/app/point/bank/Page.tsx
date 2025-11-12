@@ -1,7 +1,7 @@
 import Button from '@/components/UI/Button'
 import Corner from '@/components/UI/Corner'
 import BankDeposit from './Deposit'
-import Withdraw from './WithDraw'
+import Withdraw from './Withdraw'
 import BankManagement from './Management'
 
 import { SearchQueryKey } from '@/constant/query'

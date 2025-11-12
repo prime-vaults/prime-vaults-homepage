@@ -29,7 +29,7 @@ export default function BankManagement() {
                   </span>
                 </div>
                 <div className="col-span-5 font-bold text-primary p-4 border-t border-base-100 text-center">
-                  {numericFormat(Math.random() * 100 * idx)} P.P
+                  {numericFormat(Math.random() * 100)} P.P
                 </div>
                 <div className="col-span-3 font-bold p-4 border-t border-base-100 text-end">
                   <Button

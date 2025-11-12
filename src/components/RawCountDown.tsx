@@ -63,7 +63,7 @@ export default function RawCountDown({
               aria-live="polite"
             />
           </span>
-          <span className="text-xs">{seg.label}</span>
+          <span className="text-xs opacity-70">{seg.label}</span>
         </div>
       ))}
     </div>

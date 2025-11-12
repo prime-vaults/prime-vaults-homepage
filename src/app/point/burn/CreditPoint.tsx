@@ -7,6 +7,8 @@ import RawCountDown from '@/components/RawCountDown'
 
 import FIRE from '@/static/images/prime-point/fire.svg'
 
+const EVENT_TIME = 3 // day
+
 export default function CreditPointPage() {
   const [percent, setPercent] = useState(0)
 
@@ -58,18 +60,18 @@ export default function CreditPointPage() {
               <div className="flex flex-row gap-2 items-center">
                 <span className="text-secondary">Next reset in:</span>
                 <RawCountDown
-                  finishAt={dayjs().add(5, 'day').toISOString()}
+                  finishAt={dayjs().add(EVENT_TIME, 'day').toISOString()}
                   className="text-primary font-bold"
                 />
               </div>
             </div>
           </div>
           <p className="text-secondary">
-            Burn-To-Earn is a <b className="text-primary">3-day solo event</b>{' '}
-            where you burn <b className="text-primary">P.P</b> 💎 to compete for
-            real rewards in <b className="text-primary">USD.p</b>. The more you
-            burn, the higher your rank — and the bigger your share of the prize
-            pool.
+            Burn-To-Earn is a{' '}
+            <b className="text-primary">{EVENT_TIME}-day solo event</b> where
+            you burn <b className="text-primary">P.P</b> 💎 to compete for real
+            rewards in <b className="text-primary">USD.p</b>. The more you burn,
+            the higher your rank — and the bigger your share of the prize pool.
           </p>
         </div>
         <div className="grid grid-cols-12 p-4 md:p-6 border-t border-base-100">

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 import { Link, useLocation } from 'react-router'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
@@ -16,6 +16,7 @@ const MENUS: { label: string; path: string }[] = [
 ]
 
 function HeaderLayout() {
+  const mobileMenuId = useId()
   const location = useLocation()
 
   const activePath = useMemo(() => location.pathname, [location.pathname])
@@ -94,7 +95,7 @@ function HeaderLayout() {
               </ConnectButton.Custom>
             </li>
             <li className="flex md:hidden items-center justify-center">
-              <label className="p-0" htmlFor="manage_withdraw_drawer">
+              <label className="p-0" htmlFor={mobileMenuId}>
                 <Menu size={32} />
               </label>
             </li>
@@ -103,14 +104,10 @@ function HeaderLayout() {
       </div>
       {/* menu mobile */}
       <div className="drawer drawer-end">
-        <input
-          id="manage_withdraw_drawer"
-          type="checkbox"
-          className="drawer-toggle"
-        />
+        <input id={mobileMenuId} type="checkbox" className="drawer-toggle" />
         <div className="drawer-side z-[99999]">
           <label
-            htmlFor="manage_withdraw_drawer"
+            htmlFor={mobileMenuId}
             aria-label="close sidebar"
             className="drawer-overlay"
           />
@@ -122,7 +119,7 @@ function HeaderLayout() {
                   className="absolute w-auto h-12 top-6 left-6 -translate-y-1/4 object-contain"
                 />
                 <label
-                  htmlFor="manage_withdraw_drawer"
+                  htmlFor={mobileMenuId}
                   aria-label="close sidebar"
                   className="absolute top-6 right-6 -translate-y-1/4"
                 >

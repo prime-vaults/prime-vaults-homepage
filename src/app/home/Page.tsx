@@ -8,6 +8,7 @@ import TimePage from './time/Page'
 import IntroPage from './intro/Page'
 import BannerV2Page from './banner_v2/Page'
 import YieldFlowPage from './yield-flow/Page'
+import GamePage from './game/Page'
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
         <Integrated />
         <TimePage />
         <Engines />
+        <GamePage />
         <YieldFlowPage />
         <ScrollingPage />
         <FAQPage />

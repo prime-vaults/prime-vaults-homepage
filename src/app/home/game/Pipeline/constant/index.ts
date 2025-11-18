@@ -1,0 +1,53 @@
+import { CellConfig } from '../types/square'
+
+export const DEFAULT_CELLS: CellConfig[] = [
+  // line 1
+  {
+    row: 0,
+    col: 0,
+    type: 'start',
+    connections: ['right', 'bottom'],
+  },
+  [1, 0, 'I'],
+  [2, 0, 'I'],
+  [3, 0, '+'],
+  [4, 0, 'I'],
+  [5, 0, 'T'],
+  [5, 2, 'L'],
+  [5, 3, 'T'],
+  [6, 0, 'T'],
+  [6, 1, 'I'],
+  [6, 2, 'T'],
+  [7, 0, 'I'],
+  [8, 0, 'T'],
+  [9, 0, 'I'],
+  [10, 0, 'L'],
+  [10, 1, 'I'],
+  [10, 2, 'T'],
+  [10, 3, 'T'],
+  [10, 4, 'I'],
+  // line 2
+  {
+    row: 0,
+    col: 4,
+    type: 'start',
+    connections: ['right', 'bottom', 'left'],
+  },
+  [1, 4, 'I'],
+  [2, 4, 'I'],
+  [3, 4, '+'],
+  [4, 4, 'I'],
+  [5, 4, 'T'],
+  [6, 4, 'I'],
+  [7, 4, 'I'],
+  [8, 4, 'T'],
+  [9, 3, 'L'],
+  [9, 4, 'L'],
+  [9, 5, 'L'],
+  {
+    row: 10,
+    col: 5,
+    type: 'end',
+    connections: ['left', 'top'],
+  },
+]

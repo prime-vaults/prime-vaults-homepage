@@ -57,8 +57,18 @@ export default function GamePage() {
       <div className="flex flex-col">
         <p>Game</p>
         <div className="flex flex-row gap-2 items-center">
-          <button onClick={() => gameInstance.current?.check()}>check</button>
-          <button onClick={() => gameInstance.current?.reset()}>reset</button>
+          <button
+            className="btn btn-primary btn-xs"
+            onClick={() => gameInstance.current?.check()}
+          >
+            check
+          </button>
+          <button
+            className="btn btn-error btn-xs"
+            onClick={() => gameInstance.current?.reset()}
+          >
+            reset
+          </button>
         </div>
       </div>
       <canvas

@@ -3,6 +3,7 @@ import Square from '../entities/square'
 export interface PipelineGameConfig {
   canvas: HTMLCanvasElement
   debug?: boolean
+  imageMap?: Partial<Record<string, HTMLImageElement>>
   [key: string]: any
 }
 

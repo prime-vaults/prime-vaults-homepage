@@ -456,7 +456,7 @@ export default class PipelineGame {
   }
 
   addSquare(options: SquareOptions) {
-    const square = new Square(options)
+    const square = new Square({ ...options, imageMap: this.config.imageMap })
     this.entities.push(square)
   }
 

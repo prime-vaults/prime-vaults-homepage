@@ -264,13 +264,6 @@ class PipelineGenerator {
     return 'L'
   }
 
-  private getConnectionsForPipe(
-    entryDir: Direction,
-    exitDir: Direction,
-  ): Direction[] {
-    return [entryDir, exitDir]
-  }
-
   private addNoisePipes(cells: CellConfig[]): CellConfig[] {
     const noiseLevel = this.config.noiseLevel || 0
     if (noiseLevel === 0) return cells

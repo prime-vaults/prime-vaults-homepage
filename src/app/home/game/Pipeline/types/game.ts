@@ -12,6 +12,10 @@ export interface FlowAnimation {
   speed: number
   particles: FlowParticle[]
   type: 'flowing' | 'filling'
+  count?: number
+  point?: number
+  currentSegmentIndex?: number // Track segment hiện tại
+  visitedSquares?: Set<string> // Track squares đã đi qua
 }
 
 export interface FlowParticle {

@@ -18,10 +18,18 @@ export const PIPE_CONNECTIONS: Record<PipeType, number> = {
     DIRECTION_BIT.left,
 }
 
+export const DEFAULT_SQUARE_POINTS: Record<SquareType, number> = {
+  normal: 2,
+  start: 0,
+  end: 0,
+  waypoint: 10,
+}
+
 export default class Square {
   x: number
   y: number
   size: number
+  baseSize: number // Size gốc của 1 cell
   pipeType?: PipeType
   type: SquareType
   connections: number // bitmask
@@ -30,6 +38,12 @@ export default class Square {
   row?: number
   col?: number
   imageMap?: Partial<Record<PipeType, HTMLImageElement>>
+  point: number
+
+  // New properties
+  sizeMultiplier: number // Nhân size
+  occupiedRows: number // Số rows chiếm
+  occupiedCols: number // Số cols chiếm
 
   constructor(props: SquareOptions) {
     const {
@@ -41,17 +55,30 @@ export default class Square {
       debug = false,
       imageMap,
       connections = [],
+      point,
+      sizeMultiplier = 1,
+      occupiedRows = 1,
+      occupiedCols = 1,
     } = props
+
+    this.baseSize = size
+    this.sizeMultiplier = sizeMultiplier
+    this.occupiedRows = occupiedRows
+    this.occupiedCols = occupiedCols
+
+    // Calculate actual size
+    this.size = size * sizeMultiplier
 
     this.x = x
     this.y = y
-    this.size = size
     this.type = type
     this.debug = debug
     this.imageMap = imageMap
     this.rotation = 0
     this.col = props.col
     this.row = props.row
+
+    this.point = point ?? DEFAULT_SQUARE_POINTS[type]
 
     if (type === 'normal') {
       this.pipeType = pipeType
@@ -98,7 +125,13 @@ export default class Square {
     }
 
     ctx.fillStyle =
-      this.type === 'start' ? 'green' : this.type === 'end' ? 'red' : '#333'
+      this.type === 'start'
+        ? 'green'
+        : this.type === 'end'
+        ? 'red'
+        : this.type === 'waypoint'
+        ? 'orange'
+        : '#333'
 
     switch (this.pipeType) {
       case 'I':
@@ -117,8 +150,25 @@ export default class Square {
         ctx.fillRect(-s / 2, -w / 2, s, w)
         break
       default:
-        // start / end
+        // start / end / waypoint
         ctx.fillRect(-s / 2, -s / 2, s, s)
+
+        if (this.type === 'waypoint') {
+          ctx.fillStyle = 'white'
+          ctx.font = `${s * 0.3}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText('★', 0, 0)
+        }
+
+        // Draw labels for large special squares
+        if (this.type === 'start' || this.type === 'end') {
+          ctx.fillStyle = 'white'
+          ctx.font = `bold ${s * 0.2}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(this.type.toUpperCase(), 0, 0)
+        }
     }
   }
 
@@ -154,8 +204,29 @@ export default class Square {
     if (this.type !== 'normal') return
     this.rotate()
   }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(_dt: number) {
     // update logic
+  }
+
+  // Helper: Get center position for connections
+  getCenterX(): number {
+    return this.x + this.size / 2
+  }
+
+  getCenterY(): number {
+    return this.y + this.size / 2
+  }
+
+  // Helper: Check if this square occupies a specific grid cell
+  occupiesCell(row: number, col: number): boolean {
+    if (!this.row || !this.col) return false
+    return (
+      row >= this.row &&
+      row < this.row + this.occupiedRows &&
+      col >= this.col &&
+      col < this.col + this.occupiedCols
+    )
   }
 }

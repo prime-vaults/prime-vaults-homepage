@@ -2,6 +2,7 @@ import ActionManager from './action'
 import Square from '../entities/square'
 import { DEFAULT_CELLS } from '../constant'
 import {
+  PIPE_POINT,
   WATER_ANIMATION_FILLING_SPEED,
   WATER_ANIMATION_FLOWING_SPEED,
 } from '../constant/game'
@@ -65,7 +66,7 @@ export default class PipelineGame {
     const size = Math.min(sizeW, sizeH)
     for (const cell of activeCells!) {
       if (Array.isArray(cell)) {
-        const [r, c, pipeType] = cell
+        const [c, r, pipeType] = cell
         this.addSquare({
           x: c * size,
           y: r * size,
@@ -76,28 +77,30 @@ export default class PipelineGame {
           imageMap,
           row: r,
           col: c,
+          point: PIPE_POINT,
         })
         continue
       }
-      const { row: r, col: c, type, connections } = cell
+      const { row: r, col: c, ...rest } = cell
       this.addSquare({
         x: c * size,
         y: r * size,
         size,
-        type,
-        connections: connections,
         debug,
         row: r,
         col: c,
+        ...rest,
       })
     }
   }
+
   private _drawFlowAnimation(
     result: {
       start: Square
       end: Square
       connectedCount: number
       path: Square[]
+      totalPoints: number
     },
     type: 'flowing' | 'filling' = 'flowing',
   ) {
@@ -112,6 +115,10 @@ export default class PipelineGame {
           : WATER_ANIMATION_FLOWING_SPEED,
       particles: [],
       type,
+      count: result.connectedCount,
+      point: result.totalPoints,
+      currentSegmentIndex: -1, // Chưa bắt đầu
+      visitedSquares: new Set(), // Track squares đã visit
     }
     if (type === 'flowing') {
       for (let i = 0; i < 5; i++) {
@@ -128,6 +135,7 @@ export default class PipelineGame {
     }
     this.flowAnimations.push(animation)
   }
+
   private _renderFlowAnimation(anim: FlowAnimation) {
     if (anim.type === 'flowing') this._renderFlowingAnimation(anim)
     else this._renderFillingAnimation(anim)
@@ -143,14 +151,9 @@ export default class PipelineGame {
       if (segmentIndex >= totalSegments) return
       const from = anim.path[segmentIndex]
       const to = anim.path[segmentIndex + 1]
-      const x =
-        from.x +
-        from.size / 2 +
-        (to.x - from.x + (to.size - from.size) / 2) * segmentFraction
-      const y =
-        from.y +
-        from.size / 2 +
-        (to.y - from.y + (to.size - from.size) / 2) * segmentFraction
+      const { fromX, fromY, toX, toY } = this._getConnectionPoints(from, to)
+      const x = fromX + (toX - fromX) * segmentFraction
+      const y = fromY + (toY - fromY) * segmentFraction
       this.ctx.save()
       const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, 8)
       gradient.addColorStop(0, 'rgba(100, 200, 255, 0.8)')
@@ -170,6 +173,18 @@ export default class PipelineGame {
     const totalSegments = anim.path.length - 1
     const currentProgress = Math.min(particle.progress, 1)
     const segmentProgress = currentProgress * totalSegments
+    const currentSegmentIndex = Math.floor(segmentProgress)
+    if (currentSegmentIndex !== anim.currentSegmentIndex) {
+      anim.currentSegmentIndex = currentSegmentIndex
+      const currentSquare = anim.path[currentSegmentIndex + 1]
+      if (
+        currentSquare &&
+        !anim.visitedSquares?.has(`${currentSquare.row},${currentSquare.col}`)
+      ) {
+        anim.visitedSquares?.add(`${currentSquare.row},${currentSquare.col}`)
+        this._onReachSquare(currentSquare, anim)
+      }
+    }
     this.ctx.save()
     this.ctx.lineWidth = 6
     this.ctx.lineCap = 'round'
@@ -177,10 +192,7 @@ export default class PipelineGame {
     for (let i = 0; i < Math.floor(segmentProgress); i++) {
       const from = anim.path[i]
       const to = anim.path[i + 1]
-      const fromX = from.x + from.size / 2
-      const fromY = from.y + from.size / 2
-      const toX = to.x + to.size / 2
-      const toY = to.y + to.size / 2
+      const { fromX, fromY, toX, toY } = this._getConnectionPoints(from, to)
       const gradient = this.ctx.createLinearGradient(fromX, fromY, toX, toY)
       gradient.addColorStop(0, 'rgba(100, 200, 255, 0.4)')
       gradient.addColorStop(1, 'rgba(100, 200, 255, 0.6)')
@@ -190,15 +202,14 @@ export default class PipelineGame {
       this.ctx.lineTo(toX, toY)
       this.ctx.stroke()
     }
+
+    // Vẽ segment hiện tại đang chạy
     const segmentIndex = Math.floor(segmentProgress)
     if (segmentIndex < totalSegments) {
       const segmentFraction = segmentProgress - segmentIndex
       const from = anim.path[segmentIndex]
       const to = anim.path[segmentIndex + 1]
-      const fromX = from.x + from.size / 2
-      const fromY = from.y + from.size / 2
-      const toX = to.x + to.size / 2
-      const toY = to.y + to.size / 2
+      const { fromX, fromY, toX, toY } = this._getConnectionPoints(from, to)
       const currentX = fromX + (toX - fromX) * segmentFraction
       const currentY = fromY + (toY - fromY) * segmentFraction
       const gradient = this.ctx.createLinearGradient(
@@ -215,7 +226,6 @@ export default class PipelineGame {
       this.ctx.moveTo(fromX, fromY)
       this.ctx.lineTo(currentX, currentY)
       this.ctx.stroke()
-
       const gradient2 = this.ctx.createRadialGradient(
         currentX,
         currentY,
@@ -232,6 +242,121 @@ export default class PipelineGame {
       this.ctx.arc(currentX, currentY, 10, 0, Math.PI * 2)
       this.ctx.fill()
     }
+
+    this._showFloatingMessage(
+      this.width / 2,
+      30,
+      `Points: +${anim.point}`,
+      'cyan',
+    )
+
+    this.ctx.restore()
+  }
+
+  private _getConnectionPoints(
+    from: Square,
+    to: Square,
+  ): {
+    fromX: number
+    fromY: number
+    toX: number
+    toY: number
+  } {
+    const fromCenterX = from.getCenterX()
+    const fromCenterY = from.getCenterY()
+    const toCenterX = to.getCenterX()
+    const toCenterY = to.getCenterY()
+    const fromRow = from.row!
+    const fromCol = from.col!
+    const toRow = to.row!
+    const toCol = to.col!
+    let direction: 'top' | 'bottom' | 'left' | 'right' | null = null
+    if (toCol < fromCol) {
+      direction = 'left'
+    } else if (toCol >= fromCol + from.occupiedCols) {
+      direction = 'right'
+    } else if (toRow < fromRow) {
+      direction = 'top'
+    } else if (toRow >= fromRow + from.occupiedRows) {
+      direction = 'bottom'
+    }
+    let fromX = fromCenterX
+    let fromY = fromCenterY
+    let toX = toCenterX
+    let toY = toCenterY
+
+    if (to.type !== 'normal') {
+      switch (direction) {
+        case 'right':
+          toX = to.x
+          toY = fromCenterY
+          break
+        case 'left':
+          toX = to.x + to.size
+          toY = fromCenterY
+          break
+        case 'bottom':
+          toX = fromCenterX
+          toY = to.y
+          break
+        case 'top':
+          toX = toCenterX
+          toY = to.y + to.size
+          break
+      }
+    }
+    if (from.type !== 'normal') {
+      switch (direction) {
+        case 'right':
+          fromX = from.x + from.size
+          fromY = toCenterY
+          break
+        case 'left':
+          fromX = from.x
+          fromY = toCenterY
+          break
+        case 'bottom':
+          fromX = toCenterX
+          fromY = from.y + from.size
+          break
+        case 'top':
+          fromX = toCenterX
+          fromY = from.y
+          break
+      }
+    }
+    return { fromX, fromY, toX, toY }
+  }
+
+  // Callback khi animation reach square mới
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _onReachSquare(square: Square, _anim: FlowAnimation) {
+    const x = square.x + square.size / 2
+    const y = square.y + square.size / 2
+
+    this._showFloatingMessage(x, y, `+${square.point} pts`, 'orange')
+    this._highlightSquare(square)
+  }
+
+  private _showFloatingMessage(
+    x: number,
+    y: number,
+    text: string,
+    color: string,
+  ) {
+    this.ctx.save()
+    this.ctx.font = '20px Arial'
+    this.ctx.fillStyle = color
+    this.ctx.textAlign = 'center'
+    this.ctx.fillText(text, x, y - 20)
+    this.ctx.restore()
+  }
+
+  private _highlightSquare(square: Square) {
+    this.ctx.save()
+    this.ctx.strokeStyle = 'rgba(255, 255, 0, 0.8)'
+    this.ctx.lineWidth = 1
+    this.ctx.strokeRect(square.x, square.y, square.size, square.size)
     this.ctx.restore()
   }
 

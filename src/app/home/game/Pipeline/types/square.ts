@@ -1,24 +1,33 @@
 export type Direction = 'top' | 'right' | 'bottom' | 'left'
 export type PipeType = 'I' | 'L' | 'T' | '+'
+export type SquareType = 'normal' | 'start' | 'end' | 'waypoint'
+export type PipePoint = number
+// types/square.ts
 export interface SquareOptions {
   x?: number
   y?: number
   size?: number
   pipeType?: PipeType
-  debug?: boolean
-  entities?: any[]
   type?: SquareType
   connections?: Direction[]
+  debug?: boolean
+  imageMap?: Partial<Record<PipeType, HTMLImageElement>>
   row?: number
   col?: number
-  imageMap?: Partial<Record<PipeType, HTMLImageElement>>
+  point?: number
+  sizeMultiplier?: number
+  occupiedRows?: number
+  occupiedCols?: number
 }
-export type SquareType = 'normal' | 'start' | 'end'
 export interface EndpointCell {
   row: number
   col: number
-  type: 'start' | 'end'
+  type: SquareType
   connections: Direction[]
+  point?: PipePoint
+  sizeMultiplier?: number
+  occupiedRows?: number
+  occupiedCols?: number
 }
 export type NormalCell = [number, number, PipeType]
 export type CellConfig = NormalCell | EndpointCell

@@ -168,7 +168,7 @@ export default function YieldFlowPage() {
             </p>
           </div>
           <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md mt-1">
-            <p className="text-xs text-primary text-center">Reward vault</p>
+            <p className="text-xs text-primary text-center">Yield resources</p>
           </div>
         </div>
       </div>

@@ -10,6 +10,8 @@ import { checkPipeline } from '../utils'
 import { SquareOptions } from '../types/square'
 import { GENERATED_CELLS } from '../utils/pipeline'
 import { FlowAnimation, PipelineGameConfig } from '../types/game'
+import { VisualEffect } from '../types/visual'
+import { PIPE_WIDTH_RATIO } from '../constant/pipe'
 
 export default class PipelineGame {
   canvas: HTMLCanvasElement
@@ -23,6 +25,7 @@ export default class PipelineGame {
   private lastTime = 0
   private actionManager: ActionManager
   private flowAnimations: FlowAnimation[] = []
+  private visualEffects: VisualEffect[] = []
 
   constructor(config: PipelineGameConfig) {
     if (!config.canvas)
@@ -117,8 +120,8 @@ export default class PipelineGame {
       type,
       count: result.connectedCount,
       point: result.totalPoints,
-      currentSegmentIndex: -1, // Chưa bắt đầu
-      visitedSquares: new Set(), // Track squares đã visit
+      currentSegmentIndex: -1,
+      visitedSquares: new Set(),
     }
     if (type === 'flowing') {
       for (let i = 0; i < 5; i++) {
@@ -149,6 +152,16 @@ export default class PipelineGame {
       const segmentIndex = Math.floor(segmentProgress)
       const segmentFraction = segmentProgress - segmentIndex
       if (segmentIndex >= totalSegments) return
+
+      const currentSquare = anim.path[segmentIndex + 1]
+      if (
+        currentSquare &&
+        !anim.visitedSquares?.has(`${currentSquare.row},${currentSquare.col}`)
+      ) {
+        anim.visitedSquares?.add(`${currentSquare.row},${currentSquare.col}`)
+        this._onReachSquare(currentSquare, anim)
+      }
+
       const from = anim.path[segmentIndex]
       const to = anim.path[segmentIndex + 1]
       const { fromX, fromY, toX, toY } = this._getConnectionPoints(from, to)
@@ -203,7 +216,6 @@ export default class PipelineGame {
       this.ctx.stroke()
     }
 
-    // Vẽ segment hiện tại đang chạy
     const segmentIndex = Math.floor(segmentProgress)
     if (segmentIndex < totalSegments) {
       const segmentFraction = segmentProgress - segmentIndex
@@ -242,14 +254,6 @@ export default class PipelineGame {
       this.ctx.arc(currentX, currentY, 10, 0, Math.PI * 2)
       this.ctx.fill()
     }
-
-    this._showFloatingMessage(
-      this.width / 2,
-      30,
-      `Points: +${anim.point}`,
-      'cyan',
-    )
-
     this.ctx.restore()
   }
 
@@ -333,29 +337,121 @@ export default class PipelineGame {
     const x = square.x + square.size / 2
     const y = square.y + square.size / 2
 
-    this._showFloatingMessage(x, y, `+${square.point} pts`, 'orange')
-    this._highlightSquare(square)
+    if (!!square.point)
+      this._addTextEffect(x, y, `+${square.point} pts`, {
+        type: 'fadeUp',
+        fontSize: 16,
+        color: 'green',
+        duration: 1400,
+      })
+    // this._addHighlightEffect(square, 800)
   }
 
-  private _showFloatingMessage(
+  private _addTextEffect(
     x: number,
     y: number,
     text: string,
-    color: string,
+    options: {
+      type: 'fadeUp' | 'flip'
+      color: string
+      duration: number
+      fontSize?: number
+    },
   ) {
+    this.visualEffects.push({
+      type: 'text',
+      x,
+      y,
+      text,
+      animationType: options.type,
+      color: options.color,
+      duration: options.duration,
+      fontSize: options.fontSize ?? 20,
+      startTime: performance.now(),
+      progress: 0,
+    })
+  }
+
+  // private _addHighlightEffect(square: Square, duration: number = 800) {
+  //   this.visualEffects.push({
+  //     type: 'highlight',
+  //     square,
+  //     duration,
+  //     startTime: performance.now(),
+  //     progress: 0,
+  //   })
+  // }
+
+  private _renderVisualEffects() {
+    const now = performance.now()
+
+    this.visualEffects = this.visualEffects.filter((effect) => {
+      const elapsed = now - effect.startTime
+      effect.progress = Math.min(elapsed / effect.duration, 1)
+
+      if (effect.progress >= 1) return false
+
+      if (effect.type === 'highlight') {
+        this._renderHighlight(effect)
+      } else if (effect.type === 'text') {
+        this._renderTextEffect(effect)
+      }
+
+      return true
+    })
+  }
+
+  private _renderHighlight(effect: VisualEffect & { type: 'highlight' }) {
+    const alpha = 1 - effect.progress
+    const { square } = effect
+
     this.ctx.save()
-    this.ctx.font = '20px Arial'
-    this.ctx.fillStyle = color
-    this.ctx.textAlign = 'center'
-    this.ctx.fillText(text, x, y - 20)
+    this.ctx.fillStyle = `rgba(255, 255, 0, ${alpha * 0.2})`
+    this.ctx.fillRect(
+      square.x + square.size / 2 - (square.size * PIPE_WIDTH_RATIO) / 2,
+      square.y,
+      square.size * PIPE_WIDTH_RATIO,
+      square.size,
+    )
     this.ctx.restore()
   }
 
-  private _highlightSquare(square: Square) {
+  private _renderTextEffect(effect: VisualEffect & { type: 'text' }) {
     this.ctx.save()
-    this.ctx.strokeStyle = 'rgba(255, 255, 0, 0.8)'
-    this.ctx.lineWidth = 1
-    this.ctx.strokeRect(square.x, square.y, square.size, square.size)
+
+    if (effect.animationType === 'fadeUp') {
+      const alpha = 1 - effect.progress
+      const offsetY = effect.progress * 40
+
+      this.ctx.font = `${effect.fontSize}px ${effect.fontWeight} Space Grotesk, sans-serif`
+      this.ctx.fillStyle = effect.color.includes('rgba')
+        ? effect.color
+        : effect.color.replace(')', `, ${alpha})`).replace('rgb', 'rgba')
+
+      if (!effect.color.includes('rgb')) {
+        this.ctx.globalAlpha = alpha
+        this.ctx.fillStyle = effect.color
+      }
+
+      this.ctx.textAlign = 'center'
+      this.ctx.fillText(effect.text, effect.x, effect.y - offsetY - 20)
+    } else if (effect.animationType === 'flip') {
+      const alpha = 1 - effect.progress
+      const scale = 1 + effect.progress * 0.5
+      const rotation = effect.progress * Math.PI * 2
+
+      this.ctx.translate(effect.x, effect.y - 20)
+      this.ctx.rotate(rotation)
+      this.ctx.scale(scale, scale)
+
+      this.ctx.font = `bold ${effect.fontSize}px Arial`
+      this.ctx.globalAlpha = alpha
+      this.ctx.fillStyle = effect.color
+      this.ctx.textAlign = 'center'
+      this.ctx.textBaseline = 'middle'
+      this.ctx.fillText(effect.text, 0, 0)
+    }
+
     this.ctx.restore()
   }
 
@@ -382,12 +478,12 @@ export default class PipelineGame {
     this.flowAnimations.forEach((anim) => {
       this._renderFlowAnimation(anim)
     })
+
+    this._renderVisualEffects()
   }
 
   check() {
-    // Reset flow animations
     this.flowAnimations = []
-    // check pipeline
     const rs = checkPipeline(this.entities)
     rs.forEach((result) => this._drawFlowAnimation(result, 'filling'))
   }
@@ -395,6 +491,7 @@ export default class PipelineGame {
   reset() {
     this.entities = []
     this.flowAnimations = []
+    this.visualEffects = []
     this.lastTime = 0
     this._initEntities()
   }

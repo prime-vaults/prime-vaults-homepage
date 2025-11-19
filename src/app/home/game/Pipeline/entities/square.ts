@@ -1,3 +1,4 @@
+import { PIPE_WIDTH_RATIO } from '../constant/pipe'
 import { Direction, PipeType, SquareOptions, SquareType } from '../types/square'
 
 export const DIRECTION_BIT: Record<Direction, number> = {
@@ -111,7 +112,7 @@ export default class Square {
 
   drawPipe(ctx: CanvasRenderingContext2D) {
     const s = this.size
-    const w = s * 0.3
+    const w = s * PIPE_WIDTH_RATIO
 
     if (
       this.type === 'normal' &&

@@ -10,3 +10,4 @@ export const OPPOSITE = {
   [DIR.left]: DIR.right,
   [DIR.right]: DIR.left,
 }
+export const PIPE_WIDTH_RATIO = 0.125

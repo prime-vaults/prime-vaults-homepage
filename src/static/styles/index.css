@@ -69,7 +69,7 @@
 }
 
 body {
-  @apply normal-case;
+  @apply normal-case overflow-x-hidden;
   /* font-family: 'Geist Mono', monospace; */
   font-family: 'Space Grotesk', sans-serif;
 }

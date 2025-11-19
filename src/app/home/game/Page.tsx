@@ -5,6 +5,7 @@ import I from '@/static/images/mini-game/I.png'
 import L from '@/static/images/mini-game/L.png'
 import T from '@/static/images/mini-game/T.png'
 import P from '@/static/images/mini-game/pipe-cross.png'
+import { GAME_COL, GAME_ROW } from './Pipeline/constant/game'
 
 export default function GamePage() {
   const gameRef = useRef<HTMLCanvasElement | null>(null)
@@ -42,8 +43,8 @@ export default function GamePage() {
       if (!gameRef.current) return
       gameInstance.current = new PipelineGame({
         canvas: gameRef.current,
-        row: 10,
-        col: 11,
+        row: GAME_ROW,
+        col: GAME_COL,
         imageMap,
         debug: false,
       })
@@ -73,7 +74,8 @@ export default function GamePage() {
       </div>
       <canvas
         ref={gameRef}
-        className="w-full md:w-1/2 h-auto aspect-square bg-base-100"
+        className="w-full md:w-11/12 h-auto bg-base-100"
+        style={{ aspectRatio: `${GAME_COL} / ${GAME_ROW}` }}
       />
     </div>
   )

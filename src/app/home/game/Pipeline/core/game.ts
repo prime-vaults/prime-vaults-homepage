@@ -266,20 +266,17 @@ export default class PipelineGame {
     const fromCenterY = from.getCenterY()
     const toCenterX = to.getCenterX()
     const toCenterY = to.getCenterY()
-    const fromRow = from.row!
-    const fromCol = from.col!
-    const toRow = to.row!
-    const toCol = to.col!
-    let direction: 'top' | 'bottom' | 'left' | 'right' | null = null
-    if (toCol < fromCol) {
-      direction = 'left'
-    } else if (toCol >= fromCol + from.occupiedCols) {
-      direction = 'right'
-    } else if (toRow < fromRow) {
-      direction = 'top'
-    } else if (toRow >= fromRow + from.occupiedRows) {
-      direction = 'bottom'
+
+    const dx = toCenterX - fromCenterX
+    const dy = toCenterY - fromCenterY
+
+    let direction: 'top' | 'bottom' | 'left' | 'right'
+    if (Math.abs(dx) > Math.abs(dy)) {
+      direction = dx > 0 ? 'right' : 'left'
+    } else {
+      direction = dy > 0 ? 'bottom' : 'top'
     }
+
     let fromX = fromCenterX
     let fromY = fromCenterY
     let toX = toCenterX
@@ -300,11 +297,12 @@ export default class PipelineGame {
           toY = to.y
           break
         case 'top':
-          toX = toCenterX
+          toX = fromCenterX
           toY = to.y + to.size
           break
       }
     }
+
     if (from.type !== 'normal') {
       switch (direction) {
         case 'right':
@@ -325,6 +323,7 @@ export default class PipelineGame {
           break
       }
     }
+
     return { fromX, fromY, toX, toY }
   }
 

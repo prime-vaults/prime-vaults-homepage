@@ -41,25 +41,29 @@ export const DEFAULT_CELLS: CellConfig[] = [
   [4, 10, 'I'],
 
   [5, 6, 'I'],
+  [5, 10, 'T'],
 
   [6, 4, 'T'],
   [6, 5, 'I'],
   [6, 6, 'T'],
+  [6, 10, 'T'],
 
   [7, 3, 'T'],
   [7, 4, 'T'],
   [7, 5, 'I'],
   [7, 6, 'T'],
+  [7, 10, 'T'],
 
   [8, 3, 'T'],
-  [8, 6, 'I'],
+  // [8, 6, 'I'],
+  [8, 6, 'L'],
+  [8, 7, 'I'],
+  [8, 8, 'I'],
+  [8, 9, 'T'],
+  [8, 10, 'T'],
 
   [9, 2, 'T'],
   [9, 3, 'T'],
-  [9, 6, 'L'],
-  [9, 7, 'I'],
-  [9, 8, 'I'],
-  [9, 9, 'L'],
 
   [10, 1, 'T'],
   [10, 2, 'T'],
@@ -96,9 +100,9 @@ export const DEFAULT_CELLS: CellConfig[] = [
     col: 5,
     row: 7,
     type: 'end',
-    connections: ['left', 'top', 'right'],
-    sizeMultiplier: 4,
-    occupiedRows: 4,
-    occupiedCols: 4,
+    connections: ['left', 'top', 'right', 'bottom'],
+    sizeMultiplier: 3,
+    occupiedRows: 3,
+    occupiedCols: 3,
   },
 ]

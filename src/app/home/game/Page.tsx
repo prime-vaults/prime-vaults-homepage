@@ -63,7 +63,7 @@ export default function GamePage() {
       </div>
       <canvas
         ref={gameRef}
-        className="w-1/2 h-auto aspect-square bg-base-100"
+        className="w-full md:w-1/2 h-auto aspect-square bg-base-100"
       />
     </div>
   )

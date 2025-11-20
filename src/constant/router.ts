@@ -1,11 +1,8 @@
 export enum RouterKeys {
   Home = '/',
-  Vaults = 'vaults',
   TermOfUse = 'term-of-use',
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
-  Point = 'point',
-  Portfolio = 'portfolio',
 }
 
 export type RouterParams = Record<string, string | number | undefined>
@@ -25,17 +22,10 @@ function buildQuery(params?: RouterParams) {
 
 export const CoreRoutes = {
   home: (params?: RouterParams) => `${RouterKeys.Home}${buildQuery(params)}`,
-  vaults: (params?: RouterParams) =>
-    `/${RouterKeys.Vaults}${buildQuery(params)}`,
-  vaultDetails: (vaultId: string | number, params?: RouterParams) =>
-    `/${RouterKeys.Vaults}/${vaultId}${buildQuery(params)}`,
-  portfolio: (params?: RouterParams) =>
-    `/${RouterKeys.Portfolio}${buildQuery(params)}`,
   termOfUse: (params?: RouterParams) =>
     `/${RouterKeys.TermOfUse}${buildQuery(params)}`,
   privacyPolicy: (params?: RouterParams) =>
     `/${RouterKeys.PrivacyPolicy}${buildQuery(params)}`,
   brandKit: (params?: RouterParams) =>
     `/${RouterKeys.BrandKit}${buildQuery(params)}`,
-  point: (params?: RouterParams) => `/${RouterKeys.Point}${buildQuery(params)}`,
 }

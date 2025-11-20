@@ -5,12 +5,9 @@ import PageContainer from '@/app/Page'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { RouterKeys } from '@/constant/router'
-import { vaultRoutes } from './vaults.routers'
-import { pointRoutes } from './point.routers'
 import { brandKitRoutes } from './brand-kit.routers'
 import { policyRoutes } from './policy.routers'
 import { termRoutes } from './term.routers'
-import { portfolioRoutes } from './portfolio.routers'
 
 export const routes = createBrowserRouter([
   {
@@ -22,12 +19,9 @@ export const routes = createBrowserRouter([
     ),
     children: [
       { index: true, element: <PageContainer /> },
-      vaultRoutes,
-      pointRoutes,
       brandKitRoutes,
       policyRoutes,
       termRoutes,
-      portfolioRoutes,
     ],
     ErrorBoundary,
   },

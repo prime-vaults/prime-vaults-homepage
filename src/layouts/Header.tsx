@@ -10,9 +10,9 @@ import { CoreRoutes } from '@/constant/router'
 import { shortenString } from '@/helpers/utils'
 
 const MENUS: { label: string; path: string }[] = [
-  { label: 'Vaults', path: CoreRoutes.vaults() },
-  { label: 'Portfolio', path: CoreRoutes.portfolio() },
-  { label: 'Prime Point', path: CoreRoutes.point() },
+  { label: 'Vaults', path: '#' },
+  { label: 'Portfolio', path: '#' },
+  { label: 'Prime Point', path: '#' },
 ]
 
 function HeaderLayout() {

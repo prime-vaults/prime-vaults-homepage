@@ -1,88 +1,31 @@
 import { CellConfig } from '../types/square'
 
 export const DEFAULT_CELLS: CellConfig[] = [
-  // line 1
+  // Start point
   {
-    col: 0,
-    row: 0,
+    col: 1,
+    row: 2,
     type: 'start',
-    connections: ['right', 'bottom'],
+    connections: ['right', 'bottom', 'top'],
   },
-  [0, 1, 'I'],
-  [0, 2, 'I'],
-  [0, 3, '+'],
-  [0, 4, 'I'],
-  [0, 5, 'T'],
-  [0, 6, 'T'],
-  [0, 7, 'I'],
-  [0, 8, 'T'],
-  [0, 9, 'I'],
-  [0, 10, 'L'],
-
-  [1, 3, 'L'],
-  [1, 4, 'L'],
-  [1, 6, 'I'],
-  [1, 10, 'I'],
-
-  [2, 4, 'T'],
-  [2, 5, 'L'],
-  [2, 6, 'T'],
-  [2, 10, 'T'],
-
-  [3, 4, 'T'],
-  [3, 5, 'T'],
-  [3, 6, 'I'],
-  [3, 9, 'L'],
-  [3, 10, 'T'],
-
-  [4, 1, 'I'],
-  [4, 2, 'I'],
-  [4, 3, '+'],
-  [4, 6, 'I'],
-  [4, 7, 'I'],
-  [4, 8, 'T'],
-  [4, 9, 'L'],
-  [4, 10, 'I'],
-
-  [5, 6, 'I'],
-  [5, 10, 'T'],
-
-  [6, 4, 'T'],
-  [6, 5, 'I'],
-  [6, 6, 'T'],
-  [6, 10, 'T'],
-
-  [7, 3, 'T'],
-  [7, 4, 'T'],
-  [7, 5, 'I'],
-  [7, 6, 'T'],
-  [7, 10, 'T'],
-
-  [8, 3, 'T'],
-  // [8, 6, 'I'],
-  [8, 6, 'L'],
-  [8, 7, 'I'],
-  [8, 8, 'I'],
-  [8, 9, 'T'],
-  [8, 10, 'T'],
-
-  [9, 2, 'T'],
-  [9, 3, 'T'],
-
-  [10, 1, 'T'],
-  [10, 2, 'T'],
-
-  // line 2
   {
-    col: 4,
-    row: 0,
+    col: 7,
+    row: 1,
     type: 'start',
     connections: ['right', 'bottom', 'left'],
   },
 
   {
-    col: 4,
-    row: 4,
+    col: 12,
+    row: 1,
+    type: 'start',
+    connections: ['left', 'bottom', 'right'],
+  },
+
+  // waypoint
+  {
+    col: 10,
+    row: 3,
     type: 'waypoint',
     connections: ['left', 'top', 'bottom', 'right'],
     point: 20,
@@ -90,19 +33,60 @@ export const DEFAULT_CELLS: CellConfig[] = [
     occupiedRows: 2,
     occupiedCols: 2,
   },
-  // line waipoint to end
 
-  {
-    row: 0,
-    col: 10,
-    type: 'start',
-    connections: ['left', 'bottom'],
-  },
+  // pipe line
+  [1, 3, 'I'],
+  [1, 4, 'T'],
+  [1, 5, 'I'],
+  [1, 6, 'L'],
 
-  // end
+  // [2, 3, 'T'],
+  [2, 4, 'I'],
+  [2, 6, 'T'],
+  [2, 7, 'L'],
+
+  [3, 3, 'T'],
+  [3, 4, 'L'],
+  [3, 5, 'L'],
+  [3, 6, 'I'],
+  [3, 7, 'I'],
+
+  [4, 2, 'L'],
+  [4, 3, 'L'],
+  [4, 5, 'L'],
+  [4, 6, '+'],
+
+  [5, 2, 'T'],
+
+  [6, 2, 'I'],
+
+  [7, 2, '+'],
+  [7, 3, 'T'],
+  [7, 4, 'L'],
+
+  [8, 3, 'L'],
+  [8, 4, 'L'],
+  [8, 7, 'I'],
+
+  [9, 4, 'I'],
+  [9, 6, 'T'],
+  [9, 7, 'L'],
+
+  [10, 5, '+'],
+  [10, 6, 'L'],
+
+  [11, 2, 'L'],
+  [11, 5, 'I'],
+
+  [12, 2, 'T'],
+  [12, 3, 'I'],
+  [12, 4, 'I'],
+  [12, 5, 'L'],
+
+  // end point
   {
     col: 5,
-    row: 7,
+    row: 5,
     type: 'end',
     connections: ['left', 'top', 'right', 'bottom'],
     sizeMultiplier: 3,

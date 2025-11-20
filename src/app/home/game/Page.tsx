@@ -74,7 +74,7 @@ export default function GamePage() {
       </div>
       <canvas
         ref={gameRef}
-        className="w-full md:w-11/12 h-auto bg-base-100"
+        className="w-full md:w-8/12 h-auto bg-base-100"
         style={{ aspectRatio: `${GAME_COL} / ${GAME_ROW}` }}
       />
     </div>

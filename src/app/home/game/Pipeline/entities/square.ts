@@ -84,6 +84,12 @@ export default class Square {
     if (type === 'normal') {
       this.pipeType = pipeType
       this.connections = PIPE_CONNECTIONS[pipeType]
+
+      // Random rotate 0-3 lần khi khởi tạo
+      const randomRotations = Math.floor(Math.random() * 4) // 0, 1, 2, hoặc 3
+      for (let i = 0; i < randomRotations; i++) {
+        this.rotate()
+      }
     } else {
       this.connections = 0
       connections.forEach((d) => {

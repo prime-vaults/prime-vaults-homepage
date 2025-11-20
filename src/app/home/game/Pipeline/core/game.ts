@@ -1,6 +1,5 @@
 import ActionManager from './action'
 import Square from '../entities/square'
-import { DEFAULT_CELLS } from '../constant'
 import {
   PIPE_POINT,
   WATER_ANIMATION_FILLING_SPEED,
@@ -8,9 +7,13 @@ import {
 } from '../constant/game'
 import { checkPipeline } from '../utils'
 import { SquareOptions } from '../types/square'
-import { GENERATED_CELLS } from '../utils/pipeline'
-import { FlowAnimation, PipelineGameConfig } from '../types/game'
-import { VisualEffect } from '../types/visual'
+
+import {
+  FlowAnimation,
+  GameResult,
+  PipelineGameConfig,
+  VisualEffect,
+} from '../types/game'
 import { PIPE_WIDTH_RATIO } from '../constant/pipe'
 
 export default class PipelineGame {
@@ -20,6 +23,7 @@ export default class PipelineGame {
   height: number
   config: PipelineGameConfig
   dpr: number
+  results: GameResult[] = []
 
   public entities: Square[] = []
   private lastTime = 0
@@ -57,13 +61,7 @@ export default class PipelineGame {
   }
 
   private _initEntities() {
-    const {
-      row,
-      col,
-      activeCells = DEFAULT_CELLS || GENERATED_CELLS,
-      debug = false,
-      imageMap,
-    } = this.config
+    const { row, col, activeCells, debug = false, imageMap } = this.config
     const sizeW = this.width / col
     const sizeH = this.height / row
     const size = Math.min(sizeW, sizeH)
@@ -331,9 +329,7 @@ export default class PipelineGame {
     return { fromX, fromY, toX, toY }
   }
 
-  // Callback khi animation reach square mới
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _onReachSquare(square: Square, _anim: FlowAnimation) {
+  private _onReachSquare(square: Square, anim: FlowAnimation) {
     const x = square.x + square.size / 2
     const y = square.y + square.size / 2
 
@@ -344,6 +340,9 @@ export default class PipelineGame {
         color: 'green',
         duration: 1400,
       })
+
+    if (square.type === 'end' || square.type === 'waypoint')
+      this._addResults(anim, square)
     // this._addHighlightEffect(square, 800)
   }
 
@@ -370,6 +369,19 @@ export default class PipelineGame {
       startTime: performance.now(),
       progress: 0,
     })
+  }
+
+  private _addResults(anim: FlowAnimation, square: Square) {
+    if (!anim.count) return
+    this.ctx.save()
+
+    this.results.push({
+      count: anim.count,
+      point: anim.point || 0,
+      path: anim.path,
+      square,
+    })
+    this.ctx.restore()
   }
 
   // private _addHighlightEffect(square: Square, duration: number = 800) {
@@ -455,6 +467,22 @@ export default class PipelineGame {
     this.ctx.restore()
   }
 
+  private _renderResult(params: GameResult, idx: number) {
+    if (!params) return
+    this.ctx.save()
+
+    const x = params.square.x
+    const y = params.square.x
+
+    this.ctx.font = `bold 24px 'Space Grotesk', sans-serif`
+    this.ctx.fillStyle = '#141510'
+    this.ctx.textAlign = 'start'
+    this.ctx.textBaseline = 'middle'
+    this.ctx.fillText(`${params.point}`, x, y + idx * 24)
+
+    this.ctx.restore()
+  }
+
   addSquare(options: SquareOptions) {
     const square = new Square({ ...options, imageMap: this.config.imageMap })
     this.entities.push(square)
@@ -478,14 +506,15 @@ export default class PipelineGame {
     this.flowAnimations.forEach((anim) => {
       this._renderFlowAnimation(anim)
     })
-
+    this.results.forEach((r, idx) => this._renderResult(r, idx))
     this._renderVisualEffects()
   }
 
   check() {
+    this.results = []
     this.flowAnimations = []
     const rs = checkPipeline(this.entities)
-    rs.forEach((result) => this._drawFlowAnimation(result, 'filling'))
+    rs.forEach((r) => this._drawFlowAnimation(r, 'filling'))
   }
 
   reset() {

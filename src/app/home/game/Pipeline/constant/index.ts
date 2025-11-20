@@ -1,4 +1,9 @@
 import { CellConfig } from '../types/square'
+import V from '@/static/images/mini-game/vaullt.png'
+import S from '@/static/images/mini-game/strategy.png'
+import BTC from '@/static/images/intro/factory/btc.png'
+import ETH from '@/static/images/intro/factory/eth.png'
+import USD from '@/static/images/intro/factory/usd.png'
 
 export const DEFAULT_CELLS: CellConfig[] = [
   // Start point
@@ -7,12 +12,14 @@ export const DEFAULT_CELLS: CellConfig[] = [
     row: 2,
     type: 'start',
     connections: ['right', 'bottom', 'top'],
+    backgroundImage: BTC,
   },
   {
     col: 7,
     row: 1,
     type: 'start',
     connections: ['right', 'bottom', 'left'],
+    backgroundImage: ETH,
   },
 
   {
@@ -20,6 +27,7 @@ export const DEFAULT_CELLS: CellConfig[] = [
     row: 1,
     type: 'start',
     connections: ['left', 'bottom', 'right'],
+    backgroundImage: USD,
   },
 
   // waypoint
@@ -32,6 +40,7 @@ export const DEFAULT_CELLS: CellConfig[] = [
     sizeMultiplier: 2,
     occupiedRows: 2,
     occupiedCols: 2,
+    backgroundImage: S,
   },
 
   // pipe line
@@ -92,5 +101,6 @@ export const DEFAULT_CELLS: CellConfig[] = [
     sizeMultiplier: 3,
     occupiedRows: 3,
     occupiedCols: 3,
+    backgroundImage: V,
   },
 ]

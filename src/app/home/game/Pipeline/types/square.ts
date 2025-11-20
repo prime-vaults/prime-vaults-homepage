@@ -18,6 +18,7 @@ export interface SquareOptions {
   sizeMultiplier?: number
   occupiedRows?: number
   occupiedCols?: number
+  backgroundImage?: string
 }
 export interface EndpointCell {
   row: number
@@ -26,6 +27,7 @@ export interface EndpointCell {
   connections: Direction[]
   point?: PipePoint
   sizeMultiplier?: number
+  backgroundImage?: SquareOptions['backgroundImage']
   occupiedRows?: number
   occupiedCols?: number
 }

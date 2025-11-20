@@ -40,6 +40,7 @@ export default class Square {
   col?: number
   imageMap?: Partial<Record<PipeType, HTMLImageElement>>
   point: number
+  backgroundImage?: SquareOptions['backgroundImage']
 
   // New properties
   sizeMultiplier: number // Nhân size
@@ -60,6 +61,7 @@ export default class Square {
       sizeMultiplier = 1,
       occupiedRows = 1,
       occupiedCols = 1,
+      backgroundImage,
     } = props
 
     this.baseSize = size
@@ -78,6 +80,7 @@ export default class Square {
     this.rotation = 0
     this.col = props.col
     this.row = props.row
+    this.backgroundImage = backgroundImage
 
     this.point = point ?? DEFAULT_SQUARE_POINTS[type]
 
@@ -131,14 +134,11 @@ export default class Square {
       return
     }
 
-    ctx.fillStyle =
-      this.type === 'start'
-        ? 'green'
-        : this.type === 'end'
-        ? 'red'
-        : this.type === 'waypoint'
-        ? 'orange'
-        : '#333'
+    if (this.backgroundImage) {
+      const bgImg = new Image()
+      bgImg.src = this.backgroundImage
+      return ctx.drawImage(bgImg, -s / 2, -s / 2, s, s)
+    }
 
     switch (this.pipeType) {
       case 'I':

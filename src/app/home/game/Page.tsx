@@ -5,7 +5,11 @@ import I from '@/static/images/mini-game/I.png'
 import L from '@/static/images/mini-game/L.png'
 import T from '@/static/images/mini-game/T.png'
 import P from '@/static/images/mini-game/pipe-cross.png'
+import V from '@/static/images/mini-game/vaullt.png'
+import S from '@/static/images/mini-game/strategy.png'
+import P2 from '@/static/images/mini-game/pipe-c.png'
 import { GAME_COL, GAME_ROW } from './Pipeline/constant/game'
+import { DEFAULT_CELLS } from './Pipeline/constant'
 
 export default function GamePage() {
   const gameRef = useRef<HTMLCanvasElement | null>(null)
@@ -27,6 +31,9 @@ export default function GamePage() {
       loadImage(L),
       loadImage(T),
       loadImage(P),
+      loadImage(V),
+      loadImage(S),
+      loadImage(P2),
     ])
   }, [loadImage])
 
@@ -41,11 +48,13 @@ export default function GamePage() {
       const [I, L, T, P] = await preloadImages()
       const imageMap = { T, L, I, '+': P }
       if (!gameRef.current) return
+
       gameInstance.current = new PipelineGame({
         canvas: gameRef.current,
         row: GAME_ROW,
         col: GAME_COL,
         imageMap,
+        activeCells: DEFAULT_CELLS,
         debug: false,
       })
     }
@@ -74,7 +83,7 @@ export default function GamePage() {
       </div>
       <canvas
         ref={gameRef}
-        className="w-full md:w-8/12 h-auto bg-base-100"
+        className="w-full md:w-11/12 h-auto bg-base-100"
         style={{ aspectRatio: `${GAME_COL} / ${GAME_ROW}` }}
       />
     </div>

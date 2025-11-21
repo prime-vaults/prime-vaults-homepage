@@ -31,5 +31,5 @@ export interface EndpointCell {
   occupiedRows?: number
   occupiedCols?: number
 }
-export type NormalCell = [number, number, PipeType]
+export type NormalCell = [number, number, PipeType, number]
 export type CellConfig = NormalCell | EndpointCell

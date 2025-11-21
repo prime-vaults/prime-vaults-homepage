@@ -69,7 +69,7 @@ export default class PipelineGame {
     const size = Math.min(sizeW, sizeH)
     for (const cell of activeCells!) {
       if (Array.isArray(cell)) {
-        const [c, r, pipeType] = cell
+        const [c, r, pipeType, point] = cell
         this.addSquare({
           x: c * size,
           y: r * size,
@@ -80,7 +80,7 @@ export default class PipelineGame {
           imageMap,
           row: r,
           col: c,
-          point: PIPE_POINT,
+          point,
         })
         continue
       }
@@ -432,12 +432,13 @@ export default class PipelineGame {
 
   private _renderTextEffect(effect: VisualEffect & { type: 'text' }) {
     this.ctx.save()
+    const fs = this.width * 0.018
 
     if (effect.animationType === 'fadeUp') {
       const alpha = 1 - effect.progress
       const offsetY = effect.progress * 40
 
-      this.ctx.font = `${effect.fontSize}px ${effect.fontWeight} Space Grotesk, sans-serif`
+      this.ctx.font = `${fs}px ${effect.fontWeight} Space Grotesk, sans-serif`
       this.ctx.fillStyle = effect.color.includes('rgba')
         ? effect.color
         : effect.color.replace(')', `, ${alpha})`).replace('rgb', 'rgba')
@@ -458,7 +459,7 @@ export default class PipelineGame {
       this.ctx.rotate(rotation)
       this.ctx.scale(scale, scale)
 
-      this.ctx.font = `bold ${effect.fontSize}px Arial`
+      this.ctx.font = `bold ${fs}px Arial`
       this.ctx.globalAlpha = alpha
       this.ctx.fillStyle = effect.color
       this.ctx.textAlign = 'center'
@@ -498,7 +499,8 @@ export default class PipelineGame {
     square.update(0, { h, y: square.y + square.size - h })
 
     // point
-    this.ctx.font = `bold 24px 'Space Grotesk', sans-serif`
+    const fs = this.width * 0.018
+    this.ctx.font = `bold ${fs}px 'Space Grotesk', sans-serif`
     this.ctx.fillStyle = totalRatio < 0.6 ? '#fff' : '#141510'
     this.ctx.globalAlpha = alpha
     this.ctx.textAlign = 'center'

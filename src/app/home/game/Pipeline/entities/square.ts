@@ -49,6 +49,10 @@ export default class Square {
   occupiedRows: number
   occupiedCols: number
 
+  // Cache loaded images
+  private waterImage?: HTMLImageElement
+  private backgroundImageElement?: HTMLImageElement
+
   constructor(props: SquareOptions) {
     const {
       x = 0,
@@ -86,6 +90,9 @@ export default class Square {
 
     this.point = point ?? DEFAULT_SQUARE_POINTS[type]
 
+    // Preload images ngay khi khởi tạo
+    this._preloadImages()
+
     if (type === 'normal') {
       this.pipeType = pipeType
       this.connections = PIPE_CONNECTIONS[pipeType]
@@ -100,6 +107,20 @@ export default class Square {
       connections.forEach((d) => {
         this.connections |= DIRECTION_BIT[d]
       })
+    }
+  }
+
+  private _preloadImages() {
+    // Preload water image cho end type
+    if (this.type === 'end') {
+      this.waterImage = new Image()
+      this.waterImage.src = W
+    }
+
+    // Preload background image
+    if (this.backgroundImage) {
+      this.backgroundImageElement = new Image()
+      this.backgroundImageElement.src = this.backgroundImage
     }
   }
 
@@ -136,19 +157,26 @@ export default class Square {
       return
     }
 
-    // draw water
-    if (this.type === 'end') {
-      const i = new Image()
-      i.src = W
-      ctx.drawImage(i, -s / 2, s / 2 - this.waterHeight, s, this.waterHeight)
+    if (
+      this.type === 'end' &&
+      this.waterImage?.complete &&
+      this.waterHeight > 0
+    ) {
+      ctx.drawImage(
+        this.waterImage,
+        -s / 2,
+        s / 2 - this.waterHeight,
+        s,
+        this.waterHeight,
+      )
     }
 
-    if (this.backgroundImage) {
-      const bgImg = new Image()
-      bgImg.src = this.backgroundImage
-      return ctx.drawImage(bgImg, -s / 2, -s / 2, s, s)
+    if (this.backgroundImage && this.backgroundImageElement?.complete) {
+      ctx.drawImage(this.backgroundImageElement, -s / 2, -s / 2, s, s)
+      return
     }
 
+    // Fallback: Draw colored rectangles if images not loaded
     switch (this.pipeType) {
       case 'I':
         ctx.fillRect(-w / 2, -s / 2, w, s)

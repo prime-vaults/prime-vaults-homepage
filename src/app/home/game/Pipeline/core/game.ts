@@ -4,6 +4,7 @@ import {
   PIPE_POINT,
   WATER_ANIMATION_FILLING_SPEED,
   WATER_ANIMATION_FLOWING_SPEED,
+  WAYPOINT,
 } from '../constant/game'
 import { checkPipeline } from '../utils'
 import { SquareOptions } from '../types/square'
@@ -15,6 +16,7 @@ import {
   VisualEffect,
 } from '../types/game'
 import { PIPE_WIDTH_RATIO } from '../constant/pipe'
+import { numericFormat } from '@/helpers/utils'
 
 export default class PipelineGame {
   canvas: HTMLCanvasElement
@@ -341,8 +343,7 @@ export default class PipelineGame {
         duration: 1400,
       })
 
-    if (square.type === 'end' || square.type === 'waypoint')
-      this._addResults(anim, square)
+    if (square.type === 'end') this._addResults(anim, square)
     // this._addHighlightEffect(square, 800)
   }
 
@@ -380,6 +381,7 @@ export default class PipelineGame {
       point: anim.point || 0,
       path: anim.path,
       square,
+      timestamp: Date.now(),
     })
     this.ctx.restore()
   }
@@ -467,18 +469,45 @@ export default class PipelineGame {
     this.ctx.restore()
   }
 
-  private _renderResult(params: GameResult, idx: number) {
-    if (!params) return
+  private _renderResult() {
+    if (!this.results || !this.results.length) return
     this.ctx.save()
+    const params = this.results[0]
+    const DURATION = 1500
+    const square = params.square
 
-    const x = params.square.x
-    const y = params.square.x
+    const totalPoint = this.results.reduce((a, b) => a + b.point, 0)
+    const totalPipeCount = this.results.reduce((a, b) => {
+      const wp = b.path.filter((p) => p.type === 'waypoint')
+      const m = wp.length
+      const mse = 2 // trừ 2 điểm của start và end
+      return a + (b.count - (mse + m))
+    }, 0)
+    const totalPipePoint = totalPipeCount * PIPE_POINT + WAYPOINT * 3
+    const totalRatio = totalPoint / totalPipePoint
 
+    const ttl = params.timestamp - (Date.now() - DURATION)
+    const ratio = Math.max(ttl / DURATION, 0)
+
+    const x = square.x + square.size / 2
+    const y = square.y + square.size / 2 + ratio
+    const alpha = 1 - ratio
+
+    // endpoint: water effect
+    const h = square.size * alpha * totalRatio
+    square.update(0, { h, y: square.y + square.size - h })
+
+    // point
     this.ctx.font = `bold 24px 'Space Grotesk', sans-serif`
-    this.ctx.fillStyle = '#141510'
-    this.ctx.textAlign = 'start'
+    this.ctx.fillStyle = totalRatio < 0.6 ? '#fff' : '#141510'
+    this.ctx.globalAlpha = alpha
+    this.ctx.textAlign = 'center'
     this.ctx.textBaseline = 'middle'
-    this.ctx.fillText(`${params.point}`, x, y + idx * 24)
+    this.ctx.fillText(
+      `${numericFormat(Math.min(totalRatio * 100, 100))}%`,
+      x,
+      y,
+    )
 
     this.ctx.restore()
   }
@@ -506,7 +535,7 @@ export default class PipelineGame {
     this.flowAnimations.forEach((anim) => {
       this._renderFlowAnimation(anim)
     })
-    this.results.forEach((r, idx) => this._renderResult(r, idx))
+    this._renderResult()
     this._renderVisualEffects()
   }
 
@@ -518,6 +547,11 @@ export default class PipelineGame {
   }
 
   reset() {
+    // reset inside
+    this.entities.forEach((e) => {
+      if (e.type === 'end') e.reset()
+    })
+    // clear state
     this.entities = []
     this.flowAnimations = []
     this.visualEffects = []

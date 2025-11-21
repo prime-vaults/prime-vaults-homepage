@@ -51,4 +51,5 @@ export interface GameResult {
   point: number
   path: Square[]
   square: Square
+  timestamp: number
 }

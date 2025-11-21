@@ -60,7 +60,7 @@ export default function YieldFlowPage() {
         <div className="col-span-2 md:col-span-2 relative flex flex-col items-center">
           <div className="absolute w-fit md:w-full top-0 right-0 -translate-y-full px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-20">
             <p className="text-xs text-primary text-center text-nowrap whitespace-nowrap">
-              Cross-assets Vaults
+              Unified Asset Vault
             </p>
           </div>
           <img
@@ -84,7 +84,7 @@ export default function YieldFlowPage() {
           />
           <div className="w-full bg-primary p-2 md:p-6 rounded-2xl">
             <p className="text-xs md:text-sm text-black text-center font-medium">
-              Assets are matched with each other to execute the yield strategy.
+              Assets are combined to execute unified yield strategies.
             </p>
           </div>
           <div className="block md:hidden col-span-2 md:origin-left self-center">
@@ -98,9 +98,7 @@ export default function YieldFlowPage() {
               Yield resources
             </p>
             <div className="w-full bg-primary rounded-lg">
-              <p className="text-sm text-black text-center">
-                Dex Lending Staking
-              </p>
+              <p className="text-sm text-black text-center">Yield Protocols</p>
             </div>
           </div>
           {/* stroke */}
@@ -134,7 +132,7 @@ export default function YieldFlowPage() {
             />
             <div className="absolute w-fit h-fit bottom-1/6 md:top-1/2 right-0 -translate-x-1/2 md:translate-x-full z-10">
               <p className="text-xs text-center text-nowrap whitespace-nowrap">
-                Compounding
+                Redistribute
               </p>
             </div>
           </div>
@@ -164,7 +162,7 @@ export default function YieldFlowPage() {
           </div>
           <div className="w-full bg-primary px-4 rounded-2xl py-10">
             <p className="text-black font-medium text-center">
-              Dex Lending Staking
+              Yield Protocols
             </p>
           </div>
           <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md mt-1">

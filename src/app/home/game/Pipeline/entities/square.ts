@@ -1,5 +1,7 @@
+import { END_POINT, PIPE_POINT, START_POINT, WAYPOINT } from '../constant/game'
 import { PIPE_WIDTH_RATIO } from '../constant/pipe'
 import { Direction, PipeType, SquareOptions, SquareType } from '../types/square'
+import W from '@/static/images/mini-game/water.png'
 
 export const DIRECTION_BIT: Record<Direction, number> = {
   top: 1 << 0, // 0001
@@ -20,10 +22,10 @@ export const PIPE_CONNECTIONS: Record<PipeType, number> = {
 }
 
 export const DEFAULT_SQUARE_POINTS: Record<SquareType, number> = {
-  normal: 2,
-  start: 0,
-  end: 0,
-  waypoint: 10,
+  normal: PIPE_POINT,
+  start: START_POINT,
+  end: END_POINT,
+  waypoint: WAYPOINT,
 }
 
 export default class Square {
@@ -41,11 +43,11 @@ export default class Square {
   imageMap?: Partial<Record<PipeType, HTMLImageElement>>
   point: number
   backgroundImage?: SquareOptions['backgroundImage']
+  waterHeight: number = 0
 
-  // New properties
-  sizeMultiplier: number // Nhân size
-  occupiedRows: number // Số rows chiếm
-  occupiedCols: number // Số cols chiếm
+  sizeMultiplier: number
+  occupiedRows: number
+  occupiedCols: number
 
   constructor(props: SquareOptions) {
     const {
@@ -134,6 +136,13 @@ export default class Square {
       return
     }
 
+    // draw water
+    if (this.type === 'end') {
+      const i = new Image()
+      i.src = W
+      ctx.drawImage(i, -s / 2, s / 2 - this.waterHeight, s, this.waterHeight)
+    }
+
     if (this.backgroundImage) {
       const bgImg = new Image()
       bgImg.src = this.backgroundImage
@@ -212,9 +221,8 @@ export default class Square {
     this.rotate()
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(_dt: number) {
-    // update logic
+  update(_dt: number, configs?: { [key: string]: any }) {
+    if (configs) this.waterHeight = configs.h
   }
 
   // Helper: Get center position for connections
@@ -235,5 +243,9 @@ export default class Square {
       col >= this.col &&
       col < this.col + this.occupiedCols
     )
+  }
+
+  reset() {
+    this.waterHeight = 0
   }
 }

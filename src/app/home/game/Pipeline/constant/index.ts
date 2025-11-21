@@ -4,6 +4,7 @@ import S from '@/static/images/mini-game/strategy.png'
 import BTC from '@/static/images/intro/factory/btc.png'
 import ETH from '@/static/images/intro/factory/eth.png'
 import USD from '@/static/images/intro/factory/usd.png'
+import { WAYPOINT } from './game'
 
 export const DEFAULT_CELLS: CellConfig[] = [
   // Start point
@@ -36,7 +37,7 @@ export const DEFAULT_CELLS: CellConfig[] = [
     row: 3,
     type: 'waypoint',
     connections: ['left', 'top', 'bottom', 'right'],
-    point: 20,
+    point: WAYPOINT,
     sizeMultiplier: 2,
     occupiedRows: 2,
     occupiedCols: 2,
@@ -45,12 +46,13 @@ export const DEFAULT_CELLS: CellConfig[] = [
 
   // pipe line
   [1, 3, 'I'],
-  [1, 4, 'T'],
-  [1, 5, 'I'],
+  [1, 4, 'L'],
+  [1, 5, 'T'],
   [1, 6, 'L'],
 
-  // [2, 3, 'T'],
-  [2, 4, 'I'],
+  [2, 3, 'T'],
+  [2, 4, 'L'],
+  [2, 5, 'L'],
   [2, 6, 'T'],
   [2, 7, 'L'],
 

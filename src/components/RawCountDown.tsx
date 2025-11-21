@@ -1,11 +1,10 @@
-import { HubComponentProps } from '@beraji/web3-sdk'
 import React, { useEffect, useState, useMemo } from 'react'
 
-type PropsType = HubComponentProps<{
+type PropsType = {
   finishAt: string
   className?: string
   onFinish?: () => void
-}>
+}
 
 export default function RawCountDown({
   finishAt,

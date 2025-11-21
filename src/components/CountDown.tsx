@@ -1,11 +1,9 @@
-import { HubComponentProps } from '@beraji/web3-sdk'
-
 import React, { useEffect, useState } from 'react'
 
-type PropsType = HubComponentProps<{
+type PropsType = {
   finishAt: number
   onFinish?: () => void
-}>
+}
 
 const CountDown = ({ finishAt, onFinish }: PropsType) => {
   const [timeLeft, setTimeLeft] = useState(finishAt - Date.now())

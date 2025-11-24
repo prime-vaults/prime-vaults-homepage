@@ -1,6 +1,6 @@
 import { useId, useMemo } from 'react'
 
-export default function StrokeV({
+export default function StrokeL({
   dur = '3s',
   begin = '4s',
   reverse = false,

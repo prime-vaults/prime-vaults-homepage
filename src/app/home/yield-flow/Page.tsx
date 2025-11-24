@@ -2,6 +2,7 @@ import BranchRight from './stroke/BranchRight'
 import BranchLeft from './stroke/BranchLeft'
 import StrokeVertical from './stroke/StrokeVertical'
 import StrokeHorizontal from './stroke/StrokeHorizontal'
+import StrokeL from './stroke/StrokeL'
 
 import USER from '@/static/images/yield/user.png'
 import FACTORY from '@/static/images/yield/factory.png'
@@ -12,7 +13,6 @@ import TOKEN_BERA from '@/static/images/yield/token-bera.png'
 import TOKEN_USDC from '@/static/images/yield/token-usdc.png'
 import VAULT from '@/static/images/yield/vault.png'
 import STAND from '@/static/images/yield/stand.svg'
-import StrokeV from './stroke/StrokeV'
 
 const TOKENS = [TOKEN_ETH, TOKEN_BTC, TOKEN_USDC, TOKEN_BERA]
 
@@ -103,7 +103,7 @@ export default function YieldFlowPage() {
           </div>
           {/* stroke */}
           <div className="block md:hidden absolute w-fit h-fit right-0 translate-x-[80%] top-0">
-            <StrokeV className="w-[45dvw] h-auto object-contain" />
+            <StrokeL className="w-[45dvw] h-auto object-contain" />
           </div>
         </div>
         {/* stroke */}

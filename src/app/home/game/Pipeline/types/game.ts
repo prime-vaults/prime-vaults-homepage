@@ -6,7 +6,7 @@ export interface PipelineGameConfig {
   debug?: boolean
   imageMap?: Partial<Record<string, HTMLImageElement>>
   activeCells?: CellConfig[]
-  onDone?: (ratio: number) => void
+  onDone?: (ratio: number, total: number) => void
   [key: string]: any
 }
 

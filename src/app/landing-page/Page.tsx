@@ -1,4 +1,6 @@
 import { Fragment, useState } from 'react'
+import { Link } from 'react-router'
+import clsx from 'clsx'
 
 import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
@@ -6,9 +8,10 @@ import Corner from '@/components/UI/Corner'
 import Modal from '@/components/UI/Modal'
 import GamePage from '../home/game/Page'
 
+import { CoreRoutes } from '@/constant/router'
+
 import ASSET from '@/static/images/landing-page/asset.png'
 import GAME from '@/static/images/landing-page/game.png'
-import clsx from 'clsx'
 
 export default function LandingPage() {
   const [start, setStart] = useState(false)
@@ -18,10 +21,9 @@ export default function LandingPage() {
     <Fragment>
       <Container innerClassName="border-none">
         <div className="flex flex-col p-4 gap-4 md:gap-6">
-          <img
-            className="self-center w-auto h-14 object-contain"
-            src="/logo.svg"
-          />
+          <Link to={CoreRoutes.home()} className="self-center">
+            <img className="w-auto h-14 object-contain" src="/logo.svg" />
+          </Link>
           <div className="flex flex-col gap-1 items-center justify-center">
             <p className="text-3xl md:text-7xl mb-6 md:mb-12">
               Be First to Earn
@@ -192,7 +194,6 @@ export default function LandingPage() {
           </div>
         </div>
       </Container>
-      {/* menu mobile */}
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="game-modal">
           <div

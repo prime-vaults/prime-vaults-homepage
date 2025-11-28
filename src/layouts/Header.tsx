@@ -13,6 +13,7 @@ const MENUS: { label: string; path: string }[] = [
   { label: 'Vaults', path: '#' },
   { label: 'Portfolio', path: '#' },
   { label: 'Prime Point', path: '#' },
+  { label: 'Closed-Beta', path: CoreRoutes.landing() },
 ]
 
 function HeaderLayout() {

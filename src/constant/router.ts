@@ -3,6 +3,7 @@ export enum RouterKeys {
   TermOfUse = 'term-of-use',
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
+  Landing = 'close-beta-registration',
 }
 
 export type RouterParams = Record<string, string | number | undefined>
@@ -28,4 +29,6 @@ export const CoreRoutes = {
     `/${RouterKeys.PrivacyPolicy}${buildQuery(params)}`,
   brandKit: (params?: RouterParams) =>
     `/${RouterKeys.BrandKit}${buildQuery(params)}`,
+  landing: (params?: RouterParams) =>
+    `/${RouterKeys.Landing}${buildQuery(params)}`,
 }

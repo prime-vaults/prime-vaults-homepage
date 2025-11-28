@@ -7,8 +7,6 @@ interface LayoutProps {
 }
 
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
-  return children
-
   return (
     <div className="min-h-screen flex flex-col">
       <HeaderLayout />

@@ -27,6 +27,7 @@ export default class PipelineGame {
   dpr: number
   results: GameResult[] = []
   totalRatio: number = 0
+  totalPipeLine: number = 0
 
   public entities: Square[] = []
   private lastTime = 0
@@ -488,7 +489,7 @@ export default class PipelineGame {
     const totalPipePoint = totalPipeCount * PIPE_POINT + WAYPOINT * 3
     const rsRatio = totalPoint / totalPipePoint
 
-    this.updateRatio(rsRatio)
+    this.updateRatio(rsRatio, this.results.length)
 
     const ttl = params.timestamp - (Date.now() - DURATION)
     const ratio = Math.max(ttl / DURATION, 0)
@@ -552,9 +553,11 @@ export default class PipelineGame {
     rs.forEach((r) => this._drawFlowAnimation(r, 'filling'))
   }
 
-  updateRatio(value = 0) {
+  updateRatio(value = 0, total = 0) {
     this.totalRatio = value
-    if (this.config.onDone) this.config.onDone(this.totalRatio)
+    this.totalPipeLine = total
+    if (this.config.onDone)
+      this.config.onDone(this.totalRatio, this.totalPipeLine)
   }
 
   reset() {

@@ -23,6 +23,7 @@ export default function GamePage({
   const gameRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<PipelineGame | null>(null)
   const [rsRatio, setRsRatio] = useState(0)
+  const [totalPath, setTotalPath] = useState(0)
   const [rsPercentage, setRsPercentage] = useState(0)
 
   useDebounce(
@@ -79,7 +80,10 @@ export default function GamePage({
         imageMap,
         activeCells: DEFAULT_CELLS,
         debug: false,
-        onDone: setRsRatio,
+        onDone: (ratio, total) => {
+          setRsRatio(ratio)
+          setTotalPath(total)
+        },
       })
     }
 
@@ -97,17 +101,26 @@ export default function GamePage({
           className="w-full h-auto"
           style={{ aspectRatio: `${GAME_COL} / ${GAME_ROW}` }}
         />
-        {rsRatio < 0 && (
-          <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-red-500">
+        {(rsRatio < 0 || (rsPercentage > 0 && totalPath < 3)) && (
+          <div className="absolute inset-0 flex flex-col gap-2 p-4 text-center items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-red-500">
             <p className="text-3xl font-medium">Failed</p>
+            <span>👉👉👉 Failed description here 👈👈👈</span>
+            <span>
+              Current percentage:{' '}
+              <b className="text-xl text-primary">
+                {numericFormat(Math.max(rsPercentage, 0) * 100)}%
+              </b>
+            </span>
             <Button className="btn btn-primary min-w-40" onClick={onReset}>
               Try again
             </Button>
           </div>
         )}
-        {rsPercentage > 0 && rsPercentage < 1 && (
-          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
-            <p className="text-3xl font-medium text-center">Nice done!</p>
+        {rsPercentage > 0 && rsPercentage < 1 && totalPath === 3 && (
+          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-md border border-primary">
+            <p className="text-3xl font-bold text-center uppercase">
+              Nice done!
+            </p>
             <span className="text-center max-w-2xl">
               You’ve discovered three correct routes, but the vault still isn’t
               fully optimized.To complete it, look for the route where all three
@@ -128,16 +141,17 @@ export default function GamePage({
           </div>
         )}
         {rsPercentage >= 1 && (
-          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
-            <p className="text-3xl font-medium text-center">
+          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-sm border border-primary">
+            <p className="text-3xl font-bold text-center uppercase">
               Congrats! You succeeded.
             </p>
             <span className="text-center max-w-2xl">
               The game shows how PrimeVaults works: instead of splitting assets
               into separate pools, it connects everything into one smart vault
               and hunts yield across the entire portfolio — that’s how it
-              reaches 100%.Want to maximize your earnings? Join us now
+              reaches 100%.
             </span>
+            <span>Want to maximize your earnings? Join us now</span>
             <div className="flex flex-col md:flex-row items-center gap-4 md:mt-8">
               <Button className="btn btn-outline @max-3xl:btn-block md:min-w-60">
                 Check Your Prime Points

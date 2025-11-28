@@ -1,8 +1,5 @@
-// import HomePage from './home/Page'
-
-import LandingPage from './landing-page/Page'
+import HomePage from './home/Page'
 
 export default function PageContainer() {
-  // return <HomePage />
-  return <LandingPage />
+  return <HomePage />
 }

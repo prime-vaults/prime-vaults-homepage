@@ -107,7 +107,7 @@ export default function GamePage({
         )}
         {rsPercentage > 0 && rsPercentage < 1 && (
           <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
-            <p className="text-3xl font-medium">Nice done!</p>
+            <p className="text-3xl font-medium text-center">Nice done!</p>
             <span className="text-center max-w-2xl">
               You’ve discovered three correct routes, but the vault still isn’t
               fully optimized.To complete it, look for the route where all three
@@ -129,7 +129,9 @@ export default function GamePage({
         )}
         {rsPercentage >= 1 && (
           <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
-            <p className="text-3xl font-medium">Congrats! You succeeded.</p>
+            <p className="text-3xl font-medium text-center">
+              Congrats! You succeeded.
+            </p>
             <span className="text-center max-w-2xl">
               The game shows how PrimeVaults works: instead of splitting assets
               into separate pools, it connects everything into one smart vault

@@ -259,3 +259,33 @@ input[type='number'] {
 .bg-repeating.bg-repeating-body {
   --bg-color: #121212;
 }
+
+/* Game - pipeline modal */
+.game-modal {
+  @apply relative flex flex-row min-h-[80dvh] md:min-h-auto rounded-2xl overflow-hidden;
+}
+.game-modal:has(.starting) #pipeline_game {
+  @apply translate-x-0;
+}
+.game-modal:has(.starting) #pipeline_game::after {
+  @apply hidden;
+}
+.game-mask {
+  @apply w-96 absolute left-0 top-0 h-full flex flex-col gap-1 bg-base-200 transition-all;
+}
+.game-mask.starting {
+  @apply -translate-x-96;
+}
+#pipeline_game {
+  @apply transition-all translate-x-96;
+}
+#pipeline_game::after {
+  content: '';
+  @apply absolute w-full h-full bg-base-300 opacity-85 pointer-events-none select-none z-50;
+}
+.modal-box:has(.game-modal) {
+  @apply max-w-5xl !rounded-2xl;
+}
+.modal-box svg.btn {
+  @apply hidden;
+}

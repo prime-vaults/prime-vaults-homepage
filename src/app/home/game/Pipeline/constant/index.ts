@@ -10,23 +10,23 @@ import USD from '@/static/images/intro/factory/usd.png'
 export const DEFAULT_CELLS: CellConfig[] = [
   // Start point
   {
-    col: 1,
-    row: 2,
+    col: 0,
+    row: 1,
     type: 'start',
     connections: ['right', 'bottom', 'top'],
     backgroundImage: BTC,
   },
   {
-    col: 7,
-    row: 1,
+    col: 6,
+    row: 0,
     type: 'start',
     connections: ['right', 'bottom', 'left'],
     backgroundImage: ETH,
   },
 
   {
-    col: 12,
-    row: 1,
+    col: 11,
+    row: 0,
     type: 'start',
     connections: ['left', 'bottom', 'right'],
     backgroundImage: USD,
@@ -34,8 +34,8 @@ export const DEFAULT_CELLS: CellConfig[] = [
 
   // waypoint
   {
-    col: 10,
-    row: 3,
+    col: 9,
+    row: 2,
     type: 'waypoint',
     connections: ['left', 'top', 'bottom', 'right'],
     point: WAYPOINT,
@@ -46,59 +46,59 @@ export const DEFAULT_CELLS: CellConfig[] = [
   },
 
   // pipe line
-  [1, 3, 'I', PIPE_POINT],
+  [0, 2, 'I', PIPE_POINT],
+  [0, 3, 'L', PIPE_POINT],
+  [0, 4, 'T', PIPE_POINT],
+  [0, 5, 'L', PIPE_POINT],
+
+  [1, 2, 'T', PIPE_POINT],
+  [1, 3, 'L', PIPE_POINT],
   [1, 4, 'L', PIPE_POINT],
   [1, 5, 'T', PIPE_POINT],
   [1, 6, 'L', PIPE_POINT],
 
-  [2, 3, 'T', PIPE_POINT],
+  [2, 2, 'T', PIPE_POINT],
+  [2, 3, 'L', PIPE_POINT],
   [2, 4, 'L', PIPE_POINT],
-  [2, 5, 'L', PIPE_POINT],
-  [2, 6, 'T', PIPE_POINT],
-  [2, 7, 'L', PIPE_POINT],
+  [2, 5, 'I', PIPE_POINT],
+  [2, 6, 'I', PIPE_POINT],
 
-  [3, 3, 'T', PIPE_POINT],
+  [3, 1, 'L', PIPE_POINT],
+  [3, 2, 'L', PIPE_POINT],
   [3, 4, 'L', PIPE_POINT],
-  [3, 5, 'L', PIPE_POINT],
-  [3, 6, 'I', PIPE_POINT],
-  [3, 7, 'I', PIPE_POINT],
+  [3, 5, '+', PIPE_POINT],
 
-  [4, 2, 'L', PIPE_POINT],
-  [4, 3, 'L', PIPE_POINT],
-  [4, 5, 'L', PIPE_POINT],
-  [4, 6, '+', PIPE_POINT],
+  [4, 1, 'T', PIPE_POINT],
 
-  [5, 2, 'T', PIPE_POINT],
+  [5, 1, 'I', PIPE_POINT],
 
-  [6, 2, 'I', PIPE_POINT],
+  [6, 1, '+', PIPE_POINT],
+  [6, 2, 'T', PIPE_POINT],
+  [6, 3, 'L', PIPE_POINT],
 
-  [7, 2, '+', PIPE_POINT],
-  [7, 3, 'T', PIPE_POINT],
-  [7, 4, 'L', PIPE_POINT],
+  [7, 2, 'L', PIPE_POINT],
+  [7, 3, 'L', PIPE_POINT],
+  [7, 6, 'I', PIPE_POINT],
 
-  [8, 3, 'L', PIPE_POINT],
-  [8, 4, 'L', PIPE_POINT],
-  [8, 7, 'I', PIPE_POINT],
+  [8, 3, 'I', PIPE_POINT],
+  [8, 5, 'T', PIPE_POINT],
+  [8, 6, 'L', PIPE_POINT],
 
-  [9, 4, 'I', PIPE_POINT],
-  [9, 6, 'T', PIPE_POINT],
-  [9, 7, 'L', PIPE_POINT],
+  [9, 4, '+', PIPE_POINT],
+  [9, 5, 'L', PIPE_POINT],
 
-  [10, 5, '+', PIPE_POINT],
-  [10, 6, 'L', PIPE_POINT],
+  [10, 1, 'L', PIPE_POINT],
+  [10, 4, 'I', PIPE_POINT],
 
-  [11, 2, 'L', PIPE_POINT],
-  [11, 5, 'I', PIPE_POINT],
-
-  [12, 2, 'T', PIPE_POINT],
-  [12, 3, 'I', PIPE_POINT],
-  [12, 4, 'I', PIPE_POINT],
-  [12, 5, 'L', PIPE_POINT],
+  [11, 1, 'T', PIPE_POINT],
+  [11, 2, 'I', PIPE_POINT],
+  [11, 3, 'I', PIPE_POINT],
+  [11, 4, 'L', PIPE_POINT],
 
   // end point
   {
-    col: 5,
-    row: 5,
+    col: 4,
+    row: 4,
     type: 'end',
     connections: ['left', 'top', 'right', 'bottom'],
     sizeMultiplier: 3,

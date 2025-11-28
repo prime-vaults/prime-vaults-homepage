@@ -26,6 +26,7 @@ export default class PipelineGame {
   config: PipelineGameConfig
   dpr: number
   results: GameResult[] = []
+  totalRatio: number = 0
 
   public entities: Square[] = []
   private lastTime = 0
@@ -485,7 +486,9 @@ export default class PipelineGame {
       return a + (b.count - (mse + m))
     }, 0)
     const totalPipePoint = totalPipeCount * PIPE_POINT + WAYPOINT * 3
-    const totalRatio = totalPoint / totalPipePoint
+    const rsRatio = totalPoint / totalPipePoint
+
+    this.updateRatio(rsRatio)
 
     const ttl = params.timestamp - (Date.now() - DURATION)
     const ratio = Math.max(ttl / DURATION, 0)
@@ -495,18 +498,18 @@ export default class PipelineGame {
     const alpha = 1 - ratio
 
     // endpoint: water effect
-    const h = square.size * alpha * totalRatio
+    const h = square.size * alpha * this.totalRatio
     square.update(0, { h, y: square.y + square.size - h })
 
     // point
     const fs = this.width * 0.018
     this.ctx.font = `bold ${fs}px 'Space Grotesk', sans-serif`
-    this.ctx.fillStyle = totalRatio < 0.6 ? '#fff' : '#141510'
+    this.ctx.fillStyle = this.totalRatio < 0.6 ? '#fff' : '#141510'
     this.ctx.globalAlpha = alpha
     this.ctx.textAlign = 'center'
     this.ctx.textBaseline = 'middle'
     this.ctx.fillText(
-      `${numericFormat(Math.min(totalRatio * 100, 100))}%`,
+      `${numericFormat(Math.min(this.totalRatio * 100, 100))}%`,
       x,
       y,
     )
@@ -545,7 +548,13 @@ export default class PipelineGame {
     this.results = []
     this.flowAnimations = []
     const rs = checkPipeline(this.entities)
+    if (!rs || !rs.length) this.updateRatio(-1)
     rs.forEach((r) => this._drawFlowAnimation(r, 'filling'))
+  }
+
+  updateRatio(value = 0) {
+    this.totalRatio = value
+    if (this.config.onDone) this.config.onDone(this.totalRatio)
   }
 
   reset() {
@@ -553,7 +562,11 @@ export default class PipelineGame {
     this.entities.forEach((e) => {
       if (e.type === 'end') e.reset()
     })
+
+    this.updateRatio()
+
     // clear state
+    this.results = []
     this.entities = []
     this.flowAnimations = []
     this.visualEffects = []

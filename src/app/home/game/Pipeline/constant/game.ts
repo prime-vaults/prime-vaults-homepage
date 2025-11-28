@@ -4,5 +4,5 @@ export const PIPE_POINT = 2
 export const START_POINT = 0
 export const END_POINT = 0
 export const WAYPOINT = 20
-export const GAME_COL = 14
-export const GAME_ROW = 9
+export const GAME_COL = 12
+export const GAME_ROW = 7

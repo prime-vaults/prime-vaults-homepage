@@ -1,19 +1,18 @@
 import clsx from 'clsx'
 import { useId, useMemo } from 'react'
 import { Link, useLocation } from 'react-router'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 import { Menu, X } from 'lucide-react'
 import Container from '@/components/UI/Container'
 
 import { CoreRoutes } from '@/constant/router'
-import { shortenString } from '@/helpers/utils'
+import ICON from '@/static/images/close-beta.png'
 
-const MENUS: { label: string; path: string }[] = [
-  { label: 'Vaults', path: '#' },
-  { label: 'Portfolio', path: '#' },
-  { label: 'Prime Point', path: '#' },
-  { label: 'Closed-Beta', path: CoreRoutes.landing() },
+const MENUS: { label?: string; path: string; icon?: string }[] = [
+  // { label: 'Vaults', path: '#' },
+  // { label: 'Portfolio', path: '#' },
+  // { label: 'Prime Point', path: '#' },
+  { icon: ICON, path: CoreRoutes.landing() },
 ]
 
 function HeaderLayout() {
@@ -60,6 +59,12 @@ function HeaderLayout() {
                     })}
                     to={item.path}
                   >
+                    {item.icon && (
+                      <img
+                        className="w-auto h-9 object-contain"
+                        src={item.icon}
+                      />
+                    )}{' '}
                     {item.label}
                   </Link>
                 </li>
@@ -68,32 +73,9 @@ function HeaderLayout() {
           </ul>
           <ul className="menu menu-horizontal gap-4 p-0 md:p-2">
             <li>
-              <ConnectButton.Custom>
-                {({ openAccountModal, openConnectModal, account }) => {
-                  if (!!account)
-                    return (
-                      <div
-                        className="flex flex-row gap-0 p-0 h-full"
-                        onClick={openAccountModal}
-                      >
-                        <div className="flex flex-col justify-center h-full py-2 px-4 bg-base-200">
-                          {account.displayBalance}
-                        </div>
-                        <div className="flex flex-col justify-center h-full py-2 px-4 bg-base-100">
-                          {shortenString(account.address, { maxLength: 4 })}
-                        </div>
-                      </div>
-                    )
-                  return (
-                    <div
-                      className="py-2 px-4 bg-base-100 rounded-none"
-                      onClick={openConnectModal}
-                    >
-                      Connect wallet
-                    </div>
-                  )
-                }}
-              </ConnectButton.Custom>
+              <Link className="btn btn-primary md:min-w-36" to="#">
+                Open App
+              </Link>
             </li>
             <li className="flex md:hidden items-center justify-center">
               <label className="p-0" htmlFor={mobileMenuId}>
@@ -141,6 +123,12 @@ function HeaderLayout() {
                     })}
                     to={item.path}
                   >
+                    {item.icon && (
+                      <img
+                        className="w-auto h-9 object-contain"
+                        src={item.icon}
+                      />
+                    )}{' '}
                     {item.label}
                   </Link>
                 </li>

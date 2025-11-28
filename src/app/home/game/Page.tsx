@@ -106,7 +106,7 @@ export default function GamePage({
           </div>
         )}
         {rsPercentage > 0 && rsPercentage < 1 && (
-          <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
+          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
             <p className="text-3xl font-medium">Nice done!</p>
             <span className="text-center max-w-2xl">
               You’ve discovered three correct routes, but the vault still isn’t
@@ -128,7 +128,7 @@ export default function GamePage({
           </div>
         )}
         {rsPercentage >= 1 && (
-          <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
+          <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-[#1415105e] backdrop-blur-xs border border-primary">
             <p className="text-3xl font-medium">Congrats! You succeeded.</p>
             <span className="text-center max-w-2xl">
               The game shows how PrimeVaults works: instead of splitting assets
@@ -136,11 +136,14 @@ export default function GamePage({
               and hunts yield across the entire portfolio — that’s how it
               reaches 100%.Want to maximize your earnings? Join us now
             </span>
-            <div className="flex flex-row items-center gap-4 md:mt-8">
-              <Button className="btn btn-outline md:min-w-60">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:mt-8">
+              <Button className="btn btn-outline @max-3xl:btn-block md:min-w-60">
                 Check Your Prime Points
               </Button>
-              <Button className="btn btn-primary md:min-w-60" onClick={onReset}>
+              <Button
+                className="btn btn-primary @max-3xl:btn-block md:min-w-60"
+                onClick={onReset}
+              >
                 Join Closed-Beta
               </Button>
             </div>

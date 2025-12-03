@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React, { useState } from 'react'
 
 type ReactBtnProps = React.DetailedHTMLProps<
@@ -27,7 +28,14 @@ const Button = ({ children, loading, disabled, ...rest }: BtnProps) => {
   const isLoading = loading || internalLoading
 
   return (
-    <button {...rest} disabled={disabled || isLoading} onClick={handleOnClick}>
+    <button
+      {...rest}
+      className={clsx(`${rest.className}`, {
+        '!cursor-not-allowed !bg-[#898989] !text-[#BBBBBB]': disabled,
+      })}
+      disabled={disabled || isLoading}
+      onClick={handleOnClick}
+    >
       {isLoading ? (
         <>
           <span className="loading loading-spinner loading-xs"></span>

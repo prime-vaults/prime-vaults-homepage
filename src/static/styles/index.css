@@ -289,3 +289,18 @@ input[type='number'] {
 .modal-box svg.btn {
   @apply hidden;
 }
+
+.check-point{
+  @apply flex flex-col gap-8 p-4
+}
+
+.modal-box:has(.check-point) {
+  @apply max-w-[680px] !rounded-2xl;
+}
+.modal-box svg.btn {
+  @apply hidden;
+}
+
+.badge-text {
+  @apply bg-gradient-to-r from-[#A0F38B] via-[#39F391] to-[#A1FA99] bg-clip-text text-transparent;
+}

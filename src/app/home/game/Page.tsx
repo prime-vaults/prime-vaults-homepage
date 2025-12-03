@@ -18,7 +18,7 @@ import { numericFormat, useDebounce } from '@/helpers/utils'
 export default function GamePage({
   onLeave = () => {},
 }: {
-  onLeave?: () => void
+  onLeave?: (e: any) => void
 }) {
   const gameRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<PipelineGame | null>(null)

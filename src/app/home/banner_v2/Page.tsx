@@ -17,11 +17,10 @@ export default function BannerV2Page() {
         <div className="relative md:max-w-1/2 flex-1 z-20">
           <div className="absolute top-0 left-0 w-full flex flex-col gap-4 pt-6 md:pt-24">
             <div className="flex flex-col md:gap-2 text-xl md:text-5xl font-bold uppercase">
-              <p>Prime Strategies.</p>
-              <p className="text-primary">Best Returns.</p>
-              <p className="text-primary">
-                Your On-Chain Smart Saving Accounts.
-              </p>
+              <h2>YOUR SMART SAVING ACCOUNT</h2>
+              <h4 className="text-primary">
+                Principal Protected <br /> & <br /> Minimum Yield Guarantee
+              </h4>
             </div>
             <Button className="btn btn-primary btn-xs md:btn-lg w-fit !px-6">
               Start now

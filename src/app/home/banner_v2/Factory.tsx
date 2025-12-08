@@ -15,11 +15,11 @@ export default function Factory() {
   return (
     <div className="flex flex-row gap-4 md:justify-between -mt-16 md:-mt-40">
       <div className="relative flex-1">
-        <div className="absolute top-0 left-0 w-full flex flex-col md:gap-2 text-base md:text-5xl font-medium md:font-bold uppercase px-4 md:px-6 pt-6 z-20">
-          <p className="text-primary">Your principal stays safe</p>
-          <p>in the vault.</p>
-          <p>When your rewards</p>
-          <p className="text-primary">accumulated every second.</p>
+        <div className="absolute top-0 left-0 w-full flex flex-col md:gap-2 text-base md:text-5xl font-medium md:font-bold uppercase px-4 md:px-10 pt-8 z-20">
+          <h2 className="text-primary">
+            Your assets stay fully non-custodial.
+          </h2>
+          <h2>And your rewards stay above the market rate.</h2>
         </div>
       </div>
       {/* factory */}

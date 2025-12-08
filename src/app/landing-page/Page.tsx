@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router'
 
-import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
 import PlayGame from './PlayGame'
 import CheckPoint from './checkPoint'
@@ -16,22 +15,22 @@ export default function LandingPage() {
           <Link to={CoreRoutes.home()} className="self-center">
             <img className="w-auto h-14 object-contain" src="/logo.svg" />
           </Link>
-          <div className="flex flex-col gap-1 items-center justify-center">
-            <p className="text-3xl md:text-7xl mb-6 md:mb-12">
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-3xl md:text-8xl font-bold mb-6 md:mb-12">
               Be First to Earn
-            </p>
-            <span className="max-w-md text-sm md:text-2xl text-center">
-              Experience an on-chain smart saving account with{' '}
-              <b className="text-sm md:text-2xl text-primary">
+            </span>
+            <h3 className="text-center font-normal!">
+              Experience an on-chain smart saving account with <br />
+              <span className="text-primary">
                 Principal Protection and a Guaranteed Minimum Yield.
-              </b>
-            </span>
-            <span className="text-sm md:text-2xl">
+              </span>
+            </h3>
+            <h3 className="font-normal!">
               Real APY and rewards are claimable instantly.
-            </span>
-            <p className="text-sm md:text-2xl mt-4 md:mt-6">
-              Limited time. Join now.
-            </p>
+            </h3>
+            <h3 className="mt-4 md:mt-6  font-normal!">
+              Limited time. <span className="text-primary">Join now.</span>
+            </h3>
           </div>
           {/* CTA */}
           <div className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -91,13 +90,6 @@ export default function LandingPage() {
           </div>
           {/* footer */}
           <div className="flex flex-col md:flex-row gap-4 justify-between">
-            <div className="flex flex-col gap-0.5">
-              <span className="text-xs md:text-sm">Submit your wallet</span>
-              <label className="input !outline-none !bg-[transparent] border-base-100">
-                <input type="text" required placeholder="Wallet address" />
-                <Button className="btn btn-primary btn-xs">Submit</Button>
-              </label>
-            </div>
             <div className="flex flex-row gap-4">
               <a
                 href="#"

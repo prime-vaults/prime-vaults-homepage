@@ -60,7 +60,7 @@ export default function YieldFlowPage() {
         <div className="col-span-2 md:col-span-2 relative flex flex-col items-center">
           <div className="absolute w-fit md:w-full top-0 right-0 -translate-y-full px-2 py-0.5 border border-base-100 bg-base-200 rounded-md z-20">
             <p className="text-xs text-primary text-center text-nowrap whitespace-nowrap">
-              Unified Asset Vault
+              Unified Assets Vault
             </p>
           </div>
           <img
@@ -138,7 +138,7 @@ export default function YieldFlowPage() {
           </div>
           <img className="w-full h-auto object-contain z-0" src={REWARD} />
           <div className="self-center px-2 py-0.5 border border-base-100 bg-base-200 rounded-md">
-            <p className="text-xs text-primary text-center">Reward vault</p>
+            <p className="text-xs text-primary text-center">Treasury</p>
           </div>
         </div>
         {/* stroke */}

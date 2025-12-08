@@ -62,11 +62,15 @@ type ModalProps = {
   open?: boolean
   onClose?: () => void
   backdrop?: boolean
+  className?: string
+  boxClassName?: string
 }
 function Modal({
   open = false,
   backdrop = true,
   onClose = () => {},
+  className,
+  boxClassName,
   children,
 }: ModalProps & PropsWithChildren) {
   const modalRef = useRef<HTMLDialogElement>(null)
@@ -78,9 +82,9 @@ function Modal({
   }, [open])
 
   return (
-    <dialog ref={modalRef} className="modal">
+    <dialog ref={modalRef} className={`modal ${className}`}>
       <ModalContext.Provider value={{ onClose }}>
-        <div className="modal-box">
+        <div className={`modal-box ${boxClassName}`}>
           {!hasHeader(children) && !!onClose && (
             <X
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

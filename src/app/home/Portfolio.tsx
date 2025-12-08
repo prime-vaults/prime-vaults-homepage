@@ -58,7 +58,7 @@ function CompareAPR() {
             <tr>
               <th className="w-1/2">Option</th>
               <th className="w-1/2 text-primary text-end md:text-start">
-                Avg.APR
+                Avg.APY
               </th>
             </tr>
           </thead>
@@ -123,9 +123,8 @@ export default function Portfolio() {
     >
       <div className="flex flex-col gap-4">
         <h1 className="text-primary text-2xl md:text-5xl text-center md:text-start font-bold">
-          WATCH YOUR PORTFOLIO{' '}
-          <RandomTextColor title="GROW 24/7" className="text-[#D6F3E9]" /> WITH
-          BETTER INTEREST
+          SAVING - BUT WITH BETTER YIELD!{' '}
+          <RandomTextColor title="YIELD" className="text-[#D6F3E9]" />
         </h1>
         <p className="font-tomorrow text-primary">
           INTELLIGENT WEALTH ALLOCATION{' '}
@@ -135,8 +134,10 @@ export default function Portfolio() {
           </span>
         </p>
         <p className="font-tomorrow text-primary">
-          YOUR PRINCIPAL{' '}
-          <span className="text-[#D6F3E9]">is always guaranteed.</span>
+          <b>Your Rewards </b>
+          <span className="text-[#D6F3E9]">
+            are always at or above the benchmark rate(*).
+          </span>
         </p>
       </div>
 

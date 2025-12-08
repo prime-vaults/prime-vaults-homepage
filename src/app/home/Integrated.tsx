@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import BG_DOT from '@/static/images/bg-dot-short.png'
+
 const SVG_LIST = [
   `<svg xmlns="http://www.w3.org/2000/svg" class="w-full h-auto object-contain" width="55" height="55" viewBox="0 0 55 55" fill="none" preserveAspectRatio="none">
   <path d="M11.9353 27.8945L27.1933 2.9743L42.4513 27.8945L27.1933 36.7833L11.9353 27.8945Z" fill="currentColor"/>
@@ -34,7 +36,11 @@ export default function Integrated() {
   }, [])
 
   return (
-    <div className="section-container flex flex-col gap-6 md:gap-12">
+    <div className="relative section-container flex flex-col gap-6 md:gap-12">
+      <img
+        className="absolute w-full h-auto object-contain top-0 left-0"
+        src={BG_DOT}
+      />
       <p className="text-primary font-medium text-2xl md:text-5xl uppercase text-center">
         Integrated with gold-standard assets
       </p>

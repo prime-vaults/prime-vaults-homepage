@@ -1,9 +1,9 @@
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
-
 import { RouterProvider } from 'react-router-dom'
-import { routes } from '@/routes/routes-config'
 
 import SystemProvider from './providers/system'
+
+import { routes } from './routes/configs'
 
 import '@/static/styles/index.css'
 import '@rainbow-me/rainbowkit/styles.css'

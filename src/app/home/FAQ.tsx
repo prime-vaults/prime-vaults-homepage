@@ -1,35 +1,43 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 
+import BG_DOT from '@/static/images/bg-dot-long.png'
+
 const FAQ = [
   {
-    question: 'What’s PrimeVaults?',
+    question: 'What’s PrimeVault?',
     answer:
-      'PrimeVaults is an AI-powered platform that works like a smarter savings account for digital assets. You deposit tokens such as USDC, ETH, or BTC, and the system automatically allocates them into high-yield, risk-managed strategies. It’s designed to deliver higher returns with the same simplicity as traditional saving.',
+      'PrimeVault is an on-chain Smart Saving Account offering stable, optimized reward rates with principal protection and a guaranteed minimum yield mechanism.',
   },
   {
-    question: 'What can I expect when using PrimeVaults?',
-    answer: `<p>PrimeVaults aims to deliver <a style="color: #b2e77b" href="https://docs.google.com/document/d/1wyRe9LP4VAFBsUAd37epSAGXUyPYsH3KCwZkJlLZXHQ/edit?tab=t.0" target="_blank">higher returns than leaving assets idle or in a bank account</a>. Its AI engine automatically allocates your capital across multiple yield sources such as lending, liquidity provision (LP), and restaking — optimizing performance without manual effort.</p>`,
+    question: 'Why are PrimeVault’s reward rates attractive and guaranteed?',
+    answer: `All assets are pooled into one shared vault and deployed across multiple strategies.
+By combining utility across many assets and many strategies, PrimeVault generates stronger, more efficient yield - enabling attractive reward rates while guaranteeing a minimum benchmark rate.`,
   },
   {
-    question: 'Is PrimeVaults safe?',
+    question: 'How is the reward rate defined?',
     answer:
-      'Yes. It features dual protection layers: dynamic fees and reserve funds to mitigate market risks, combined with top-tier audited smart contracts.',
+      'Reward rates for each asset are determined by strategy performance, market yield, and vault demand and always stay <b>at or above the Benchmark Rate</b> from <b>AAVE V3 Core Market.</b>',
   },
   {
-    question: 'Can I withdraw anytime?',
+    question: 'Is PrimeVault non-custodial?',
     answer:
-      'You can withdraw after the 8-day lock period. Your principal is always guaranteed, regardless of market volatility.',
+      'Yes. PrimeVault never takes custody. Your assets always remain under your ownership and control.',
   },
   {
-    question: 'Why is there an 8-day lock?',
+    question: 'Can I withdrawals anytime?',
     answer:
-      'The 8-day lock ensures safe unwinding of positions and accurate redistribution of assets. Yield generated during this period is distributed to active stakers, encouraging long-term commitment.',
+      'You can withdraw after the 3-day lock period. Your principal is always guaranteed, regardless of market volatility.',
   },
   {
-    question: 'Do I need deep DeFi knowledge to use it?',
+    question: 'Why is there a 3-day unlock period?',
     answer:
-      'No. PrimeVaults’ AI handles the complexity—you just deposit and earn yield.',
+      'The unlock period allows the vault to safely unwind or rebalance strategies, protecting system stability and solvency during withdrawals.',
+  },
+  {
+    question: 'Is PrimeVault safe?',
+    answer:
+      'PrimeVault is supported by a <b>Solvency Framework</b> built on the <b>Health Index, IL Reserve Fund</b>, and a transparent <b>Proof of Reserve Dashboard</b>, ensuring system solvency and long-term protection for user assets.',
   },
 ]
 
@@ -40,11 +48,12 @@ export default function FAQPage() {
     setOpen((prev) => ({ ...prev, [key]: value }))
   }
   return (
-    <div
-      className="section-container grid grid-cols-12 gap-6 bg-cover bg-no-repeat"
-      style={{ backgroundImage: 'url(/imgs/background.png)' }}
-    >
-      <div className="col-span-full md:col-span-3 flex flex-col h-full gap-2">
+    <div className="section-container grid grid-cols-12 gap-6 bg-repeating bg-repeating-body">
+      <div className="relative col-span-full md:col-span-3 flex flex-col h-full gap-2">
+        <img
+          src={BG_DOT}
+          className="absolute w-full h-auto object-contain -top-4 -left-4 md:-top-8 md:-left-8 md:scale-125 origin-top-left"
+        />
         <h3 className="text-xl md:text-5xl text-primary">FAQ</h3>
         <span>Common Questions</span>
         <span className="text-xs text-secondary self-end">

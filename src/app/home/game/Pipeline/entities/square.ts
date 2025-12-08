@@ -1,0 +1,279 @@
+import { END_POINT, PIPE_POINT, START_POINT, WAYPOINT } from '../constant/game'
+import { PIPE_WIDTH_RATIO } from '../constant/pipe'
+import { Direction, PipeType, SquareOptions, SquareType } from '../types/square'
+import W from '@/static/images/mini-game/water.png'
+
+export const DIRECTION_BIT: Record<Direction, number> = {
+  top: 1 << 0, // 0001
+  right: 1 << 1, // 0010
+  bottom: 1 << 2, // 0100
+  left: 1 << 3, // 1000
+}
+
+export const PIPE_CONNECTIONS: Record<PipeType, number> = {
+  I: DIRECTION_BIT.top | DIRECTION_BIT.bottom,
+  L: DIRECTION_BIT.top | DIRECTION_BIT.right,
+  T: DIRECTION_BIT.left | DIRECTION_BIT.top | DIRECTION_BIT.right,
+  '+':
+    DIRECTION_BIT.top |
+    DIRECTION_BIT.right |
+    DIRECTION_BIT.bottom |
+    DIRECTION_BIT.left,
+}
+
+export const DEFAULT_SQUARE_POINTS: Record<SquareType, number> = {
+  normal: PIPE_POINT,
+  start: START_POINT,
+  end: END_POINT,
+  waypoint: WAYPOINT,
+}
+
+export default class Square {
+  x: number
+  y: number
+  size: number
+  baseSize: number // Size gốc của 1 cell
+  pipeType?: PipeType
+  type: SquareType
+  connections: number // bitmask
+  rotation: number
+  debug?: boolean = false
+  row?: number
+  col?: number
+  imageMap?: Partial<Record<PipeType, HTMLImageElement>>
+  point: number
+  backgroundImage?: SquareOptions['backgroundImage']
+  waterHeight: number = 0
+
+  sizeMultiplier: number
+  occupiedRows: number
+  occupiedCols: number
+
+  // Cache loaded images
+  private waterImage?: HTMLImageElement
+  private backgroundImageElement?: HTMLImageElement
+
+  constructor(props: SquareOptions) {
+    const {
+      x = 0,
+      y = 0,
+      size = 50,
+      pipeType = 'L',
+      type = 'normal',
+      debug = false,
+      imageMap,
+      connections = [],
+      point,
+      sizeMultiplier = 1,
+      occupiedRows = 1,
+      occupiedCols = 1,
+      backgroundImage,
+    } = props
+
+    this.baseSize = size
+    this.sizeMultiplier = sizeMultiplier
+    this.occupiedRows = occupiedRows
+    this.occupiedCols = occupiedCols
+
+    // Calculate actual size
+    this.size = size * sizeMultiplier
+
+    this.x = x
+    this.y = y
+    this.type = type
+    this.debug = debug
+    this.imageMap = imageMap
+    this.rotation = 0
+    this.col = props.col
+    this.row = props.row
+    this.backgroundImage = backgroundImage
+
+    this.point = point ?? DEFAULT_SQUARE_POINTS[type]
+
+    // Preload images ngay khi khởi tạo
+    this._preloadImages()
+
+    if (type === 'normal') {
+      this.pipeType = pipeType
+      this.connections = PIPE_CONNECTIONS[pipeType]
+
+      // Random rotate 0-3 lần khi khởi tạo
+      const randomRotations = Math.floor(Math.random() * 4) // 0, 1, 2, hoặc 3
+      for (let i = 0; i < randomRotations; i++) {
+        this.rotate()
+      }
+    } else {
+      this.connections = 0
+      connections.forEach((d) => {
+        this.connections |= DIRECTION_BIT[d]
+      })
+    }
+  }
+
+  private _preloadImages() {
+    // Preload water image cho end type
+    if (this.type === 'end') {
+      this.waterImage = new Image()
+      this.waterImage.src = W
+    }
+
+    // Preload background image
+    if (this.backgroundImage) {
+      this.backgroundImageElement = new Image()
+      this.backgroundImageElement.src = this.backgroundImage
+    }
+  }
+
+  rotate() {
+    if (this.type !== 'normal') return
+    this.connections =
+      ((this.connections << 1) | (this.connections >> 3)) & 0b1111
+    this.rotation = (this.rotation + 1) % 4
+  }
+
+  render(ctx: CanvasRenderingContext2D) {
+    ctx.save()
+    ctx.translate(this.x + this.size / 2, this.y + this.size / 2)
+    ctx.rotate((Math.PI / 2) * this.rotation)
+
+    this.drawPipe(ctx)
+    ctx.restore()
+
+    if (this.debug) this.renderDebug(ctx)
+  }
+
+  drawPipe(ctx: CanvasRenderingContext2D) {
+    const s = this.size
+    const w = s * PIPE_WIDTH_RATIO
+
+    if (
+      this.type === 'normal' &&
+      this.imageMap &&
+      this.pipeType &&
+      this.imageMap[this.pipeType]
+    ) {
+      const img = this.imageMap[this.pipeType]!
+      ctx.drawImage(img, -s / 2, -s / 2, s, s)
+      return
+    }
+
+    if (
+      this.type === 'end' &&
+      this.waterImage?.complete &&
+      this.waterHeight > 0
+    ) {
+      ctx.drawImage(
+        this.waterImage,
+        -s / 2,
+        s / 2 - this.waterHeight,
+        s,
+        this.waterHeight,
+      )
+    }
+
+    if (this.backgroundImage && this.backgroundImageElement?.complete) {
+      ctx.drawImage(this.backgroundImageElement, -s / 2, -s / 2, s, s)
+      return
+    }
+
+    // Fallback: Draw colored rectangles if images not loaded
+    switch (this.pipeType) {
+      case 'I':
+        ctx.fillRect(-w / 2, -s / 2, w, s)
+        break
+      case 'L':
+        ctx.fillRect(-w / 2, -s / 2, w, s / 2)
+        ctx.fillRect(0, -w / 2, s / 2, w)
+        break
+      case 'T':
+        ctx.fillRect(-w / 2, -s / 2, w, s / 2)
+        ctx.fillRect(-s / 2, -w / 2, s, w)
+        break
+      case '+':
+        ctx.fillRect(-w / 2, -s / 2, w, s)
+        ctx.fillRect(-s / 2, -w / 2, s, w)
+        break
+      default:
+        // start / end / waypoint
+        ctx.fillRect(-s / 2, -s / 2, s, s)
+
+        if (this.type === 'waypoint') {
+          ctx.fillStyle = 'white'
+          ctx.font = `${s * 0.3}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText('★', 0, 0)
+        }
+
+        // Draw labels for large special squares
+        if (this.type === 'start' || this.type === 'end') {
+          ctx.fillStyle = 'white'
+          ctx.font = `bold ${s * 0.2}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(this.type.toUpperCase(), 0, 0)
+        }
+    }
+  }
+
+  renderDebug(ctx: CanvasRenderingContext2D) {
+    const cx = this.x
+    const cy = this.y
+    const s = this.size
+    const pad = 6
+
+    ctx.fillStyle = 'yellow'
+
+    if (this.connections & DIRECTION_BIT.top)
+      ctx.fillRect(cx + s / 2 - 3, cy + pad, 6, 6)
+    if (this.connections & DIRECTION_BIT.right)
+      ctx.fillRect(cx + s - pad - 6, cy + s / 2 - 3, 6, 6)
+    if (this.connections & DIRECTION_BIT.bottom)
+      ctx.fillRect(cx + s / 2 - 3, cy + s - pad - 6, 6, 6)
+    if (this.connections & DIRECTION_BIT.left)
+      ctx.fillRect(cx + pad, cy + s / 2 - 3, 6, 6)
+  }
+
+  containsPoint(x: number, y: number): boolean {
+    return (
+      x >= this.x &&
+      x <= this.x + this.size &&
+      y >= this.y &&
+      y <= this.y + this.size
+    )
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick(_x: number, _y: number) {
+    if (this.type !== 'normal') return
+    this.rotate()
+  }
+
+  update(_dt: number, configs?: { [key: string]: any }) {
+    if (configs) this.waterHeight = configs.h
+  }
+
+  // Helper: Get center position for connections
+  getCenterX(): number {
+    return this.x + this.size / 2
+  }
+
+  getCenterY(): number {
+    return this.y + this.size / 2
+  }
+
+  // Helper: Check if this square occupies a specific grid cell
+  occupiesCell(row: number, col: number): boolean {
+    if (!this.row || !this.col) return false
+    return (
+      row >= this.row &&
+      row < this.row + this.occupiedRows &&
+      col >= this.col &&
+      col < this.col + this.occupiedCols
+    )
+  }
+
+  reset() {
+    this.waterHeight = 0
+  }
+}

@@ -7,7 +7,9 @@ export default function Container({
 }: { className?: string; innerClassName?: string } & PropsWithChildren) {
   return (
     <div className={`flex flex-col w-full items-center ${className}`}>
-      <div className={`w-full max-w-screen-xl ${innerClassName}`}>
+      <div
+        className={`w-full max-w-screen-xl border-x border-neutral ${innerClassName}`}
+      >
         {children}
       </div>
     </div>

@@ -25,7 +25,7 @@ export const HOLDING_DATA: HoldingApy = {
     {
       name: 'PrimeUSD',
       logo: prime_logo,
-      rate: '15-19%',
+      rate: '9.18%',
       apy: 17,
       key: 'prime',
     },
@@ -43,7 +43,7 @@ export const HOLDING_DATA: HoldingApy = {
     {
       name: 'PrimeBTC',
       logo: prime_logo,
-      rate: '2-5%',
+      rate: '2.53%',
       apy: 3.5,
       key: 'prime',
     },
@@ -61,7 +61,7 @@ export const HOLDING_DATA: HoldingApy = {
     {
       name: 'PrimeETH',
       logo: prime_logo,
-      rate: '8-11%',
+      rate: '5.65%',
       apy: 9.5,
       key: 'prime',
     },

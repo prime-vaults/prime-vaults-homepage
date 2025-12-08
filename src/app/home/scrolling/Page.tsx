@@ -21,10 +21,10 @@ export default function ScrollingPage() {
         <div className="flex w-full h-full max-h-96">
           <ScrollItem onActiveIndexChange={setActiveIndex} />
         </div>
-        <Mouse
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 animate-bounce"
-          size={24}
-        />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center">
+          <Mouse className="animate-bounce" size={24} />
+          <span>Scroll here</span>
+        </div>
       </div>
       <div className="order-2 md:order-3 col-span-full md:col-span-3 ">
         <ScrollAnim activeIndex={activeIndex} />

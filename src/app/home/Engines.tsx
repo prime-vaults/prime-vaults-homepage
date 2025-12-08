@@ -9,14 +9,14 @@ import bg_card from '@/static/images/background/bg-card.svg'
 
 const LIST = [
   {
-    title: 'Prime Yield Engines',
-    desc: 'From blue-chip lending to advanced LP strategies, PrimeVault’s AI-driven engine constantly optimizes for performance. All you see is consistent, sustainable high yield.',
+    title: 'UNIFIED YIELD MODEL',
+    desc: 'One shared pool. Multiple optimized strategies. Higher, more stable yield, powered by PrimeStrategy.',
     img: ai,
     reverse: false,
   },
   {
-    title: 'The Financial Shield',
-    desc: 'Your assets stay protected through a dual layer of defense. Dynamic fees manage market shifts, and reserve funds cover predicted risks.',
+    title: 'Solvency Framework',
+    desc: 'An integrated framework that protects user assets through the Protocol Health Index, an IL Reserve Fund, and a transparent Proof of Reserve Dashboard.',
     img: strategy,
     reverse: true,
   },
@@ -53,15 +53,13 @@ export default function Engines() {
             }}
           >
             <div className="flex flex-col gap-4 font-medium">
-              <p className="text-2xl md:text-5xl text-primary uppercase">
-                {item.title}
-              </p>
-              <span className="text-sm md:text-base">{item.desc}</span>
+              <h2 className="text-primary uppercase">{item.title}</h2>
+              <p className="text-sm md:text-base">{item.desc}</p>
             </div>
             <div className="flex-1" />
             <img src={item.img} className="w-full h-auto object-contain" />
           </div>
-          <Corner />
+          <Corner cornerClassName="h-auto !w-1/12" />
         </div>
       ))}
     </div>

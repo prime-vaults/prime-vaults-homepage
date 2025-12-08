@@ -1,11 +1,13 @@
 import Container from '@/components/UI/Container'
 import ScrollingPage from './scrolling/Page'
 import FAQPage from './FAQ'
-import BannerPage from './banner/Page'
 import Portfolio from './Portfolio'
 import Integrated from './Integrated'
 import Engines from './Engines'
 import TimePage from './time/Page'
+import IntroPage from './intro/Page'
+import BannerV2Page from './banner_v2/Page'
+import YieldFlowPage from './yield-flow/Page'
 
 export default function HomePage() {
   return (
@@ -14,11 +16,13 @@ export default function HomePage() {
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
       <div className="flex flex-col">
-        <BannerPage />
+        <IntroPage />
+        <BannerV2Page />
         <Portfolio />
         <Integrated />
         <TimePage />
         <Engines />
+        <YieldFlowPage />
         <ScrollingPage />
         <FAQPage />
       </div>

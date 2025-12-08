@@ -1,0 +1,53 @@
+.trapezoid {
+  @apply relative w-[100px] h-[500px] mix-blend-screen bg-blend-screen opacity-0 z-50;
+  background:
+    /* nhiều lớp tia sáng chéo */ conic-gradient(
+      from 184deg at 50% 0%,
+      rgba(255, 240, 180, 0.35) 0deg 8deg,
+      transparent 8deg 12deg
+    ),
+    conic-gradient(
+      from 190deg at 50% 0%,
+      rgba(255, 255, 210, 0.45) 0deg 7deg,
+      transparent 7deg 15deg
+    ),
+    conic-gradient(
+      from 198deg at 50% 0%,
+      rgba(255, 250, 200, 0.25) 0deg 5deg,
+      transparent 5deg 14deg
+    ),
+    conic-gradient(
+      from 205deg at 50% 0%,
+      rgba(255, 230, 160, 0.4) 0deg 6deg,
+      transparent 6deg 16deg
+    ),
+    conic-gradient(
+      from 212deg at 50% 0%,
+      rgba(255, 245, 190, 0.35) 0deg 5deg,
+      transparent 5deg 15deg
+    ),
+    conic-gradient(
+      from 220deg at 50% 0%,
+      rgba(255, 255, 200, 0.3) 0deg 4deg,
+      transparent 4deg 16deg
+    ),
+    conic-gradient(
+      from 228deg at 50% 0%,
+      rgba(255, 240, 170, 0.28) 0deg 5deg,
+      transparent 5deg 14deg
+    ),
+    /* lớp sáng nền */
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(255, 250, 200, 1) 0%,
+        rgba(255, 220, 120, 0.6) 20%,
+        rgba(255, 200, 80, 0.3) 45%,
+        rgba(255, 180, 60, 0.1) 65%,
+        transparent 90%
+      );
+
+  filter: blur(18px) brightness(1.15);
+  transform-origin: top center;
+  transform: perspective(35px) rotateX(14deg) translateX(0) skewX(27deg);
+  transition-timing-function: cubic-bezier(0.55, 0.05, 0.45, 0.9);
+}

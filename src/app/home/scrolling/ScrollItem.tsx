@@ -61,7 +61,7 @@ export default function ScrollItem({
         return (
           <SwiperSlide key={key}>
             <div className="flex flex-row gap-8 pl-4">
-              <div className="relative w-0.5 h-full min-h-52 md:min-h-96 flex flex-row justify-center border border-primary border-dashed">
+              <div className="relative w-0.5 h-full min-h-52 md:min-h-88 flex flex-row justify-center border border-primary border-dashed">
                 <div
                   className={clsx(
                     'absolute w-8 h-8 border-2 flex flex-col items-center justify-center',
@@ -75,10 +75,8 @@ export default function ScrollItem({
                 </div>
               </div>
               <div className="flex flex-col gap-2 md:gap-4">
-                <p className="text-xl md:text-4xl text-primary uppercase">
-                  {label}
-                </p>
-                <span className="text-base md:text-3xl">{desc}</span>
+                <h2 className="text-primary uppercase">{label}</h2>
+                <h3>{desc}</h3>
               </div>
             </div>
           </SwiperSlide>

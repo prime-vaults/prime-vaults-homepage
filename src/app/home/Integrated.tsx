@@ -41,10 +41,10 @@ export default function Integrated() {
         className="absolute w-full h-auto object-contain top-0 left-0"
         src={BG_DOT}
       />
-      <p className="text-primary font-medium text-2xl md:text-5xl uppercase text-center">
+      <h1 className="text-primary uppercase text-center">
         Integrated with gold-standard assets
-      </p>
-      <div className="grid grid-cols-5 gap-6 mb-8">
+      </h1>
+      <div className="grid grid-cols-5 gap-3 md:gap-6 mb-0 md:mb-8">
         {SVG_LIST.map((svg, index) => (
           <div
             key={index}

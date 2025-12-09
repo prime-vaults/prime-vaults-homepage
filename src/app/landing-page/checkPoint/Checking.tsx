@@ -4,7 +4,8 @@ import PrimeBadge from './PrimeBadge'
 import Corner from '@/components/UI/Corner'
 
 import { formatUiNumber, shortenString } from '@/helpers/utils'
-import { ChainInfoWithPercentage, UserInfoBalance } from '@/app/api/types'
+import { UserInfoBalance } from '@/app/api/types'
+import { ChainInfoCheck } from '.'
 
 export default function Checking({
   address,
@@ -12,7 +13,7 @@ export default function Checking({
   chainsInfo,
   userInfo,
 }: {
-  chainsInfo: ChainInfoWithPercentage[]
+  chainsInfo: ChainInfoCheck[]
   userInfo: UserInfoBalance
   address: string
   onDone: () => void
@@ -36,7 +37,7 @@ export default function Checking({
     if (currentStep === 1) {
       const stepTimer = setTimeout(() => {
         setCurrentStep(2)
-      }, 5000)
+      }, 7000)
 
       return () => {
         clearTimeout(stepTimer)
@@ -93,10 +94,10 @@ export default function Checking({
 
 function Step1({ address }: { address: string }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2.5 md:gap-4">
       <p>Checking your address</p>
       <div className="relative">
-        <div className="min-h-[200px] flex justify-center items-center bg-repeating border border-primary-content transition-colors animate-fadeIn">
+        <div className="rainbow-border min-h-[120px] md:min-h-[200px] flex justify-center items-center bg-repeating border border-primary-content transition-colors animate-fadeIn">
           <h4>{shortenString(address, { maxLength: 6 })}</h4>
         </div>
         <Corner />
@@ -105,13 +106,13 @@ function Step1({ address }: { address: string }) {
   )
 }
 
-function Step2({ chainsInfo }: { chainsInfo: ChainInfoWithPercentage[] }) {
+function Step2({ chainsInfo }: { chainsInfo: ChainInfoCheck[] }) {
   const [visibleCoins, setVisibleCoins] = useState(0)
   const [visiblePercent, setVisiblePercent] = useState(false)
 
   useEffect(() => {
     setVisibleCoins(0)
-    const coinTimings = chainsInfo.map((_, idx) => (idx + 1) * 500) // 4 coins, chia 3 giây
+    const coinTimings = chainsInfo.map((_, idx) => (idx + 1) * 700)
     const timers = coinTimings.map((delay) =>
       setTimeout(() => {
         setVisibleCoins((prev) => prev + 1)
@@ -120,7 +121,7 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoWithPercentage[] }) {
 
     const percentTimer = setTimeout(() => {
       setVisiblePercent(true)
-    }, coinTimings.length * 500 + 500)
+    }, coinTimings.length * 700 + 1000)
 
     return () => {
       timers.forEach((t) => clearTimeout(t))
@@ -129,23 +130,24 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoWithPercentage[] }) {
   }, [chainsInfo])
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2.5 md:gap-4">
       <p>Analyzing your on-chain portfolio</p>
       <div className="relative">
-        <div className="min-h-[200px] flex flex-row gap-6 justify-center items-center bg-repeating border border-primary-content transition-colors animate-fadeIn">
+        <div className="rainbow-border min-h-[120px] md:min-h-[200px] flex flex-row gap-3 md:gap-6 justify-center items-center bg-repeating border border-primary-content transition-colors animate-fadeIn">
           {chainsInfo.map((chain, idx) => (
             <div
               key={idx}
-              className={`relative pb-8 flex flex-col items-center gap-2 transition-all duration-300 ${
+              className={`relative pb-6 md:pb-8 flex flex-col items-center gap-1 md:gap-2 transition-all duration-300 ${
                 visibleCoins > idx
                   ? 'opacity-100 scale-100'
                   : 'opacity-0 scale-75'
               }`}
             >
-              {chain.logo_url && (
-                <img src={chain.logo_url} className="w-15 h-15 rounded-full" />
-              )}
-              <span className="text-xs">{chain.name}</span>
+              <img
+                src={chain.logo}
+                className="w-8 md:w-15 aspect-square rounded-full"
+              />
+              <span className="text-[10px] md:text-xs">{chain.name}</span>
               <div
                 className={`absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-500 ${
                   !!visiblePercent
@@ -154,7 +156,7 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoWithPercentage[] }) {
                 }`}
               >
                 <p className="text-primary-content">
-                  {formatUiNumber(chain.percentage)}%
+                  {formatUiNumber(chain.percent)}%
                 </p>
               </div>
             </div>
@@ -168,16 +170,16 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoWithPercentage[] }) {
 
 function Step3({ userInfo }: { userInfo: UserInfoBalance }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2.5 md:gap-4">
       <p>Calculating your Prime Points</p>
       <div className="relative">
-        <div className="min-h-[200px] flex flex-col gap-4 justify-center items-center bg-repeating border border-gray-700 hover:border-green-500/30 transition-colors animate-fadeIn">
+        <div className="double-border min-h-[120px] md:min-h-[200px] flex flex-col gap-2.5 md:gap-4 justify-center items-center bg-repeating border border-gray-700 hover:border-green-500/30 transition-colors animate-fadeIn">
           <p>
             Total portfolio:{' '}
             <span>${formatUiNumber(userInfo.total_usd_value)}</span>
           </p>
-          <span className="text-[50px] text-primary-content">
-            {formatUiNumber(userInfo.points)}{' '}
+          <span className="text-3xl md:text-[50px] text-primary-content">
+            {formatUiNumber(userInfo.points).toString().replace(/\d/g, '*')}{' '}
             <span className="text-white">P.P</span>
           </span>
         </div>

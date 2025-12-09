@@ -63,7 +63,7 @@ function CompareAPR() {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ logo, name, rate, key }) => {
+            {data.map(({ logo, name, rate, key, benchmark }) => {
               const isPrime = key === 'prime'
               return (
                 <Fragment key={key}>
@@ -79,6 +79,7 @@ function CompareAPR() {
                           src={logo}
                         />
                         <span>{name}</span>
+                        {!!benchmark && '(*)'}
                       </div>
                     </td>
                     <td
@@ -119,26 +120,26 @@ export default function Portfolio() {
   return (
     <div
       id="portfolio_section"
-      className="section-container grid grid-cols-1 md:grid-cols-2 gap-6"
+      className="section-container grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6"
     >
-      <div className="flex flex-col gap-4">
-        <h1 className="text-primary text-2xl md:text-5xl text-center md:text-start font-bold">
-          SAVING - BUT WITH BETTER YIELD!{' '}
-          <RandomTextColor title="YIELD" className="text-[#D6F3E9]" />
+      <div className="flex flex-col gap-2 md:gap-4 text-center">
+        <h1 className="text-primary text-center md:text-start font-bold">
+          SAVING - BUT WITH BETTER{' '}
+          <RandomTextColor title="YIELD!" className="text-[#D6F3E9]" />
         </h1>
-        <p className="font-tomorrow text-primary">
-          INTELLIGENT WEALTH ALLOCATION{' '}
+        <h5 className="font-tomorrow text-primary">
+          <b>INTELLIGENT WEALTH ALLOCATION</b>{' '}
           <span className="text-[#D6F3E9]">
             unlocks the earning opportunities that traditional finance kept
             off-limits.
           </span>
-        </p>
-        <p className="font-tomorrow text-primary">
+        </h5>
+        <h5 className="font-tomorrow text-primary">
           <b>Your Rewards </b>
           <span className="text-[#D6F3E9]">
-            are always at or above the benchmark rate(*).
+            are always at or above the benchmark rate (*).
           </span>
-        </p>
+        </h5>
       </div>
 
       <CompareAPR />

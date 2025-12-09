@@ -47,7 +47,3 @@ export interface TokenInfo {
   amount: number // User's token amount (formatted)
   raw_amount: number // Raw amount (bigint-safe, integer)
 }
-
-export interface ChainInfoWithPercentage extends ChainInfo {
-  percentage: number // Percentage of total_usd_value
-}

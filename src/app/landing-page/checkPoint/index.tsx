@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { ArrowRight, X } from 'lucide-react'
 import { toast } from 'react-toastify'
 import { useCallback, useState } from 'react'
 
@@ -10,67 +10,114 @@ import Corner from '@/components/UI/Corner'
 
 import { getBalances } from '@/app/api'
 import {
-  ChainInfoWithPercentage,
   DebankChain,
   UserAssetOverview,
   UserInfoBalance,
 } from '@/app/api/types'
 
 import ASSET from '@/static/images/landing-page/asset.png'
+import ETH from '@/static/images/landing-page/logo/eth.png'
+import OTHER from '@/static/images/landing-page/logo/other.png'
+import ARB from '@/static/images/landing-page/logo/arb.png'
+import BERA from '@/static/images/landing-page/logo/bera.png'
+import BNB from '@/static/images/landing-page/logo/bnb.png'
+import CORE from '@/static/images/landing-page/logo/core.png'
+
+export type ChainInfoCheck = {
+  id: string
+  name: string
+  logo: string
+  percent: number
+}
+const CHAINS_CHECK = [
+  {
+    id: DebankChain.eth,
+    name: 'Ethereum',
+    logo: ETH,
+    percent: 0,
+  },
+  {
+    id: DebankChain.arb,
+    name: 'Arbitrum',
+    logo: ARB,
+    percent: 0,
+  },
+  {
+    id: DebankChain.bera,
+    name: 'Bera',
+    logo: BERA,
+    percent: 0,
+  },
+  {
+    id: DebankChain.core,
+    name: 'Core',
+    logo: CORE,
+    percent: 0,
+  },
+  {
+    id: DebankChain.bsc,
+    name: 'BNB',
+    logo: BNB,
+    percent: 0,
+  },
+  {
+    id: 'other',
+    name: 'Others',
+    logo: OTHER,
+    percent: 0,
+  },
+]
 
 export function calculateChainPercentages(
   userAssetOverview: UserAssetOverview,
-): ChainInfoWithPercentage[] {
+): typeof CHAINS_CHECK {
   const { total_usd_value, chain_list } = userAssetOverview
 
   const validChains = Object.values(DebankChain)
 
-  const knownChains: ChainInfoWithPercentage[] = []
+  const chainMap = new Map<string, number>()
   let otherUsdValue = 0
 
   chain_list.forEach((chain) => {
     if (validChains.includes(chain.id as DebankChain)) {
-      knownChains.push({
-        ...chain,
-        percentage:
-          total_usd_value === 0 ? 0 : (chain.usd_value / total_usd_value) * 100,
-      })
+      chainMap.set(chain.id, chain.usd_value)
     } else {
       otherUsdValue += chain.usd_value
     }
   })
 
-  if (otherUsdValue > 0) {
-    knownChains.push({
-      id: 'other',
-      community_id: 0,
-      name: 'Others',
-      logo_url: null,
-      native_token_id: '',
-      wrapped_token_id: '',
-      usd_value: otherUsdValue,
-      percentage:
-        total_usd_value === 0 ? 0 : (otherUsdValue / total_usd_value) * 100,
-    })
-  }
+  return CHAINS_CHECK.map((chain) => {
+    let usdValue = 0
 
-  return knownChains
+    if (chain.id === 'other') {
+      usdValue = otherUsdValue
+    } else {
+      usdValue = chainMap.get(chain.id) ?? 0
+    }
+
+    const percent =
+      total_usd_value === 0 ? 0 : (usdValue / total_usd_value) * 100
+
+    return {
+      ...chain,
+      percent: Math.round(percent * 100) / 100,
+    }
+  })
 }
 
 export default function CheckPoint() {
   const [open, setOpen] = useState(false)
   const [address, setAddress] = useState('')
   const [isReadySubmit, setIsReadySubmit] = useState(false)
-  const [chainInfo, setChainInfo] = useState<ChainInfoWithPercentage[]>()
+  const [chainInfo, setChainInfo] = useState<ChainInfoCheck[]>()
   const [userInfo, setUserInfo] = useState<UserInfoBalance>()
 
-  const onClose = (e: any) => {
-    e.stopPropagation()
-    setOpen(false)
+  const onClose = () => {
     setAddress('')
     setIsReadySubmit(false)
     setChainInfo(undefined)
     setUserInfo(undefined)
+    return setOpen(false)
   }
 
   const onChecking = useCallback(async (address: string) => {
@@ -97,27 +144,28 @@ export default function CheckPoint() {
         className="col-span-2 w-full h-auto object-contain scale-[1.4] z-[99]"
         src={ASSET}
       />
-      <div className="col-span-3 flex flex-col">
-        <p className="text-2xl md:text-4xl">Check Your Points</p>
-        <span className="text-primary cursor-pointer">
-          You might be surprised
+      <div className="col-span-3 flex flex-col gap-1 md:gap-3">
+        <span className="text-3xl md:text-[40px] font-bold">
+          Check Your Points
         </span>
+        <div className="flex flex-row gap-2 items-center">
+          <h5 className="text-primary cursor-pointer uppercase">
+            You might be surprised
+          </h5>
+          <ArrowRight className="text-primary-content w-5 md:w-8" />
+        </div>
       </div>
       {open && (
-        <Modal
-          open={open}
-          onClose={() => {
-            setOpen(false)
-            setAddress('')
-            setIsReadySubmit(false)
-            setChainInfo(undefined)
-            setUserInfo(undefined)
-          }}
-        >
+        <Modal open={open} onClose={onClose}>
           <div className="check-point">
             <div className="flex flex-row items-center justify-between">
               <img className="w-auto h-10 object-contain" src="/logo.svg" />
-              <X onClick={onClose} />
+              <X
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onClose()
+                }}
+              />
             </div>
             {!chainInfo && !userInfo && <InputWallet onCheck={onChecking} />}
             {!isReadySubmit && !!address && !!chainInfo && !!userInfo && (
@@ -131,7 +179,7 @@ export default function CheckPoint() {
             {isReadySubmit && (
               <SubmitWallet
                 address={address}
-                onClose={() => onClose({ stopPropagation: () => {} })}
+                onClose={onClose}
                 playGame={true}
               />
             )}

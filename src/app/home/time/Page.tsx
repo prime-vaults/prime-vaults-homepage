@@ -24,14 +24,12 @@ export default function TimePage() {
       style={{ backgroundImage: `url(${banner})` }}
     >
       <div className="flex flex-col gap-2 items-center">
-        <p className="text-2xl md:text-5xl text-primary font-bold">
-          TIME IS MONEY
-        </p>
-        <span>
-          <b className="text-primary">PrimeVault</b> turns your deposits into
+        <h1 className="text-primary">TIME IS MONEY</h1>
+        <h4 className="text-center px-4 md:px-40">
+          <b className="text-primary">PrimeVaults</b> turns your deposits into
           continuous growth, harnessing real-time DeFi strategies so your assets
           never stop working.
-        </span>
+        </h4>
       </div>
       <Range {...data} onChange={onChange} />
       <TimeItems {...data} />

@@ -45,21 +45,22 @@ export default function SubmitWallet(props: Props) {
       console.log('data', data)
       return setIsDone(true)
     } catch (error: any) {
-      setError(error.message)
+      console.log('error', error.message)
+      setError('Registered wallet address found.')
     }
   }, [input])
 
   if (!!isDone) return <RegisteredWallet {...props} />
   if (!!error)
     return (
-      <div className="flex flex-col p-10">
+      <div className="flex flex-col p-4 md:p-10">
         <h2>Confirm your wallet</h2>
-        <div className="mt-4 flex flex-row items-center gap-2 border border-[#1465B4] bg-[#061E36] rounded px-3 py-2">
+        <div className="mt-2 md:mt-4 flex flex-row items-center gap-2 border border-[#1465B4] bg-[#061E36] rounded px-3 py-2">
           <Info className="text-[#53A1EB]" size={20} />
           <p className="font-normal!">{error}</p>
         </div>
-        <div className="mt-5 flex flex-col gap-5">
-          <div className="flex flex-row items-center gap-6 px-4">
+        <div className="mt-3 md:mt-5 flex flex-col gap-3 md:gap-5">
+          <div className="flex flex-row items-center gap-3 md:gap-6 px-2.5 md:px-4">
             <Icon1 />
             <p className="w-full flex flex-row justify-between p-3 bg-[#121212]">
               <p>Registered wallet</p>
@@ -68,7 +69,7 @@ export default function SubmitWallet(props: Props) {
               </p>
             </p>
           </div>
-          <div className="flex flex-row items-center gap-6 px-4">
+          <div className="flex flex-row items-center gap-3 md:gap-6 px-2.5 md:px-4">
             <div className="w-5 h-5 border border-base-100 rounded-full aspect-square" />
             <div className="flex flex-row items-center gap-2 w-full">
               <input
@@ -87,16 +88,16 @@ export default function SubmitWallet(props: Props) {
             </div>
           </div>
           {!!input && !isAddress(input) && (
-            <span className="ml-14 -mt-4 text-xs text-error">
+            <span className="ml-11 md:ml-14 -mt-2 md:-mt-4 text-xs text-error">
               Invalid wallet address
             </span>
           )}
-          <p className="text-[#878787] pl-14">
+          <p className="text-[#878787] pl-11 md:pl-14">
             Switching wallets? Check your Prime Points again.
           </p>
         </div>
         <Button
-          className="mt-12 btn btn-primary"
+          className="mt-8 md:mt-12 btn btn-primary"
           onClick={onSubmit}
           disabled={!isAddress(input) || isAddressEqual(input, address as Hex)}
         >
@@ -105,7 +106,7 @@ export default function SubmitWallet(props: Props) {
       </div>
     )
   return (
-    <div className="flex flex-col gap-10 p-10">
+    <div className="flex flex-col gap-5 md:gap-10 p-5 md:p-10">
       <h2>Confirm your wallet</h2>
       <div className="flex flex-row items-center gap-2">
         <input
@@ -122,10 +123,12 @@ export default function SubmitWallet(props: Props) {
         </Button>
       </div>
       {!!input && !isAddress(input) && (
-        <span className="-mt-9 text-xs text-error">Invalid wallet address</span>
+        <span className="-mt-4 md:-mt-9 text-xs text-error">
+          Invalid wallet address
+        </span>
       )}
       <Button
-        className="mt-24 btn btn-primary"
+        className="mt-12 md:mt-24 btn btn-primary"
         disabled={!isAddress(input)}
         onClick={onSubmit}
       >

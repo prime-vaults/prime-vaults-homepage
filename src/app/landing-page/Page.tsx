@@ -16,7 +16,7 @@ export default function LandingPage() {
             <img className="w-auto h-14 object-contain" src="/logo.svg" />
           </Link>
           <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl md:text-8xl font-bold mb-6 md:mb-12">
+            <span className="text-5xl md:text-[112px] mb-6 md:mb-12">
               Be First to Earn
             </span>
             <h3 className="text-center font-normal!">
@@ -33,63 +33,59 @@ export default function LandingPage() {
             </h3>
           </div>
           {/* CTA */}
-          <div className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mt-8 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             <CheckPoint />
             <PlayGame />
           </div>
           {/* close beta */}
-          <div className="mt-12 md:mt-24 flex flex-col border border-base-100 bg-base-200 p-4 md:p-6 bg-repeating">
-            <p className="text-xl">Prime Vaults Closed-Beta</p>
-            <span className="text-secondary">
+          <div className="mt-12 md:mt-24 flex flex-col gap-2 md:gap-4 border border-base-100 bg-base-200 p-4 md:p-6">
+            <h4>Prime Vaults Closed-Beta</h4>
+            <p className="text-secondary">
               A limited-time, limited-slot early access phase where you can test
               Prime Vaults and earn real rewards.
-            </span>
-            <div className="mt-6 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-10">
-              <p className="col-span-full text-xl">Why Join the Closed-Beta</p>
-              <div className="flex flex-col gap-6 text-secondary">
-                <p className="text-2xl text-primary">Higher Real Yield</p>
-                <span>
+            </p>
+            <div className="mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-10">
+              <h4 className="col-span-full">Why Join the Closed-Beta</h4>
+              <div className="flex flex-col gap-3 md:gap-6 text-secondary">
+                <h3 className="text-primary">Higher Real Yield</h3>
+                <p>
                   Closed-Beta has capped capacity, which means higher APY for
                   early users.
-                </span>
-                <span>
+                </p>
+                <p>
                   Deposit BTC, ETH, USDC, or BERA and earn live APY — with
                   rewards claimable instantly.
-                </span>
-                <span>Supported chains: Core, Arbitrum, BNB, Berachain</span>
-              </div>
-              <div className="flex flex-col gap-6 text-secondary">
-                <p className="text-2xl text-primary">
-                  Early Access and Contribution.
                 </p>
-                <span>
+                <p>Supported chains: Core, Arbitrum, BNB, Berachain</p>
+              </div>
+              <div className="flex flex-col gap-3 md:gap-6 text-secondary">
+                <h3 className="text-primary">Early Access and Contribution.</h3>
+                <p>
                   Be among the first to experience the full Smart Saving Account
                   flow:
-                </span>
-                <span>Deposit → Earn → Claim in real time.</span>
-                <span>
+                </p>
+                <p>Deposit → Earn → Claim in real time.</p>
+                <p>
                   Your usage and feedback help refine the product ahead of
                   public release
-                </span>
-              </div>
-              <div className="flex flex-col gap-6 text-secondary">
-                <p className="text-2xl text-primary">
-                  Prime Points and Burn-to-Earn
                 </p>
-                <span>
+              </div>
+              <div className="flex flex-col gap-3 md:gap-6 text-secondary">
+                <h3 className="text-primary">Prime Points and Burn-to-Earn</h3>
+                <p>
                   Closed-Beta participants earn Prime Points earlier and get
                   first access to the burn-to-earn system.
-                </span>
-                <span>
+                </p>
+                <p>
                   Burn PP to compete for weekly rewards of up to $1,000, shared
                   by the Top 100 users.
-                </span>
+                </p>
               </div>
             </div>
-            <p></p>
           </div>
           {/* footer */}
-          <div className="flex flex-col md:flex-row gap-4 justify-between">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 justify-between">
+            <div />
             <div className="flex flex-row gap-4">
               <a
                 href="#"

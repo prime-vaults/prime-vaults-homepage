@@ -52,9 +52,11 @@ export default function Engines() {
               backgroundImage: `url(${bg_card})`,
             }}
           >
-            <div className="flex flex-col gap-4 font-medium">
-              <h2 className="text-primary uppercase">{item.title}</h2>
-              <p className="text-sm md:text-base">{item.desc}</p>
+            <div className="flex flex-col gap-2 md:gap-4 font-medium">
+              <h2 className="text-primary font-bold! uppercase">
+                {item.title}
+              </h2>
+              <p>{item.desc}</p>
             </div>
             <div className="flex-1" />
             <img src={item.img} className="w-full h-auto object-contain" />

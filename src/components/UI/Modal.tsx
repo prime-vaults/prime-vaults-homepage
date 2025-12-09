@@ -54,6 +54,7 @@ function ModalHeader({ children }: PropsWithChildren) {
   const enhanced = injectModalClose(children, ctx?.onClose)
   return <div className="modal-header">{enhanced}</div>
 }
+
 function ModalBody({ children }: PropsWithChildren) {
   return <div className="modal-body">{children}</div>
 }
@@ -65,6 +66,7 @@ type ModalProps = {
   className?: string
   boxClassName?: string
 }
+
 function Modal({
   open = false,
   backdrop = true,
@@ -76,10 +78,48 @@ function Modal({
   const modalRef = useRef<HTMLDialogElement>(null)
 
   useLayoutEffect(() => {
-    if (!modalRef.current) return
-    if (open) modalRef.current.show()
-    else modalRef.current.close()
+    const dialog = modalRef.current
+    if (!dialog) return
+
+    if (open) {
+      dialog.showModal()
+    } else {
+      dialog.close()
+    }
   }, [open])
+
+  useLayoutEffect(() => {
+    const dialog = modalRef.current
+    if (!dialog || !backdrop) return
+
+    // Xử lý click vào backdrop
+    const handleBackdropClick = (e: MouseEvent) => {
+      const rect = dialog.getBoundingClientRect()
+      // Kiểm tra nếu click ngoài modal-box
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        onClose()
+      }
+    }
+
+    // Xử lý cancel event (Esc key)
+    const handleCancel = (e: Event) => {
+      e.preventDefault()
+      onClose()
+    }
+
+    dialog.addEventListener('click', handleBackdropClick)
+    dialog.addEventListener('cancel', handleCancel)
+
+    return () => {
+      dialog.removeEventListener('click', handleBackdropClick)
+      dialog.removeEventListener('cancel', handleCancel)
+    }
+  }, [backdrop, onClose])
 
   return (
     <dialog ref={modalRef} className={`modal ${className}`}>
@@ -93,9 +133,6 @@ function Modal({
           )}
           {!!open && children}
         </div>
-        {!!backdrop && (
-          <form method="dialog" className="modal-backdrop" onClick={onClose} />
-        )}
       </ModalContext.Provider>
     </dialog>
   )

@@ -69,17 +69,19 @@ export default function PrimeBadge({
   }, [badge])
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2.5 md:gap-4 p-2.5 md:p-4">
       <div className="flex flex-row justify-between">
-        <p>PRIME TIER</p>
+        <h5>PRIME RANK</h5>
         <div className="flex flex-row gap-2 items-center">
-          <span className="text-xs">{shortenString(address)}</span>
+          <span className="text-xs">
+            {shortenString(address, { maxLength: 4 })}
+          </span>
           <Copy size={16} />
           <img src={x} alt="x" className="ml-2 w-4 h-4" />
           <span className="text-xs text-primary-content">Share on X</span>
         </div>
       </div>
-      <div className="relative border border-base-100 rounded-lg gap-4 overflow-hidden">
+      <div className="relative border border-base-100 rounded-lg gap-2.5 md:gap-4 overflow-hidden">
         <div className="flex flex-col">
           <div
             style={{
@@ -88,9 +90,9 @@ export default function PrimeBadge({
             }}
             className="w-full"
           >
-            <div className="w-1/2 flex flex-row items-center gap-2 p-5 rounded-t-lg">
-              <p className="text-[#B3BFA6] text-xs flex-1">Your are</p>
-              <p className="uppercase badge-text text-lg!">{badgeText}</p>
+            <div className="w-1/2 flex flex-row items-center gap-1 md:gap-2 px-2 py-3 md:p-5 rounded-t-lg">
+              <span className="text-[#B3BFA6] text-xs flex-1">You are</span>
+              <h5 className="uppercase badge-text">{badgeText}</h5>
               <ShieldIcon />
             </div>
           </div>
@@ -101,10 +103,10 @@ export default function PrimeBadge({
                 'radial-gradient(77.73% 112.66% at 0% 71.02%, rgba(173, 205, 139, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(264deg, rgba(29, 36, 35, 0.20) 54.62%, rgba(23, 33, 16, 0.20) 100.72%)',
             }}
           >
-            <div className="w-1/2 flex flex-col gap-4 p-5 min-h-[280px]!">
+            <div className="w-1/2 flex flex-col gap-3 md:gap-4 px-2 py-3 md:p-5 min-h-[160px] md:min-h-[280px]!">
               <p className="text-[#B3BFA6] text-xs ">Your Prime Points </p>
               <div className="flex flex-1 flex-row items-center justify-center">
-                <span className="text-primary font-bold text-5xl">
+                <span className="text-primary font-bold text-3xl md:text-5xl">
                   {formatUiNumber(point)}{' '}
                   <span className="text-white">P.P</span>
                 </span>
@@ -120,12 +122,12 @@ export default function PrimeBadge({
           <img src={badgeImage} className="w-full h-full" />
         </div>
       </div>
-      <div className="col-span-full flex flex-row gap-2 items-center w-full mt-4">
-        <Button className="btn btn-ghost text-primary">Cancel</Button>
-        <div className="flex-1" />
-        <Button className="btn btn-ghost text-primary">Play Yield Game</Button>
+      <div className="col-span-full flex flex-row gap-2 items-center w-full mt-2 md:mt-4">
+        <Button className="btn btn-ghost text-primary w-1/2">
+          Play Yield Game
+        </Button>
 
-        <Button className="btn btn-primary !px-6" onClick={onDone}>
+        <Button className="btn btn-primary !px-6 w-1/2" onClick={onDone}>
           Join Closed-Beta
         </Button>
       </div>

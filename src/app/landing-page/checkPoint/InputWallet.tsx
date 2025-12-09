@@ -13,8 +13,8 @@ export default function InputWallet({ onCheck }: InputWalletProps) {
   }
 
   return (
-    <div className="flex flex-col p-10 gap-10">
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col p-5 md:p-10 gap-5 md:gap-10">
+      <div className="flex flex-col gap-2 md:gap-3">
         <h2>Enter your wallet address</h2>
         <p className="">Paste any EVM wallet to check your points.</p>
       </div>
@@ -34,11 +34,13 @@ export default function InputWallet({ onCheck }: InputWalletProps) {
         </Button>
       </div>
       {!!input && !isAddress(input) && (
-        <span className="-mt-9 text-xs text-error">Invalid wallet address</span>
+        <span className="-mt-4 md:-mt-9 text-xs text-error">
+          Invalid wallet address
+        </span>
       )}
       <Button
         disabled={!isAddress(input)}
-        className="btn btn-primary w-fit px-6!"
+        className="btn btn-primary w-fit md:px-6!"
         onClick={() => onCheck(input)}
       >
         Check

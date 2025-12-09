@@ -12,6 +12,7 @@ export interface HoldingItem {
   rate: string
   apy: number
   key: string
+  benchmark?: boolean
 }
 
 export interface HoldingApy {
@@ -26,10 +27,17 @@ export const HOLDING_DATA: HoldingApy = {
       name: 'PrimeUSD',
       logo: prime_logo,
       rate: '9.18%',
-      apy: 17,
+      apy: 9.18,
       key: 'prime',
     },
-    { name: 'AAVE', logo: aave_logo, rate: '5.1%', apy: 5.1, key: 'aave' },
+    {
+      name: 'AAVE',
+      logo: aave_logo,
+      rate: '5.1%',
+      apy: 5.1,
+      key: 'aave',
+      benchmark: true,
+    },
     {
       name: 'US Bonds',
       logo: money_logo,
@@ -44,7 +52,7 @@ export const HOLDING_DATA: HoldingApy = {
       name: 'PrimeBTC',
       logo: prime_logo,
       rate: '2.53%',
-      apy: 3.5,
+      apy: 2.53,
       key: 'prime',
     },
     {
@@ -56,16 +64,31 @@ export const HOLDING_DATA: HoldingApy = {
     },
     { name: 'Euler', logo: euler, rate: '0.49%', apy: 0.49, key: 'euler' },
     { name: 'Morpho', logo: morpho, rate: '0.8%', apy: 0.8, key: 'morpho' },
+    {
+      name: 'AAVE',
+      logo: aave_logo,
+      rate: '0.01%',
+      apy: 0.01,
+      key: 'aave',
+      benchmark: true,
+    },
   ],
   eth: [
     {
       name: 'PrimeETH',
       logo: prime_logo,
       rate: '5.65%',
-      apy: 9.5,
+      apy: 5.65,
       key: 'prime',
     },
-    { name: 'AAVE', logo: aave_logo, rate: '1.68%', apy: 1.68, key: 'aave' },
+    {
+      name: 'AAVE',
+      logo: aave_logo,
+      rate: '1.68%',
+      apy: 1.68,
+      key: 'aave',
+      benchmark: true,
+    },
     { name: 'Morpho', logo: morpho, rate: '3.13%', apy: 3.13, key: 'morpho' },
     { name: 'Euler', logo: euler, rate: '3.53%', apy: 3.53, key: 'euler' },
   ],

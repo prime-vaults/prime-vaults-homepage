@@ -9,6 +9,7 @@ import { brandKitRoutes } from './brand-kit.routers'
 import { policyRoutes } from './policy.routers'
 import { termRoutes } from './term.routers'
 import { landingRoutes } from './landing.routers'
+import { blogRoutes } from './blog.routers'
 
 export const routes = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const routes = createBrowserRouter([
     ErrorBoundary,
   },
   landingRoutes,
+  blogRoutes,
   {
     path: '/*',
     element: <Navigate to={RouterKeys.Home} />,

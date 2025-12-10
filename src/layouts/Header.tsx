@@ -9,9 +9,7 @@ import { CoreRoutes } from '@/constant/router'
 import ICON from '@/static/images/close-beta.png'
 
 const MENUS: { label?: string; path: string; icon?: string }[] = [
-  // { label: 'Vaults', path: '#' },
-  // { label: 'Portfolio', path: '#' },
-  // { label: 'Prime Point', path: '#' },
+  { label: 'Blog', path: CoreRoutes.blog() },
   { icon: ICON, path: CoreRoutes.landing() },
 ]
 

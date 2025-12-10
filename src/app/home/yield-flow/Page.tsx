@@ -19,7 +19,7 @@ const TOKENS = [TOKEN_ETH, TOKEN_BTC, TOKEN_USDC, TOKEN_BERA]
 export default function YieldFlowPage() {
   return (
     <div className="flex flex-col gap-6 p-6">
-      <h1 className="font-black! text-primary">Prime Yield flow</h1>
+      <h1 className="font-black! text-primary uppercase">Prime Yield flow</h1>
 
       <div className="col-span-full grid grid-cols-12 pt-12 select-none">
         {/* user */}

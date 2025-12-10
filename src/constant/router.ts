@@ -4,6 +4,7 @@ export enum RouterKeys {
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
   Landing = 'close-beta-registration',
+  Blog = 'blog',
 }
 
 export type RouterParams = Record<string, string | number | undefined>
@@ -31,4 +32,7 @@ export const CoreRoutes = {
     `/${RouterKeys.BrandKit}${buildQuery(params)}`,
   landing: (params?: RouterParams) =>
     `/${RouterKeys.Landing}${buildQuery(params)}`,
+  blog: (params?: RouterParams) => `/${RouterKeys.Blog}${buildQuery(params)}`,
+  blogDetails: (pageId: string | number, params?: RouterParams) =>
+    `/${RouterKeys.Blog}/${pageId}${buildQuery(params)}`,
 }

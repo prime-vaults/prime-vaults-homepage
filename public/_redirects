@@ -1,5 +1,8 @@
-/*   /index.html   200
+# Specific routes
 /close-beta-registration / 301
 /brand-kit / 301
 /privacy-policy / 301
 /term-of-use / 301
+
+# SPA routing - must be last
+/* /index.html 200

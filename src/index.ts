@@ -1,19 +1,27 @@
-export default {
-  fetch: async (request: Request, env: any) => {
-    try {
-      const response = await env.ASSETS.fetch(request)
+interface Env {
+  ASSETS: {
+    fetch: (request: Request) => Promise<Response>
+  }
+}
 
-      if (response.status === 404) {
+export default {
+  fetch: async (request: Request, env: Env) => {
+    try {
+      const url = new URL(request.url)
+
+      let response = await env.ASSETS.fetch(request)
+
+      if (response.status === 404 && !url.pathname.startsWith('/api')) {
         const indexRequest = new Request(
           new URL('/index.html', request.url),
           request,
         )
-        return await env.ASSETS.fetch(indexRequest)
+        response = await env.ASSETS.fetch(indexRequest)
       }
 
       return response
     } catch (error: any) {
-      return new Response(`Error fetching ${request.url}: ${error.message}`, {
+      return new Response(`Error: ${error.message}`, {
         status: 500,
       })
     }

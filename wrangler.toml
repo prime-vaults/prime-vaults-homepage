@@ -5,3 +5,4 @@ main = "src/index.ts"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"

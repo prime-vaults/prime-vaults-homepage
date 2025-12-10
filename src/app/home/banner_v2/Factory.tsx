@@ -17,9 +17,11 @@ export default function Factory() {
       <div className="relative flex-1">
         <div className="text-base md:text-5xl font-medium md:font-bold absolute top-0 left-0 w-full flex flex-col md:gap-2 uppercase px-4 md:px-10 pt-2 md:pt-8 z-20">
           <span className="text-primary">
-            Your assets stay fully non-custodial.
+            Your assets stay <br /> fully non-custodial.
           </span>
-          <span>And your rewards stay above the market rate.</span>
+          <span>
+            And your rewards stay <br /> above the market rate.
+          </span>
         </div>
       </div>
       {/* factory */}

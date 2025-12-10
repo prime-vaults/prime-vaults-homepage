@@ -3,3 +3,9 @@ compatibility_date = "2025-12-09"
 
 [assets]
 directory = "./dist"
+
+# SPA routing support
+[[assets.redirects]]
+status = 200
+from = "/*"
+to = "/index.html"

@@ -122,7 +122,7 @@ export default function Portfolio() {
       id="portfolio_section"
       className="section-container grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6"
     >
-      <div className="flex flex-col gap-2 md:gap-4 text-center">
+      <div className="flex flex-col gap-2 md:gap-4">
         <h1 className="text-primary font-bold">
           SAVING - BUT WITH BETTER{' '}
           <RandomTextColor title="YIELD!" className="text-[#D6F3E9]" />

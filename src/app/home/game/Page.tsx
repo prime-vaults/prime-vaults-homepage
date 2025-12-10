@@ -18,7 +18,9 @@ import { numericFormat, useDebounce } from '@/helpers/utils'
 
 export default function GamePage({
   onLeave = () => {},
+  onOpenCheck,
 }: {
+  onOpenCheck?: () => void
   onLeave?: (e: any) => void
 }) {
   const gameRef = useRef<HTMLCanvasElement | null>(null)
@@ -95,6 +97,7 @@ export default function GamePage({
     return (
       <GameSuccessModal
         onClose={() => onLeave({ stopPropagation: () => {} })}
+        onOpenCheck={onOpenCheck}
       />
     )
   return (

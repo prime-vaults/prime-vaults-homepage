@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { useCallback, useState } from 'react'
 
 import Checking from './Checking'
+import { GameModal } from '../PlayGame'
 import InputWallet from './InputWallet'
 import Modal from '@/components/UI/Modal'
 import SubmitWallet from '../SubmitWallet'
@@ -107,6 +108,56 @@ export function calculateChainPercentages(
 
 export default function CheckPoint() {
   const [open, setOpen] = useState(false)
+  const [openGame, setOpenGame] = useState(false)
+
+  const onOpenGame = () => {
+    setOpen(false)
+    return setOpenGame(true)
+  }
+  return (
+    <div
+      onClick={() => setOpen(true)}
+      className="relative w-full grid grid-cols-5 gap-4 items-center border border-base-100 cursor-pointer group/point"
+    >
+      <Corner />
+      <div className="absolute top-0 left-0 w-0 group-hover/point:w-full h-full bg-gradient-to-r from-0% from-[var(--color-primary)] to-100% transition-all" />
+      <img
+        className="col-span-2 w-full h-auto object-contain scale-[1.4] z-[99]"
+        src={ASSET}
+      />
+      <div className="col-span-3 flex flex-col gap-1 md:gap-3">
+        <span className="text-3xl md:text-[40px] font-bold">
+          Check Your Points
+        </span>
+        <div className="flex flex-row gap-2 items-center">
+          <h5 className="text-primary cursor-pointer uppercase">
+            You might be surprised
+          </h5>
+          <ArrowRight className="text-primary-content w-5 md:w-8" />
+        </div>
+      </div>
+      {openGame && (
+        <GameModal open={openGame} onClose={() => setOpenGame(false)} />
+      )}
+      {open && (
+        <CheckPointModal
+          open={open}
+          setOpen={setOpen}
+          onOpenGame={onOpenGame}
+        />
+      )}
+    </div>
+  )
+}
+export function CheckPointModal({
+  open,
+  setOpen,
+  onOpenGame,
+}: {
+  open: boolean
+  setOpen: (open: boolean) => void
+  onOpenGame?: () => void
+}) {
   const [address, setAddress] = useState('')
   const [isReadySubmit, setIsReadySubmit] = useState(false)
   const [chainInfo, setChainInfo] = useState<ChainInfoCheck[]>()
@@ -134,58 +185,31 @@ export default function CheckPoint() {
   }, [])
 
   return (
-    <div
-      onClick={() => setOpen(true)}
-      className="relative w-full grid grid-cols-5 gap-4 items-center border border-base-100 cursor-pointer group/point"
-    >
-      <Corner />
-      <div className="absolute top-0 left-0 w-0 group-hover/point:w-full h-full bg-gradient-to-r from-0% from-[var(--color-primary)] to-100% transition-all" />
-      <img
-        className="col-span-2 w-full h-auto object-contain scale-[1.4] z-[99]"
-        src={ASSET}
-      />
-      <div className="col-span-3 flex flex-col gap-1 md:gap-3">
-        <span className="text-3xl md:text-[40px] font-bold">
-          Check Your Points
-        </span>
-        <div className="flex flex-row gap-2 items-center">
-          <h5 className="text-primary cursor-pointer uppercase">
-            You might be surprised
-          </h5>
-          <ArrowRight className="text-primary-content w-5 md:w-8" />
+    <Modal open={open} onClose={onClose}>
+      <div className="check-point">
+        <div className="flex flex-row items-center justify-between">
+          <img className="w-auto h-10 object-contain" src="/logo.svg" />
+          <X
+            onClick={(e) => {
+              e.stopPropagation()
+              onClose()
+            }}
+          />
         </div>
+        {!chainInfo && !userInfo && <InputWallet onCheck={onChecking} />}
+        {!isReadySubmit && !!address && !!chainInfo && !!userInfo && (
+          <Checking
+            chainsInfo={chainInfo}
+            userInfo={userInfo}
+            address={address}
+            onDone={() => setIsReadySubmit(true)}
+            onOpenGame={onOpenGame}
+          />
+        )}
+        {isReadySubmit && (
+          <SubmitWallet address={address} onClose={onClose} playGame={true} />
+        )}
       </div>
-      {open && (
-        <Modal open={open} onClose={onClose}>
-          <div className="check-point">
-            <div className="flex flex-row items-center justify-between">
-              <img className="w-auto h-10 object-contain" src="/logo.svg" />
-              <X
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onClose()
-                }}
-              />
-            </div>
-            {!chainInfo && !userInfo && <InputWallet onCheck={onChecking} />}
-            {!isReadySubmit && !!address && !!chainInfo && !!userInfo && (
-              <Checking
-                chainsInfo={chainInfo}
-                userInfo={userInfo}
-                address={address}
-                onDone={() => setIsReadySubmit(true)}
-              />
-            )}
-            {isReadySubmit && (
-              <SubmitWallet
-                address={address}
-                onClose={onClose}
-                playGame={true}
-              />
-            )}
-          </div>
-        </Modal>
-      )}
-    </div>
+    </Modal>
   )
 }

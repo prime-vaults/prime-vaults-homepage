@@ -6,13 +6,19 @@ import SubmitWallet from './SubmitWallet'
 import Modal from '@/components/UI/Modal'
 import Button from '@/components/UI/Button'
 import Corner from '@/components/UI/Corner'
+import { CheckPointModal } from './checkPoint'
 
 import GAME from '@/static/images/landing-page/game.png'
 import BANNER from '@/static/images/mini-game/banner-game.png'
 
 export default function PlayGame() {
   const [open, setOpen] = useState(false)
+  const [openCheck, setOpenCheck] = useState(false)
 
+  const handleCheck = () => {
+    setOpen(false)
+    return setOpenCheck(true)
+  }
   return (
     <div
       className="relative w-full grid grid-cols-5 gap-4 items-center border border-base-100 group/game cursor-pointer"
@@ -33,7 +39,14 @@ export default function PlayGame() {
           <ArrowRight className="text-primary-content w-5 md:w-8" />
         </div>
       </div>
-      <GameModal open={open} onClose={() => setOpen(false)} />
+      {openCheck && <CheckPointModal open={openCheck} setOpen={setOpenCheck} />}
+      {open && (
+        <GameModal
+          open={open}
+          onClose={() => setOpen(false)}
+          onOpenCheck={handleCheck}
+        />
+      )}
     </div>
   )
 }
@@ -41,9 +54,11 @@ export default function PlayGame() {
 export function GameModal({
   open,
   onClose,
+  onOpenCheck,
 }: {
   open: boolean
   onClose: () => void
+  onOpenCheck?: () => void
 }) {
   const [start, setStart] = useState(false)
 
@@ -62,7 +77,7 @@ export function GameModal({
       boxClassName="min-h-auto! md:min-w-4xl!"
     >
       {start ? (
-        <GamePage onLeave={handleClose} />
+        <GamePage onLeave={handleClose} onOpenCheck={onOpenCheck} />
       ) : (
         <div className="relative w-full h-full">
           <div className="absolute top-4 right-4 z-100">
@@ -108,7 +123,13 @@ export function GameModal({
   )
 }
 
-export function GameSuccessModal({ onClose }: { onClose: () => void }) {
+export function GameSuccessModal({
+  onClose,
+  onOpenCheck,
+}: {
+  onClose: () => void
+  onOpenCheck?: () => void
+}) {
   const [submitWallet, setSubmitWallet] = useState(false)
 
   if (submitWallet)
@@ -159,9 +180,15 @@ export function GameSuccessModal({ onClose }: { onClose: () => void }) {
 
             <div className="flex-1" />
             <div className="flex flex-row gap-2 md:gap-4 w-full">
-              <Button className="btn btn-primary bg-white! w-1/2">
-                Check Your Prime Points
-              </Button>
+              {onOpenCheck && (
+                <Button
+                  className="btn btn-primary bg-white! w-1/2"
+                  onClick={onOpenCheck}
+                >
+                  Check Your Prime Points
+                </Button>
+              )}
+
               <Button
                 className="btn btn-primary w-1/2"
                 onClick={() => setSubmitWallet(true)}

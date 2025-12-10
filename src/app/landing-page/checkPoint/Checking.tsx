@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react'
 
+import { ChainInfoCheck } from '.'
 import PrimeBadge from './PrimeBadge'
 import Corner from '@/components/UI/Corner'
 
 import { formatUiNumber, shortenString } from '@/helpers/utils'
 import { UserInfoBalance } from '@/app/api/types'
-import { ChainInfoCheck } from '.'
 
 export default function Checking({
   address,
   onDone,
   chainsInfo,
   userInfo,
+  onOpenGame,
 }: {
   chainsInfo: ChainInfoCheck[]
   userInfo: UserInfoBalance
   address: string
   onDone: () => void
+  onOpenGame?: () => void
 }) {
   const [currentStep, setCurrentStep] = useState(0)
   const [totalLoading, setTotalLoading] = useState(0)
@@ -73,6 +75,7 @@ export default function Checking({
         tvl={userInfo.total_usd_value}
         point={userInfo.points}
         onDone={onDone}
+        onOpenGame={onOpenGame}
       />
     )
   }

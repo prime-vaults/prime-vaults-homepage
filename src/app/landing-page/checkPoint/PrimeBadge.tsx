@@ -31,11 +31,13 @@ export default function PrimeBadge({
   point,
   address,
   onDone,
+  onOpenGame,
 }: {
   tvl: number
   point: number
   address: string
   onDone: () => void
+  onOpenGame?: () => void
 }) {
   const badge = getBadge(tvl)
   const { badgeImage, badgeText } = useMemo(() => {
@@ -123,9 +125,16 @@ export default function PrimeBadge({
         </div>
       </div>
       <div className="col-span-full flex flex-row gap-2 items-center w-full mt-2 md:mt-4">
-        <Button className="btn btn-ghost text-primary w-1/2">
-          Play Yield Game
-        </Button>
+        {onOpenGame ? (
+          <Button
+            className="btn btn-ghost text-primary w-1/2"
+            onClick={onOpenGame}
+          >
+            Play Yield Game
+          </Button>
+        ) : (
+          <div className="w-1/2" />
+        )}
 
         <Button className="btn btn-primary !px-6 w-1/2" onClick={onDone}>
           Join Closed-Beta

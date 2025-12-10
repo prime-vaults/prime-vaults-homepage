@@ -5,4 +5,5 @@
 /term-of-use / 301
 
 # SPA routing - must be last
+/index.html /index.html 200
 /* /index.html 200

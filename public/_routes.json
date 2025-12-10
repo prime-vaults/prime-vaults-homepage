@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/assets/*",
+    "/favicon.svg",
+    "/logo.svg",
+    "/thumbnail.png",
+    "/index.html",
+    "/close-beta-registration",
+    "/brand-kit",
+    "/privacy-policy",
+    "/term-of-use"
+  ]
+}

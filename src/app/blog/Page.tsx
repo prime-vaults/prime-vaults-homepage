@@ -25,8 +25,8 @@ export default function BlogPage() {
             PRIME <span className="text-primary">BLOG</span>
           </span>
           <h4 className="text-secondary">
-            Sign up for our newsletter to receive the latest news and product
-            updates.
+            Discover Prime Vaults, explore how it works, and stay updated with
+            our latest insights and developments.
           </h4>
         </div>
         <PinnedPosts />

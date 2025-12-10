@@ -68,6 +68,10 @@
   }
 }
 
+html {
+  @apply scroll-smooth;
+}
+
 body {
   @apply normal-case overflow-x-hidden;
   /* font-family: 'Geist Mono', monospace; */

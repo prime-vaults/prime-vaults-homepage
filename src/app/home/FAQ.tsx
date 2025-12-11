@@ -5,7 +5,7 @@ import BG_DOT from '@/static/images/bg-dot-long.png'
 
 const FAQ = [
   {
-    question: 'What’s Prime Vault?',
+    question: 'What’s Prime Vaults?',
     answer:
       'Prime Vaults is an on-chain Smart Saving Account offering stable, optimized reward rates with principal protection and a guaranteed minimum yield mechanism.',
   },

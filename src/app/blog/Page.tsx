@@ -1,7 +1,7 @@
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 
 import Container from '@/components/UI/Container'
 import Corner from '@/components/UI/Corner'
@@ -14,11 +14,18 @@ import { useGetDataSources, useQueryDataSources } from './hooks/useNotion'
 export default function BlogPage() {
   const [searchParams] = useSearchParams()
   const tag = searchParams.get(SearchQueryKey.BlogTag) || undefined
-
+  const nav = useNavigate()
   const { data: sources } = useQueryDataSources({ tag })
 
   return (
-    <Container innerClassName="min-h-[100dvh]">
+    <Container innerClassName="min-h-[100dvh] relative">
+      <div
+        onClick={() => nav(-1)}
+        className="absolute top-4 left-4 flex flex-row gap-1 items-center cursor-pointer"
+      >
+        <ChevronLeft width={24} />
+        <p className="font-bold! text-white">Back</p>
+      </div>
       <div className="flex flex-col gap-16 px-4 py-16">
         <div className="flex flex-col gap-2  justify-center items-center">
           <span className="text-3xl md:text-7xl">

@@ -77,7 +77,7 @@ export default function Color() {
       <div className="flex flex-col gap-4 text-[#FCFCFD]">
         <p className="text-4xl md:text-8xl font-bold">COLOR</p>
         <p className="text-sm md:text-base font-medium">
-          Green for growth, black for strength — the colors of PrimeVaults.
+          Green for growth, black for strength — the colors of Prime Vaults.
         </p>
       </div>
       <div className="flex flex-col gap-4 w-full">

@@ -170,7 +170,7 @@ export function GameSuccessModal({
               </p>
             </div>
             <p>
-              The game shows how PrimeVaults works: instead of splitting assets
+              The game shows how Prime Vaults works: instead of splitting assets
               into separate pools, it connects everything into one smart vault
               and hunts yield across the entire portfolio — that’s how it
               reaches 100%.
@@ -200,7 +200,7 @@ export function GameSuccessModal({
         </div>
         <img
           src={BANNER}
-          className="h-[50dvh] md:h-[80dvh] object-cover! w-full"
+          className="h-[50dvh] md:h-[70dvh] object-cover! w-full"
         />
       </div>
     </div>

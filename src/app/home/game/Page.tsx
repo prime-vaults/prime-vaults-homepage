@@ -160,7 +160,7 @@ export default function GamePage({
                 </p>
               </div>
               <p>
-                The game shows how PrimeVaults works: instead of splitting
+                The game shows how Prime Vaults works: instead of splitting
                 assets into separate pools, it connects everything into one
                 smart vault and hunts yield across the entire portfolio — that’s
                 how it reaches 100%.

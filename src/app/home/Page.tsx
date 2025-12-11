@@ -8,6 +8,7 @@ import TimePage from './time/Page'
 import IntroPage from './intro/Page'
 import BannerV2Page from './banner_v2/Page'
 import YieldFlowPage from './yield-flow/Page'
+import CTA from './CTA'
 
 export default function HomePage() {
   return (
@@ -24,6 +25,7 @@ export default function HomePage() {
         <Engines />
         <YieldFlowPage />
         <ScrollingPage />
+        <CTA />
         <FAQPage />
       </div>
     </Container>

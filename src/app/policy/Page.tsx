@@ -4,7 +4,7 @@ const POLICIES = [
   {
     title: '1. Information Collection',
     desc: [
-      'PrimeVaults may collect limited information necessary to operate the service, including:',
+      'Prime Vaults may collect limited information necessary to operate the service, including:',
       'On-chain wallet addresses.',
       'Transaction history related to vault participation.',
       'Technical data (e.g., IP, device details) for security purposes.',
@@ -22,19 +22,19 @@ const POLICIES = [
   {
     title: '3. Data Security',
     desc: [
-      'PrimeVaults applies industry-standard security practices, including smart contract audits and continuous monitoring. However, no system can guarantee 100% protection against external threats. Users should participate with full awareness of inherent risks.',
+      'Prime Vaults applies industry-standard security practices, including smart contract audits and continuous monitoring. However, no system can guarantee 100% protection against external threats. Users should participate with full awareness of inherent risks.',
     ],
   },
   {
     title: '4. Data Sharing',
     desc: [
-      'PrimeVaults does not sell or trade user data. Data may be shared only with trusted partners such as auditors, security providers, or legal entities when necessary.',
+      'Prime Vaults does not sell or trade user data. Data may be shared only with trusted partners such as auditors, security providers, or legal entities when necessary.',
     ],
   },
   {
     title: '5. User Control',
     desc: [
-      'Users always retain control over their wallets and private keys. PrimeVaults never stores or requests access to private keys.',
+      'Users always retain control over their wallets and private keys. Prime Vaults never stores or requests access to private keys.',
     ],
   },
   {
@@ -54,7 +54,7 @@ export default function PolicyPage() {
       <div className="flex flex-col px-8 py-16 bg-[#141510] gap-7 font-medium">
         <div className="flex flex-col gap-2">
           <p className="text-3xl md:text-5xl text-[#FCFCFD]">
-            Privacy Policy – PrimeVaults
+            Privacy Policy – Prime Vaults
           </p>
           <p className="text-sm md:text-base text-[#ABB1BA]">
             Version dated Sep 18, 2025

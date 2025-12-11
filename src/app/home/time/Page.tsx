@@ -26,7 +26,7 @@ export default function TimePage() {
       <div className="flex flex-col gap-2 items-center">
         <h1 className="text-primary">TIME IS MONEY</h1>
         <h4 className="text-center px-4 md:px-40">
-          <b className="text-primary">PrimeVaults</b> turns your deposits into
+          <b className="text-primary">Prime Vaults</b> turns your deposits into
           continuous growth, harnessing real-time DeFi strategies so your assets
           never stop working.
         </h4>

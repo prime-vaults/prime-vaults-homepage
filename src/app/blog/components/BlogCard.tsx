@@ -44,7 +44,7 @@ export default function BlogCard({
           'w-2/5!': pined,
         })}
       />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 h-full">
         <div className="flex flex-row gap-2 items-center ">
           {/* multi_select */}
           {tags.map((tag: any) => (
@@ -61,14 +61,14 @@ export default function BlogCard({
           {dayjs(publicDate).format('MMM DD, YYYY')}
         </p>
         {/* title */}
-        <h3 className="font-bold! text-white">{title}</h3>
+        <h4 className="font-bold! text-white">{title}</h4>
         {/* Meta Description */}
-        <p className="text-secondary font-medium leading-relaxed line-clamp-2 flex-1">
+        <span className="text-sm text-secondary font-medium leading-relaxed flex-1">
           {metaDesc}
-        </p>
+        </span>
         <div className="flex flex-row gap-1">
           <p className="text-primary font-bold">LEARN MORE</p>
-          <ArrowRight />
+          <ArrowRight className="text-primary" />
         </div>
       </div>
     </Link>

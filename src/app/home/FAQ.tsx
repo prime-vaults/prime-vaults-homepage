@@ -5,14 +5,14 @@ import BG_DOT from '@/static/images/bg-dot-long.png'
 
 const FAQ = [
   {
-    question: 'What’s PrimeVault?',
+    question: 'What’s Prime Vault?',
     answer:
-      'PrimeVaults is an on-chain Smart Saving Account offering stable, optimized reward rates with principal protection and a guaranteed minimum yield mechanism.',
+      'Prime Vaults is an on-chain Smart Saving Account offering stable, optimized reward rates with principal protection and a guaranteed minimum yield mechanism.',
   },
   {
-    question: 'Why are PrimeVault’s reward rates attractive and guaranteed?',
+    question: 'Why are Prime Vault’s reward rates attractive and guaranteed?',
     answer: `All assets are pooled into one shared vault and deployed across multiple strategies.
-By combining utility across many assets and many strategies, PrimeVaults generates stronger, more efficient yield - enabling attractive reward rates while guaranteeing a minimum benchmark rate.`,
+By combining utility across many assets and many strategies, Prime Vaults generates stronger, more efficient yield - enabling attractive reward rates while guaranteeing a minimum benchmark rate.`,
   },
   {
     question: 'How is the reward rate defined?',
@@ -20,9 +20,9 @@ By combining utility across many assets and many strategies, PrimeVaults generat
       'Reward rates for each asset are determined by strategy performance, market yield, and vault demand and always stay <b>at or above the Benchmark Rate</b> from <b>AAVE V3 Core Market.</b>',
   },
   {
-    question: 'Is PrimeVaults non-custodial?',
+    question: 'Is Prime Vaults non-custodial?',
     answer:
-      'Yes. PrimeVaults never takes custody. Your assets always remain under your ownership and control.',
+      'Yes. Prime Vaults never takes custody. Your assets always remain under your ownership and control.',
   },
   {
     question: 'Can I withdrawals anytime?',
@@ -35,9 +35,9 @@ By combining utility across many assets and many strategies, PrimeVaults generat
       'The unlock period allows the vault to safely unwind or rebalance strategies, protecting system stability and solvency during withdrawals.',
   },
   {
-    question: 'Is PrimeVaults safe?',
+    question: 'Is Prime Vaults safe?',
     answer:
-      'PrimeVaults is supported by a <b>Solvency Framework</b> built on the <b>Health Index, IL Reserve Fund</b>, and a transparent <b>Proof of Reserve Dashboard</b>, ensuring system solvency and long-term protection for user assets.',
+      'Prime Vaults is supported by a <b>Solvency Framework</b> built on the <b>Health Index, IL Reserve Fund</b>, and a transparent <b>Proof of Reserve Dashboard</b>, ensuring system solvency and long-term protection for user assets.',
   },
 ]
 

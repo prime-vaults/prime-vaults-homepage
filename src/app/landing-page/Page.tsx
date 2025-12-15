@@ -1,17 +1,29 @@
 import { Fragment } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { ArrowRight, ChevronLeft } from 'lucide-react'
 
 import Container from '@/components/UI/Container'
 import PlayGame from './PlayGame'
 import CheckPoint from './checkPoint'
+import Corner from '@/components/UI/Corner'
 
 import { CoreRoutes } from '@/constant/router'
+import ASSET from '@/static/images/landing-page/asset.png'
 
 export default function LandingPage() {
+  const nav = useNavigate()
+
   return (
     <Fragment>
       <Container innerClassName="border-none">
-        <div className="flex flex-col p-4 gap-4 md:gap-6">
+        <div className="relative flex flex-col p-4 gap-4 md:gap-6">
+          <div
+            onClick={() => nav(CoreRoutes.home())}
+            className="absolute top-4 left-4 flex flex-row gap-1 items-center cursor-pointer"
+          >
+            <ChevronLeft width={24} />
+            <p className="font-bold! text-white">Back</p>
+          </div>
           <Link to={CoreRoutes.home()} className="self-center">
             <img className="w-auto h-14 object-contain" src="/logo.svg" />
           </Link>
@@ -28,13 +40,36 @@ export default function LandingPage() {
             <h3 className="font-normal!">
               Real APY and rewards are claimable instantly.
             </h3>
-            <h3 className="mt-4 md:mt-6  font-normal!">
-              Limited time. <span className="text-primary">Join now.</span>
-            </h3>
+            <div className="mt-4 md:mt-6 flex flex-row gap-2">
+              <h3 className="font-normal!">Limited time.</h3>
+              <CheckPoint>
+                <h3 className="text-primary cursor-pointer">Join now.</h3>
+              </CheckPoint>
+            </div>
           </div>
           {/* CTA */}
           <div className="mt-8 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-            <CheckPoint />
+            <CheckPoint>
+              <div className="relative w-full grid grid-cols-5 gap-4 items-center border border-base-100 cursor-pointer group/point">
+                <Corner />
+                <div className="absolute top-0 left-0 w-0 group-hover/point:w-full h-full bg-gradient-to-r from-0% from-[var(--color-primary)] to-100% transition-all" />
+                <img
+                  className="col-span-2 w-full h-auto object-contain scale-[1.4] z-[99]"
+                  src={ASSET}
+                />
+                <div className="col-span-3 flex flex-col gap-1 md:gap-3">
+                  <span className="text-3xl md:text-[40px] font-bold">
+                    Check Your Points
+                  </span>
+                  <div className="flex flex-row gap-2 items-center">
+                    <h5 className="text-primary cursor-pointer uppercase">
+                      You might be surprised
+                    </h5>
+                    <ArrowRight className="text-primary-content w-5 md:w-8" />
+                  </div>
+                </div>
+              </div>
+            </CheckPoint>
             <PlayGame />
           </div>
           {/* close beta */}
@@ -89,45 +124,11 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 justify-between">
             <div />
             <div className="flex flex-row gap-4">
-              <a
-                href="#"
-                className="flex flex-col items-center justify-center w-9 h-9 border border-base-100"
-              >
-                <svg
-                  width="24"
-                  height="16"
-                  viewBox="0 0 24 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21.0275 2.02667C19.3762 0.746649 17.3945 0.106674 15.3028 0L14.9725 0.320023C16.844 0.746648 18.4954 1.59997 20.0367 2.77332C18.1651 1.81332 16.0734 1.17335 13.8715 0.959997C13.211 0.853323 12.6605 0.853323 12 0.853323C11.3395 0.853323 10.789 0.853323 10.1285 0.959997C7.9266 1.17335 5.83485 1.81332 3.9633 2.77332C5.50455 1.59997 7.15597 0.746648 9.02752 0.320023L8.69723 0C6.60547 0.106674 4.62383 0.746649 2.97247 2.02667C1.10092 5.44003 0.110092 9.28002 0 13.2266C1.65135 14.9333 3.9633 16 6.38535 16C6.38535 16 7.15597 15.1467 7.7064 14.4C6.27525 14.08 4.95412 13.3333 4.0734 12.16C4.84403 12.5866 5.61465 13.0133 6.38535 13.3333C7.37617 13.76 8.367 13.9733 9.35783 14.1867C10.2386 14.2933 11.1193 14.4 12 14.4C12.8807 14.4 13.7614 14.2933 14.6422 14.1867C15.633 13.9733 16.6238 13.76 17.6147 13.3333C18.3854 13.0133 19.156 12.5866 19.9266 12.16C19.0459 13.3333 17.7248 14.08 16.2936 14.4C16.844 15.1467 17.6147 16 17.6147 16C20.0367 16 22.3486 14.9333 24 13.2266C23.8899 9.28002 22.8991 5.44003 21.0275 2.02667ZM8.367 11.3066C7.26608 11.3066 6.27525 10.3466 6.27525 9.17335C6.27525 8 7.26608 7.04 8.367 7.04C9.46793 7.04 10.4587 8 10.4587 9.17335C10.4587 10.3466 9.46793 11.3066 8.367 11.3066ZM15.633 11.3066C14.5321 11.3066 13.5413 10.3466 13.5413 9.17335C13.5413 8 14.5321 7.04 15.633 7.04C16.7339 7.04 17.7248 8 17.7248 9.17335C17.7248 10.3466 16.7339 11.3066 15.633 11.3066Z"
-                    fill="white"
-                  />
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="flex flex-col items-center justify-center w-9 h-9 border border-base-100"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M9.96942 0C4.46483 0 0 4.46483 0 9.96942C0 14.3731 2.87462 18.104 6.78899 19.4495C7.27829 19.5107 7.46177 19.2049 7.46177 18.9602C7.46177 18.7156 7.46177 18.104 7.46177 17.2477C4.70948 17.8593 4.09786 15.9021 4.09786 15.9021C3.66972 14.7401 2.99694 14.4343 2.99694 14.4343C2.07951 13.8226 3.0581 13.8226 3.0581 13.8226C4.0367 13.8838 4.58716 14.8624 4.58716 14.8624C5.50459 16.3914 6.91131 15.9633 7.46177 15.7187C7.52294 15.0459 7.82875 14.6177 8.07339 14.3731C5.87156 14.1284 3.5474 13.2722 3.5474 9.41896C3.5474 8.31804 3.91437 7.46177 4.58716 6.72783C4.52599 6.54434 4.15902 5.50459 4.70948 4.15902C4.70948 4.15902 5.56575 3.91437 7.46177 5.19878C8.25688 4.95413 9.11315 4.89297 9.96942 4.89297C10.8257 4.89297 11.682 5.01529 12.4771 5.19878C14.3731 3.91437 15.2294 4.15902 15.2294 4.15902C15.7798 5.50459 15.4128 6.54434 15.3517 6.78899C15.9633 7.46177 16.3914 8.37921 16.3914 9.48012C16.3914 13.3333 14.0673 14.1284 11.8654 14.3731C12.2324 14.6789 12.5382 15.2905 12.5382 16.208C12.5382 17.5535 12.5382 18.5933 12.5382 18.9602C12.5382 19.2049 12.7217 19.5107 13.211 19.4495C17.1865 18.104 20 14.3731 20 9.96942C19.9388 4.46483 15.474 0 9.96942 0Z"
-                    fill="white"
-                  />
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="flex flex-col items-center justify-center w-9 h-9 border border-base-100"
+              <div
+                className="flex flex-col items-center justify-center w-9 h-9 border border-base-100 cursor-pointer"
+                onClick={() =>
+                  window.open('https://x.com/PrimeVaultsHQ', '_blank')
+                }
               >
                 <svg
                   width="20"
@@ -141,7 +142,7 @@ export default function LandingPage() {
                     fill="white"
                   />
                 </svg>
-              </a>
+              </div>
             </div>
           </div>
         </div>

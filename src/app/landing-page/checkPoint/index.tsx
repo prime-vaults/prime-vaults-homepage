@@ -1,13 +1,12 @@
-import { ArrowRight, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { toast } from 'react-toastify'
-import { useCallback, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 
 import Checking from './Checking'
 import { GameModal } from '../PlayGame'
 import InputWallet from './InputWallet'
 import Modal from '@/components/UI/Modal'
 import SubmitWallet from '../SubmitWallet'
-import Corner from '@/components/UI/Corner'
 
 import { getBalances } from '@/app/api'
 import {
@@ -16,7 +15,6 @@ import {
   UserInfoBalance,
 } from '@/app/api/types'
 
-import ASSET from '@/static/images/landing-page/asset.png'
 import ETH from '@/static/images/landing-page/logo/eth.png'
 import OTHER from '@/static/images/landing-page/logo/other.png'
 import ARB from '@/static/images/landing-page/logo/arb.png'
@@ -38,15 +36,15 @@ const CHAINS_CHECK = [
     percent: 0,
   },
   {
-    id: DebankChain.arb,
-    name: 'Arbitrum',
-    logo: ARB,
+    id: DebankChain.bsc,
+    name: 'BNB',
+    logo: BNB,
     percent: 0,
   },
   {
-    id: DebankChain.bera,
-    name: 'Bera',
-    logo: BERA,
+    id: DebankChain.arb,
+    name: 'Arbitrum',
+    logo: ARB,
     percent: 0,
   },
   {
@@ -56,9 +54,9 @@ const CHAINS_CHECK = [
     percent: 0,
   },
   {
-    id: DebankChain.bsc,
-    name: 'BNB',
-    logo: BNB,
+    id: DebankChain.bera,
+    name: 'Bera',
+    logo: BERA,
     percent: 0,
   },
   {
@@ -106,7 +104,11 @@ export function calculateChainPercentages(
   })
 }
 
-export default function CheckPoint() {
+export default function CheckPoint({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [open, setOpen] = useState(false)
   const [openGame, setOpenGame] = useState(false)
 
@@ -115,27 +117,8 @@ export default function CheckPoint() {
     return setOpenGame(true)
   }
   return (
-    <div
-      onClick={() => setOpen(true)}
-      className="relative w-full grid grid-cols-5 gap-4 items-center border border-base-100 cursor-pointer group/point"
-    >
-      <Corner />
-      <div className="absolute top-0 left-0 w-0 group-hover/point:w-full h-full bg-gradient-to-r from-0% from-[var(--color-primary)] to-100% transition-all" />
-      <img
-        className="col-span-2 w-full h-auto object-contain scale-[1.4] z-[99]"
-        src={ASSET}
-      />
-      <div className="col-span-3 flex flex-col gap-1 md:gap-3">
-        <span className="text-3xl md:text-[40px] font-bold">
-          Check Your Points
-        </span>
-        <div className="flex flex-row gap-2 items-center">
-          <h5 className="text-primary cursor-pointer uppercase">
-            You might be surprised
-          </h5>
-          <ArrowRight className="text-primary-content w-5 md:w-8" />
-        </div>
-      </div>
+    <Fragment>
+      <div onClick={() => setOpen(true)}>{children}</div>
       {openGame && (
         <GameModal open={openGame} onClose={() => setOpenGame(false)} />
       )}
@@ -146,7 +129,7 @@ export default function CheckPoint() {
           onOpenGame={onOpenGame}
         />
       )}
-    </div>
+    </Fragment>
   )
 }
 export function CheckPointModal({
@@ -163,11 +146,15 @@ export function CheckPointModal({
   const [chainInfo, setChainInfo] = useState<ChainInfoCheck[]>()
   const [userInfo, setUserInfo] = useState<UserInfoBalance>()
 
-  const onClose = () => {
+  const onReset = () => {
     setAddress('')
     setIsReadySubmit(false)
     setChainInfo(undefined)
     setUserInfo(undefined)
+  }
+
+  const onClose = () => {
+    onReset()
     return setOpen(false)
   }
 
@@ -211,6 +198,7 @@ export function CheckPointModal({
             address={address}
             onClose={onClose}
             onOpenGame={onOpenGame}
+            onReset={onReset}
           />
         )}
       </div>

@@ -15,10 +15,11 @@ type Props = {
   onClose: () => void
   address?: string
   onOpenGame?: () => void
+  onReset?: () => void
 }
 
 export default function SubmitWallet(props: Props) {
-  const { address } = props
+  const { address, onReset } = props
   const [registeredAddress, setRegisteredAddress] = useState(address)
   const [input, setInput] = useState(address || '')
   const [error, setError] = useState('')
@@ -53,7 +54,7 @@ export default function SubmitWallet(props: Props) {
   if (!!error)
     return (
       <div className="flex flex-col p-4 md:p-10">
-        <h2>Confirm your wallet</h2>
+        <h2>Register Your Wallet Address</h2>
         <div className="mt-2 md:mt-4 flex flex-row items-center gap-2 border border-[#1465B4] bg-[#061E36] rounded px-3 py-2">
           <Info className="text-[#53A1EB]" size={20} />
           <p className="font-normal!">{error}</p>
@@ -72,7 +73,7 @@ export default function SubmitWallet(props: Props) {
             <div className="w-5 h-5 border border-base-100 rounded-full aspect-square" />
             <div className="flex flex-row items-center gap-2 w-full">
               <input
-                placeholder="Paste your address here"
+                placeholder="Paste the wallet address you want to use for the Closed-Beta"
                 className="input w-full! bg-transparent flex-1 outline-none! border! border-secondary!"
                 value={input}
                 onChange={({ target }) => setInput(target.value)}
@@ -91,7 +92,10 @@ export default function SubmitWallet(props: Props) {
               Invalid wallet address
             </span>
           )}
-          <p className="text-[#878787] pl-11 md:pl-14">
+          <p
+            className="text-[#878787] pl-11 md:pl-14 cursor-pointer"
+            onClick={() => !!onReset && onReset()}
+          >
             Switching wallets? Check your Prime Points again.
           </p>
         </div>
@@ -100,16 +104,16 @@ export default function SubmitWallet(props: Props) {
           onClick={onSubmit}
           disabled={!isAddress(input) || isAddressEqual(input, address as Hex)}
         >
-          I understand and confirm
+          Register
         </Button>
       </div>
     )
   return (
     <div className="flex flex-col gap-5 md:gap-10 p-5 md:p-10">
-      <h2>Confirm your wallet</h2>
+      <h2>Register Your Wallet Address</h2>
       <div className="flex flex-row items-center gap-2">
         <input
-          placeholder="Paste your address here"
+          placeholder="Paste the wallet address you want to use for the Closed-Beta"
           className="input bg-transparent flex-1 outline-none! border! border-secondary!"
           value={address ? address : input}
           onChange={({ target }) => setInput(target.value)}
@@ -131,7 +135,7 @@ export default function SubmitWallet(props: Props) {
         disabled={!isAddress(input)}
         onClick={onSubmit}
       >
-        Confirm
+        Register
       </Button>
     </div>
   )
@@ -143,10 +147,10 @@ function RegisteredWallet({ onClose, onOpenGame }: Props) {
       <IconDone />
       <h2>Wallet registered successfully</h2>
       <p>
-        You’re in. Your wallet will be whitelisted when the Closed-Beta opens.{' '}
+        Your wallet is whitelisted for the Closed-Beta.
         <br /> <br />{' '}
         <span className="text-secondary">
-          Follow us on X and join Discord to stay updated.
+          Come back on January 6, 2026 to begin depositing.
         </span>
       </p>
       <div className="flex flex-row gap-4">

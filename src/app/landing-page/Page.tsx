@@ -56,10 +56,12 @@ export default function LandingPage() {
                   Deposit BTC, ETH, USDC, or BERA and earn live APY — with
                   rewards claimable instantly.
                 </p>
-                <p>Supported chains: Core, Arbitrum, BNB, Berachain</p>
+                <p>
+                  Supported chains: Ethereum, BNB, Arbitrum, Core, Berachain.
+                </p>
               </div>
               <div className="flex flex-col gap-3 md:gap-6 text-secondary">
-                <h3 className="text-primary">Early Access and Contribution.</h3>
+                <h3 className="text-primary">Early Access and Contribution</h3>
                 <p>
                   Be among the first to experience the full Smart Saving Account
                   flow:
@@ -67,7 +69,7 @@ export default function LandingPage() {
                 <p>Deposit → Earn → Claim in real time.</p>
                 <p>
                   Your usage and feedback help refine the product ahead of
-                  public release
+                  public release.
                 </p>
               </div>
               <div className="flex flex-col gap-3 md:gap-6 text-secondary">

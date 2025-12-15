@@ -3,7 +3,6 @@ import { Hex, isAddress, isAddressEqual } from 'viem'
 import { useCallback, useState } from 'react'
 import { ArrowRight, Info } from 'lucide-react'
 
-import { GameModal } from './PlayGame'
 import Button from '@/components/UI/Button'
 
 import { supabase } from '../api/supabase'
@@ -15,7 +14,7 @@ import discord from '@/static/images/logo/discord.svg'
 type Props = {
   onClose: () => void
   address?: string
-  playGame?: boolean
+  onOpenGame?: () => void
 }
 
 export default function SubmitWallet(props: Props) {
@@ -138,13 +137,7 @@ export default function SubmitWallet(props: Props) {
   )
 }
 
-function RegisteredWallet({ onClose, playGame }: Props) {
-  const [openGame, setOpenGame] = useState(false)
-
-  const onPlayGame = () => {
-    setOpenGame(true)
-    return onClose()
-  }
+function RegisteredWallet({ onClose, onOpenGame }: Props) {
   return (
     <div className="flex flex-col gap-5 p-10">
       <IconDone />
@@ -167,21 +160,18 @@ function RegisteredWallet({ onClose, playGame }: Props) {
       <div className="flex flex-row items-center gap-2 mt-4">
         <Button
           className={clsx('btn btn-primary w-full', {
-            'bg-white! w-1/2!': !!playGame,
+            'bg-white! w-1/2!': !!onOpenGame,
           })}
           onClick={onClose}
         >
           Done
         </Button>
-        {!!playGame && (
-          <Button className="btn btn-primary w-1/2" onClick={onPlayGame}>
+        {!!onOpenGame && (
+          <Button className="btn btn-primary w-1/2" onClick={onOpenGame}>
             Let’s play game <ArrowRight size={20} />
           </Button>
         )}
       </div>
-      {!!playGame && (
-        <GameModal onClose={() => setOpenGame(false)} open={openGame} />
-      )}
     </div>
   )
 }

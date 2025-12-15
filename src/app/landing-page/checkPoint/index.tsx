@@ -207,7 +207,11 @@ export function CheckPointModal({
           />
         )}
         {isReadySubmit && (
-          <SubmitWallet address={address} onClose={onClose} playGame={true} />
+          <SubmitWallet
+            address={address}
+            onClose={onClose}
+            onOpenGame={onOpenGame}
+          />
         )}
       </div>
     </Modal>

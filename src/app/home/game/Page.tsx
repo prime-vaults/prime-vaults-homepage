@@ -1,11 +1,12 @@
+import { X } from 'lucide-react'
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 
 import PipelineGame from './Pipeline/main'
 import Button from '@/components/UI/Button'
-import { GameSuccessModal } from '@/app/landing-page/PlayGame'
+import SubmitWallet from '@/app/landing-page/SubmitWallet'
 
-import { GAME_COL, GAME_ROW } from './Pipeline/constant/game'
 import { DEFAULT_CELLS } from './Pipeline/constant'
+import { GAME_COL, GAME_ROW } from './Pipeline/constant/game'
 
 import I from '@/static/images/mini-game/I.png'
 import L from '@/static/images/mini-game/L.png'
@@ -14,6 +15,7 @@ import P from '@/static/images/mini-game/pipe-cross.png'
 import V from '@/static/images/mini-game/vaullt.png'
 import S from '@/static/images/mini-game/strategy.png'
 import P2 from '@/static/images/mini-game/pipe-c.png'
+import cup from '@/static/images/landing-page/cup-point.png'
 import { numericFormat, useDebounce } from '@/helpers/utils'
 
 export default function GamePage({
@@ -28,6 +30,7 @@ export default function GamePage({
   const [rsRatio, setRsRatio] = useState(0)
   const [totalPath, setTotalPath] = useState(0)
   const [rsPercentage, setRsPercentage] = useState(0)
+  const [submitWallet, setSubmitWallet] = useState(false)
 
   useDebounce(
     () => {
@@ -93,12 +96,18 @@ export default function GamePage({
     initGame()
   }, [preloadImages])
 
-  if (rsPercentage >= 1)
+  if (submitWallet)
     return (
-      <GameSuccessModal
-        onClose={() => onLeave({ stopPropagation: () => {} })}
-        onOpenCheck={onOpenCheck}
-      />
+      <div className="w-full h-full flex flex-col p-2.5 md:p-4">
+        <div className="flex flex-row justify-between">
+          <img src="/logo.svg" className="w-auto h-14 object-contain" />
+          <X
+            className="w-6 h-6 cursor-pointer"
+            onClick={() => onLeave({ stopPropagation: () => {} })}
+          />
+        </div>
+        <SubmitWallet onClose={() => onLeave({ stopPropagation: () => {} })} />
+      </div>
     )
   return (
     <div className="game-modal">
@@ -151,28 +160,34 @@ export default function GamePage({
             </div>
           )}
           {rsPercentage >= 1 && (
-            <div className="absolute inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-black backdrop-blur-sm border border-primary">
+            <div className="absolute text-center inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-transparent backdrop-blur-xl border border-primary">
               <h2>Congrats! You succeeded.</h2>
-              <div className="flex flex-row relative">
-                <p className="py-1.5 px-4 bg-[#343434]">Fragmented Yield</p>
-                <p className="py-1.5 px-4 bg-[#B2E77B] text-[#2F4B12]">
-                  Unified Yield
-                </p>
-              </div>
-              <p>
+              <img src={cup} className="w-48 -mb-8" />
+              <p className="px-40">
                 The game shows how Prime Vaults works: instead of splitting
                 assets into separate pools, it connects everything into one
                 smart vault and hunts yield across the entire portfolio — that’s
                 how it reaches 100%.
                 <br /> <br />
-                Want to maximize your earnings? Join us now
+                Want to maximize your earnings?{' '}
+                <span className="text-primary-content">Join us now</span>
               </p>
 
-              <div className="flex flex-row gap-4 mt-40">
-                <Button className="btn btn-primary bg-white!">
-                  Check Your Prime Points
+              <div className="flex flex-row gap-4 mt-8">
+                {onOpenCheck && (
+                  <Button
+                    className="btn btn-primary bg-white! w-62 text-nowrap!"
+                    onClick={onOpenCheck}
+                  >
+                    Check Your Prime Points
+                  </Button>
+                )}
+                <Button
+                  className="btn btn-primary w-62"
+                  onClick={() => setSubmitWallet(true)}
+                >
+                  Join Closed-Beta
                 </Button>
-                <Button className="btn btn-primary">Join Closed-Beta</Button>
               </div>
             </div>
           )}
@@ -187,7 +202,9 @@ export default function GamePage({
           {rsRatio <= 0 && (
             <button
               className="btn btn-primary md:min-w-36 btn-sm md:btn-lg"
-              onClick={() => gameInstance.current?.check()}
+              onClick={() => {
+                gameInstance.current?.check()
+              }}
             >
               Run flow
             </button>

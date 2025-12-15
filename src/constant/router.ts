@@ -3,7 +3,7 @@ export enum RouterKeys {
   TermOfUse = 'term-of-use',
   PrivacyPolicy = 'privacy-policy',
   BrandKit = 'brand-kit',
-  Landing = 'close-beta-registration',
+  Landing = 'closed-beta-registration',
   Blog = 'blog',
 }
 

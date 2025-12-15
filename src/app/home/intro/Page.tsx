@@ -10,11 +10,11 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 let timer: NodeJS.Timeout
 const DURATION = 600
 
-export default function IntroPage() {
+export default function IntroPage({ introKey }: { introKey: string }) {
   const [step, setStep] = useState(0)
   const [visible, setVisible] = useState(true)
   const elmRef = useRef<HTMLDivElement | null>(null)
-  const [finished, setFinished] = useLocalStorage('intro-finished', false)
+  const [finished, setFinished] = useLocalStorage(introKey, false)
 
   const onFinish = () => {
     if (!elmRef.current) return

@@ -2,10 +2,11 @@ import { Fragment } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { ArrowRight, ChevronLeft } from 'lucide-react'
 
-import Container from '@/components/UI/Container'
 import PlayGame from './PlayGame'
 import CheckPoint from './checkPoint'
+import IntroPage from '../home/intro/Page'
 import Corner from '@/components/UI/Corner'
+import Container from '@/components/UI/Container'
 
 import { CoreRoutes } from '@/constant/router'
 import ASSET from '@/static/images/landing-page/asset.png'
@@ -16,6 +17,7 @@ export default function LandingPage() {
   return (
     <Fragment>
       <Container innerClassName="border-none">
+        <IntroPage introKey={'intro-landing'} />
         <div className="relative flex flex-col p-4 gap-4 md:gap-6">
           <div
             onClick={() => nav(CoreRoutes.home())}

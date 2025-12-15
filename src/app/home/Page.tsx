@@ -17,7 +17,7 @@ export default function HomePage() {
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
       <div className="flex flex-col">
-        <IntroPage />
+        <IntroPage introKey="intro-home" />
         <BannerV2Page />
         <Portfolio />
         <Integrated />

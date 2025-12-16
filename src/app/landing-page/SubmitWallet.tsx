@@ -107,7 +107,11 @@ export default function SubmitWallet(props: Props) {
         <Button
           className="mt-6 md:mt-12 btn btn-primary"
           onClick={onSubmit}
-          disabled={!isAddress(input) || isAddressEqual(input, address as Hex)}
+          disabled={
+            !isAddress(input) ||
+            (!!registeredAddress &&
+              !!isAddressEqual(input, registeredAddress as Hex))
+          }
         >
           Register
         </Button>

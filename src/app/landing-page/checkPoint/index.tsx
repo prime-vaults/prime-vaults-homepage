@@ -172,7 +172,11 @@ export function CheckPointModal({
   }, [])
 
   return (
-    <Modal open={open} onClose={onClose} boxClassName="min-w-[360px]">
+    <Modal
+      open={open}
+      onClose={onClose}
+      boxClassName="min-w-[360px] md:min-w-[600px]"
+    >
       <div className="check-point">
         <div className="flex flex-row items-center justify-between">
           <img className="w-auto h-6 md:h-10 object-contain" src="/logo.svg" />

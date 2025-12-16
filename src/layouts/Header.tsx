@@ -3,7 +3,9 @@ import { useId, useMemo } from 'react'
 import { Link, useLocation } from 'react-router'
 
 import { Menu, X } from 'lucide-react'
+import Button from '@/components/UI/Button'
 import Container from '@/components/UI/Container'
+import OpenAppModal from '@/components/OpenAppModal'
 
 import { CoreRoutes } from '@/constant/router'
 import ICON from '@/static/images/close-beta.png'
@@ -71,9 +73,11 @@ function HeaderLayout() {
           </ul>
           <ul className="menu menu-horizontal gap-4 p-0 md:p-2">
             <li>
-              <Link className="btn btn-primary md:min-w-36" to="#">
-                Open App
-              </Link>
+              <OpenAppModal>
+                <Button className="btn btn-primary md:min-w-36">
+                  Open App
+                </Button>
+              </OpenAppModal>
             </li>
             <li className="flex md:hidden items-center justify-center">
               <label className="p-0" htmlFor={mobileMenuId}>

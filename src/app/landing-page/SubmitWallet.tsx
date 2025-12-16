@@ -1,12 +1,14 @@
 import clsx from 'clsx'
-import { Hex, isAddress, isAddressEqual } from 'viem'
 import { useCallback, useState } from 'react'
 import { ArrowRight, Info } from 'lucide-react'
+import { Hex, isAddress, isAddressEqual } from 'viem'
 
 import Button from '@/components/UI/Button'
 
-import { supabase } from '../api/supabase'
+import { getBalances } from '../api'
 import { shortenString } from '@/helpers/utils'
+import { submitWhitelist } from '../api/supabase'
+import { getBadge } from './checkPoint/PrimeBadge'
 
 import x from '@/static/images/logo/x.svg'
 import discord from '@/static/images/logo/discord.svg'
@@ -33,10 +35,10 @@ export default function SubmitWallet(props: Props) {
   const onSubmit = useCallback(async () => {
     try {
       if (!input || !isAddress(input)) throw new Error('Invalid address')
-      const { data, error } = await supabase
-        .from('whitelist_wallets')
-        .insert([{ wallet_address: input.toLowerCase() }])
-        .select()
+      const balances = await getBalances({ wallet_address: input })
+      const badge = getBadge(balances.total_usd_value)
+      const { data, error } = await submitWhitelist(input.toLowerCase(), badge)
+
       if (error) {
         setRegisteredAddress(input)
         setInput('')

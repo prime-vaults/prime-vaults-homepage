@@ -1,6 +1,6 @@
+import OpenAppModal from '@/components/OpenAppModal'
 import Button from '@/components/UI/Button'
 
-const APP_LINK = 'https://app.primevaults.finance/'
 const DOCS_LINK = 'https://docs.primevaults.finance/'
 
 export default function CTA() {
@@ -12,12 +12,10 @@ export default function CTA() {
         is guaranteed, your growth is automatic, and your future starts today.
       </h2>
       <div className="flex flex-row gap-3 md:gap-6">
-        <Button
-          className="btn btn-primary"
-          onClick={() => window.open(APP_LINK, '_blank')}
-        >
-          Start Earning Now
-        </Button>
+        <OpenAppModal>
+          <Button className="btn btn-primary">Start Earning Now</Button>
+        </OpenAppModal>
+
         <Button
           className="btn btn-outline"
           onClick={() => window.open(DOCS_LINK, '_blank')}

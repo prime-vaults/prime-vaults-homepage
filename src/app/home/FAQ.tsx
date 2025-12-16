@@ -57,7 +57,7 @@ export default function FAQPage() {
         <h1 className="text-primary">FAQ</h1>
         <h3>Common Questions</h3>
         <p className="text-xs text-secondary md:self-end">
-          For more information please visit our Help Center.
+          For more information please visit our Discord.
         </p>
       </div>
       <div className="col-span-full md:col-span-9 flex flex-col gap-2">

@@ -1,9 +1,10 @@
 import Factory from './Factory'
 import River from './River'
 
-import Container from '@/components/UI/Container'
-import Button from '@/components/UI/Button'
 import Vault from './Vault'
+import Button from '@/components/UI/Button'
+import Container from '@/components/UI/Container'
+import OpenAppModal from '@/components/OpenAppModal'
 
 export default function BannerV2Page() {
   return (
@@ -16,17 +17,17 @@ export default function BannerV2Page() {
         {/* text - right side */}
         <div className="relative md:max-w-1/2 flex-1 z-20">
           <div className="absolute top-0 left-0 w-full flex flex-col gap-4 pt-6 md:pt-24">
-            <div className="flex flex-col md:gap-2 uppercase">
-              <span className="font-medium md:font-bold text-2xl md:text-[42px]">
-                YOUR SMART SAVING ACCOUNT
+            <div className="flex flex-col md:gap-2 uppercase font-medium md:font-bold text-lg md:text-[42px]">
+              <span>YOUR SMART SAVING ACCOUNT</span>
+              <span className="text-primary">
+                PRINCIPAL PROTECTION & GUARANTEED MINIMUM YIELD
               </span>
-              <h3 className="text-primary">
-                Principal Protected & Minimum Yield Guarantee
-              </h3>
             </div>
-            <Button className="btn btn-primary btn-xs md:btn-lg w-fit !px-6">
-              Start now
-            </Button>
+            <OpenAppModal>
+              <Button className="btn btn-primary btn-xs md:btn-lg w-fit !px-6">
+                Start now
+              </Button>
+            </OpenAppModal>
           </div>
         </div>
       </div>

@@ -14,13 +14,7 @@ import active from '@/static/images/badge/active.png'
 import og from '@/static/images/badge/og.png'
 import newSaver from '@/static/images/badge/new.png'
 import x from '@/static/images/logo/x-primary.svg'
-
-enum Badge {
-  PrimeWhale,
-  PrimeOG,
-  ActiveWallet,
-  NewSaver,
-}
+import { Badge } from '@/app/api/supabase'
 
 const tweets = [
   "I'm officially a [Prime Whale].\nJust checked my Prime Points and registered for the Closed-Beta. Curious to see what these unlock.",
@@ -53,7 +47,7 @@ function getRandomTweet(rank: string) {
   return resultTweet
 }
 
-function getBadge(badge: number) {
+export function getBadge(badge: number) {
   if (badge > 500_000) return Badge.PrimeWhale
   if (badge > 100_000) return Badge.PrimeOG
   if (badge > 50_000) return Badge.ActiveWallet

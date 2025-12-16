@@ -122,7 +122,7 @@ function Modal({
   }, [backdrop, onClose])
 
   return (
-    <dialog ref={modalRef} className={`modal ${className}`}>
+    <dialog ref={modalRef} className={`modal justify-center ${className}`}>
       <ModalContext.Provider value={{ onClose }}>
         <div className={`modal-box ${boxClassName}`}>
           {!hasHeader(children) && !!onClose && (

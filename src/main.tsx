@@ -5,10 +5,16 @@ import { createRoot } from 'react-dom/client'
 import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from './constant/wagmi.ts'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import timezone from 'dayjs/plugin/timezone'
+import timeZoneUTC from 'dayjs/plugin/utc'
+import duration from 'dayjs/plugin/duration'
 
 import App from './App.tsx'
 
 dayjs.extend(relativeTime)
+dayjs.extend(timeZoneUTC)
+dayjs.extend(timezone)
+dayjs.extend(duration)
 
 const queryClient = new QueryClient({})
 

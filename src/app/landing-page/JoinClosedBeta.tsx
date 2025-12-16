@@ -10,11 +10,11 @@ export default function JoinClosedBeta() {
       <Link to={CoreRoutes.home()} className="self-center">
         <img className="w-auto h-14 object-contain" src="/logo.svg" />
       </Link>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center text-center">
         <span className="text-5xl md:text-[112px] mb-8 md:mb-16">
           Be First to Earn
         </span>
-        <h3 className="text-center font-normal!">
+        <h3 className="font-normal!">
           Experience an on-chain smart saving account with <br />
           <span className="text-primary">
             Principal Protection and a Guaranteed Minimum Yield.

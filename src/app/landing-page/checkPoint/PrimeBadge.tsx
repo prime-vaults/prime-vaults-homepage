@@ -127,8 +127,8 @@ export default function PrimeBadge({
 
   if (openDownload)
     return (
-      <Modal open={openDownload} boxClassName="min-w-lg md:min-w-2xl!">
-        <div className="flex flex-col gap-4 p-6">
+      <Modal open={openDownload} boxClassName="min-w-[360px] md:min-w-2xl!">
+        <div className="flex flex-col gap-2.5 md:gap-4 p-3 md:p-6">
           <span className="text-xs text-[#B3BFA6] text-center">
             To share on X, download this image and upload it with your post.
           </span>
@@ -165,7 +165,7 @@ export default function PrimeBadge({
                       <span className="text-white">P.P</span>
                     </span>
                   </div>
-                  <span className="text-[#8E9D7F] text-[12px]">
+                  <span className="text-[#8E9D7F] text-[10px] md:text-[12px]">
                     You’ll be able to claim your points <br /> when the Closed
                     Beta opens.
                   </span>
@@ -176,31 +176,34 @@ export default function PrimeBadge({
               <img src={badgeImage} className="w-full h-full" />
             </div>
           </div>
-          <div className="mt-2 flex flex-row gap-4 items-center justify-between">
+          <div className="mt-2 flex flex-row gap-2 md:gap-4 items-center justify-between">
             <div className="flex-1">
               <Button
                 className="btn btn-ghost text-primary"
                 onClick={() => setOpenDownload(false)}
               >
-                Back
+                <p>Back</p>
               </Button>
             </div>
             <Button
-              className="btn btn-outline border-white px-6!"
+              className="btn btn-outline border-white md:px-6!"
               loading={loading}
               onClick={handleSaveImage}
             >
-              Download image
+              <p>Download image</p>
             </Button>
-            <Button className="btn btn-primary px-6!" onClick={shareOnTwitter}>
-              Tweet now <ArrowUpRight size={24} />
+            <Button
+              className="btn btn-primary md:px-6!"
+              onClick={shareOnTwitter}
+            >
+              <p>Tweet now</p> <ArrowUpRight size={24} />
             </Button>
           </div>
         </div>
       </Modal>
     )
   return (
-    <div className="flex flex-col gap-2.5 md:gap-4 p-2.5 md:p-4">
+    <div className="flex flex-col gap-2.5 md:gap-4 p-2 md:p-4">
       <div className="flex flex-row justify-between">
         <h5>PRIME RANK</h5>
         <div className="flex flex-row gap-2 items-center">
@@ -217,7 +220,7 @@ export default function PrimeBadge({
           </span>
         </div>
       </div>
-      <div className="relative border border-base-100 rounded-lg gap-2.5 md:gap-4 overflow-hidden">
+      <div className="relative border border-base-100 rounded-lg gap-2 md:gap-4 overflow-hidden">
         <div className="flex flex-col">
           <div
             style={{
@@ -226,7 +229,7 @@ export default function PrimeBadge({
             }}
             className="w-full"
           >
-            <div className="w-1/2 flex flex-row items-center gap-1 md:gap-2 px-2 py-3 md:p-5 rounded-t-lg">
+            <div className="w-1/2 flex flex-row items-center gap-1 md:gap-2 px-2 py-2 md:p-5 rounded-t-lg">
               <span className="text-[#B3BFA6] text-xs flex-1">You are</span>
               <h5 className="uppercase badge-text">{badgeText}</h5>
               <ShieldIcon />
@@ -239,7 +242,7 @@ export default function PrimeBadge({
                 'radial-gradient(77.73% 112.66% at 0% 71.02%, rgba(173, 205, 139, 0.20) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(264deg, rgba(29, 36, 35, 0.20) 54.62%, rgba(23, 33, 16, 0.20) 100.72%)',
             }}
           >
-            <div className="w-1/2 flex flex-col gap-3 md:gap-4 px-2 py-3 md:p-5 min-h-[160px] md:min-h-[280px]!">
+            <div className="w-1/2 flex flex-col gap-2 md:gap-4 p-2 md:p-5 min-h-[160px] md:min-h-[280px]!">
               <p className="text-[#B3BFA6] text-xs ">Your Prime Points </p>
               <div className="flex flex-1 flex-row items-center justify-center">
                 <span className="text-primary font-bold text-3xl md:text-5xl">
@@ -258,7 +261,7 @@ export default function PrimeBadge({
           <img src={badgeImage} className="w-full h-full" />
         </div>
       </div>
-      <div className="col-span-full flex flex-row gap-2 items-center w-full mt-2 md:mt-4">
+      <div className="col-span-full flex flex-row gap-1 md:gap-2 items-center w-full mt-2 md:mt-4">
         {onOpenGame ? (
           <Button
             className="btn btn-ghost text-primary w-1/2"
@@ -270,7 +273,7 @@ export default function PrimeBadge({
           <div className="w-1/2" />
         )}
 
-        <Button className="btn btn-primary !px-6 w-1/2" onClick={onDone}>
+        <Button className="btn btn-primary md:!px-6 w-1/2" onClick={onDone}>
           Join Closed-Beta
         </Button>
       </div>

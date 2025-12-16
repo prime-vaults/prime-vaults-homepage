@@ -67,7 +67,7 @@ export default function SubmitWallet(props: Props) {
         <div className="mt-3 md:mt-5 flex flex-col gap-3 md:gap-5">
           <div className="flex flex-row items-center gap-3 md:gap-6 px-2.5 md:px-4">
             <Icon1 />
-            <p className="w-full flex flex-row justify-between p-3 bg-[#121212]">
+            <p className="w-full flex flex-row justify-between p-1.5 md:p-3 bg-[#121212]">
               <p>Registered wallet</p>
               <p className="text-secondary">
                 {shortenString(registeredAddress || '', { maxLength: 5 })}
@@ -105,7 +105,7 @@ export default function SubmitWallet(props: Props) {
           </p>
         </div>
         <Button
-          className="mt-8 md:mt-12 btn btn-primary"
+          className="mt-6 md:mt-12 btn btn-primary"
           onClick={onSubmit}
           disabled={!isAddress(input) || isAddressEqual(input, address as Hex)}
         >
@@ -149,7 +149,7 @@ export default function SubmitWallet(props: Props) {
 
 function RegisteredWallet({ onClose, onOpenGame }: Props) {
   return (
-    <div className="flex flex-col gap-5 p-10">
+    <div className="flex flex-col gap-2.5 md:gap-5 p-5 md:p-10">
       <IconDone />
       <h2>Wallet registered successfully</h2>
       <p>
@@ -159,15 +159,15 @@ function RegisteredWallet({ onClose, onOpenGame }: Props) {
           Come back on January 6, 2026 to begin depositing.
         </span>
       </p>
-      <div className="flex flex-row gap-4">
-        <div className="p-2 bg-black border border-base-100">
+      <div className="flex flex-row gap-2 md:gap-4">
+        <div className="p-1.5 md:p-2 bg-black border border-base-100">
           <img src={discord} className="w-6  aspect-square" />
         </div>
-        <div className="p-2 bg-black border border-base-100">
+        <div className="p-1.5 md:p-2 bg-black border border-base-100">
           <img src={x} className="w-6  aspect-square" />
         </div>
       </div>
-      <div className="flex flex-row items-center gap-2 mt-4">
+      <div className="flex flex-row items-center gap-1 md:gap-2 mt-3 md:mt-4">
         <Button
           className={clsx('btn btn-primary w-full', {
             'bg-white! w-1/2!': !!onOpenGame,
@@ -177,7 +177,10 @@ function RegisteredWallet({ onClose, onOpenGame }: Props) {
           Done
         </Button>
         {!!onOpenGame && (
-          <Button className="btn btn-primary w-1/2" onClick={onOpenGame}>
+          <Button
+            className="btn btn-primary w-1/2 text-nowrap"
+            onClick={onOpenGame}
+          >
             Let’s play game <ArrowRight size={20} />
           </Button>
         )}

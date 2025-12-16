@@ -17,7 +17,7 @@ export default function Joining() {
         fontStyle: 'italic',
       }}
     >
-      {total.toString().replace(/\d/g, 'X')} are in the closed-beta
+      {total} are in the closed-beta
     </h3>
   )
 }

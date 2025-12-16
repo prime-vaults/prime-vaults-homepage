@@ -160,10 +160,10 @@ export default function GamePage({
             </div>
           )}
           {rsPercentage >= 1 && (
-            <div className="absolute text-center inset-0 flex flex-col gap-2 p-4 items-center justify-center bg-transparent backdrop-blur-xl border border-primary">
+            <div className="absolute text-center inset-0 flex flex-col gap-2 p-2.5 md:p-4 items-center justify-center bg-transparent backdrop-blur-xl border border-primary">
               <h2>Congrats! You succeeded.</h2>
-              <img src={cup} className="w-48 -mb-8" />
-              <p className="px-40">
+              <img src={cup} className="w-24 md:w-48 -mb-4 md:-mb-8" />
+              <p className="px-0 md:px-40">
                 The game shows how Prime Vaults works: instead of splitting
                 assets into separate pools, it connects everything into one
                 smart vault and hunts yield across the entire portfolio — that’s
@@ -173,17 +173,17 @@ export default function GamePage({
                 <span className="text-primary-content">Join us now</span>
               </p>
 
-              <div className="flex flex-row gap-4 mt-8">
+              <div className="flex flex-col md:flex-row gap-2 md:gap-4 mt-4 md:mt-8">
                 {onOpenCheck && (
                   <Button
-                    className="btn btn-primary bg-white! w-62 text-nowrap!"
+                    className="btn btn-primary bg-white! w-full md:w-62 text-nowrap!"
                     onClick={onOpenCheck}
                   >
                     Check Your Prime Points
                   </Button>
                 )}
                 <Button
-                  className="btn btn-primary w-62"
+                  className="btn btn-primary w-full md:w-62"
                   onClick={() => setSubmitWallet(true)}
                 >
                   Join Closed-Beta

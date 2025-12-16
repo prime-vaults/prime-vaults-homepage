@@ -80,7 +80,7 @@ export default function Checking({
     )
   }
   return (
-    <div className="flex flex-col gap-2 p-6 h-full">
+    <div className="flex flex-col gap-1 md:gap-2 p-3 md:p-6 h-full">
       {currentStep === 0 && <Step1 address={address} />}
       {currentStep === 1 && <Step2 chainsInfo={chainsInfo} />}
       {currentStep === 2 && <Step3 userInfo={userInfo} />}
@@ -89,7 +89,9 @@ export default function Checking({
           Loading {totalLoading}%
         </p>
       ) : (
-        <p className="mt-8 text-secondary">Please hold. Just a moment</p>
+        <p className="mt-5 md:mt-8 text-secondary">
+          Please hold. Just a moment
+        </p>
       )}
     </div>
   )

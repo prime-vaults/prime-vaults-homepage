@@ -83,7 +83,7 @@ export function GameModal({
           <div className="absolute top-4 right-4 z-100">
             <X className="w-6 h-6 cursor-pointer" onClick={handleClose} />
           </div>
-          <div className="grid grid-cols-3 w-full gap-4 max-w-4xl">
+          <div className="grid grid-cols-3 w-full gap-2 md:gap-4 max-w-4xl">
             <div className="flex flex-col col-span-2 items-start p-2 md:p-4">
               <img src="/logo.svg" className="w-auto h-14 object-contain" />
               <div className="flex flex-col gap-1 md:gap-2 p-3 md:p-6 h-full w-full">
@@ -114,7 +114,7 @@ export function GameModal({
             </div>
             <img
               src={BANNER}
-              className="h-full md:max-h-[80dvh] object-cover! w-auto md:w-full"
+              className="h-full md:max-h-[80dvh] w-fit md:w-full"
             />
           </div>
         </div>

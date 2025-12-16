@@ -142,7 +142,7 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoCheck[] }) {
           {chainsInfo.map((chain, idx) => (
             <div
               key={idx}
-              className={`relative pb-6 md:pb-8 flex flex-col items-center gap-1 md:gap-2 transition-all duration-300 ${
+              className={`relative pb-4 md:pb-8 flex flex-col items-center gap-1 md:gap-2 transition-all duration-300 ${
                 visibleCoins > idx
                   ? 'opacity-100 scale-100'
                   : 'opacity-0 scale-75'
@@ -150,7 +150,7 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoCheck[] }) {
             >
               <img
                 src={chain.logo}
-                className="w-8 md:w-15 aspect-square rounded-full"
+                className="w-6 md:w-15 aspect-square rounded-full"
               />
               <span className="text-[10px] md:text-xs">{chain.name}</span>
               <div
@@ -160,9 +160,9 @@ function Step2({ chainsInfo }: { chainsInfo: ChainInfoCheck[] }) {
                     : 'opacity-0 translate-y-4'
                 }`}
               >
-                <p className="text-primary-content">
+                <span className="text-primary-content text-[11px] md:text-base">
                   {formatUiNumber(chain.percent)}%
-                </p>
+                </span>
               </div>
             </div>
           ))}

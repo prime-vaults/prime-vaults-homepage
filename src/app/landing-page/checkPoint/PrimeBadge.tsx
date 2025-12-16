@@ -173,7 +173,7 @@ export default function PrimeBadge({
               </div>
             </div>
             <div className="absolute top-4 bottom-4 right-4 z-10">
-              <img src={badgeImage} className="w-full h-full" />
+              <img src={badgeImage} className="w-auto h-full" />
             </div>
           </div>
           <div className="mt-2 flex flex-row gap-2 md:gap-4 items-center justify-between">
@@ -258,7 +258,7 @@ export default function PrimeBadge({
           </div>
         </div>
         <div className="absolute top-4 bottom-4 right-4 z-10">
-          <img src={badgeImage} className="w-full h-full" />
+          <img src={badgeImage} className="w-auto h-full" />
         </div>
       </div>
       <div className="col-span-full flex flex-row gap-1 md:gap-2 items-center w-full mt-2 md:mt-4">

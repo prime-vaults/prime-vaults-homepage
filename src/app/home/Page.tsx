@@ -5,7 +5,6 @@ import Portfolio from './Portfolio'
 import Integrated from './Integrated'
 import Engines from './Engines'
 import TimePage from './time/Page'
-import IntroPage from './intro/Page'
 import BannerV2Page from './banner_v2/Page'
 import YieldFlowPage from './yield-flow/Page'
 import CTA from './CTA'
@@ -17,7 +16,6 @@ export default function HomePage() {
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
       <div className="flex flex-col">
-        <IntroPage introKey="intro-home" />
         <BannerV2Page />
         <Portfolio />
         <Integrated />

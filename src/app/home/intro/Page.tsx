@@ -10,11 +10,11 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 let timer: NodeJS.Timeout
 const DURATION = 600
 
-export default function IntroPage({ introKey }: { introKey: string }) {
+export default function IntroPage() {
   const [step, setStep] = useState(0)
   const [visible, setVisible] = useState(true)
   const elmRef = useRef<HTMLDivElement | null>(null)
-  const [finished, setFinished] = useLocalStorage(introKey, false)
+  const [finished, setFinished] = useLocalStorage('intro-loading', false)
 
   const onFinish = () => {
     if (!elmRef.current) return
@@ -33,7 +33,7 @@ export default function IntroPage({ introKey }: { introKey: string }) {
   return (
     <div
       ref={elmRef}
-      className="fixed top-0 left-0 w-screen h-screen bg-base-300 transition-all z-[999]"
+      className="fixed top-0 left-0 w-screen h-screen bg-base-300 transition-all z-[9999]"
     >
       <div className="relative w-full h-full">
         {/* clock loading... */}

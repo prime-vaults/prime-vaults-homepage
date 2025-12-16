@@ -114,7 +114,7 @@ export default function Leaderboard() {
         <div className="relative col-span-6 flex flex-col gap-6 md:gap-10 justify-center">
           <img
             src={cup}
-            className="w-[200px]! md:w-[400px] absolute -left-5/6 top-1/2 -translate-y-1/2"
+            className="w-[200px]! md:w-[400px]! absolute -left-5/6 top-1/2 -translate-y-1/2"
           />
 
           <span className="text-[28px] md:text-[41px] text-[#69BE6E] font-bold uppercase leading-[30px] md:leading-[40px]">

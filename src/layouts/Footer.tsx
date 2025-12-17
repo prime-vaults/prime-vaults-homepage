@@ -6,7 +6,7 @@ import { CoreRoutes } from '@/constant/router'
 
 import prime from '@/static/images/logo/prime.svg'
 // import telegram from '@/static/images/logo/telegram.svg'
-// import discord from '@/static/images/logo/discord.svg'
+import discord from '@/static/images/logo/discord.svg'
 // import github from '@/static/images/logo/github.svg'
 import x from '@/static/images/logo/x.svg'
 import bg from '@/static/images/banner/banner.png'
@@ -16,10 +16,10 @@ const LIST_LOGO = [
   //   link: 'https://t.me/primevaults',
   //   img: telegram,
   // },
-  // {
-  //   link: 'https://discord.com/invite/primevaults',
-  //   img: discord,
-  // },
+  {
+    link: 'https://discord.gg/xBUmTGRns5',
+    img: discord,
+  },
   // {
   //   link: 'https://github.com/primevaults',
   //   img: github,

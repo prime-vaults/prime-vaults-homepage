@@ -45,34 +45,34 @@ export default function OpenAppModal({
               <div className="flex flex-col gap-2 w-fit">
                 <div className="flex flex-row gap-2 items-center">
                   <div
-                    className="bg-primary px-4 py-1 md:py-2 flex justify-center min-w-[60px] md:[min-w-[80px]"
+                    className="bg-primary px-4 py-1 md:py-2 flex justify-center w-[50px] md:w-[80px]"
                     style={{ boxShadow: '3px 3px 0 #FFF' }}
                   >
                     <h2 className="text-black">{endTime.days()}</h2>
                   </div>{' '}
                   <h2>:</h2>
                   <div
-                    className="bg-primary px-4 py-1 md:py-2 flex justify-center min-w-[60px] md:[min-w-[80px]"
+                    className="bg-primary px-4 py-1 md:py-2 flex justify-center w-[50px] md:w-[80px]"
                     style={{ boxShadow: '3px 3px 0 #FFF' }}
                   >
                     <h2 className="text-black">{endTime.hours()}</h2>
                   </div>{' '}
                   <h2>:</h2>
                   <div
-                    className="bg-primary px-4 py-1 md:py-2 flex justify-center min-w-[60px] md:[min-w-[80px]"
+                    className="bg-primary px-4 py-1 md:py-2 flex justify-center w-[50px] md:w-[80px]"
                     style={{ boxShadow: '3px 3px 0 #FFF' }}
                   >
                     <h2 className="text-black">{endTime.minutes()}</h2>
                   </div>{' '}
                   <h2>:</h2>
                   <div
-                    className="bg-primary px-4 py-1 md:py-2 flex justify-center min-w-[60px] md:[min-w-[80px]"
+                    className="bg-primary px-4 py-1 md:py-2 flex justify-center w-[50px] md:w-[80px]"
                     style={{ boxShadow: '3px 3px 0 #FFF' }}
                   >
                     <h2 className="text-black">{endTime.seconds()}</h2>
                   </div>
                 </div>
-                <div className="flex flex-row justify-between px-4">
+                <div className="flex flex-row justify-between px-2 md:px-4">
                   <h4>Days</h4>
                   <h4>Hours</h4>
                   <h4>Mins</h4>

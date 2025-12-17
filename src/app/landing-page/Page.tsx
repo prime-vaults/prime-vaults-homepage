@@ -33,7 +33,7 @@ export default function LandingPage() {
       >
         <div
           onClick={() => nav(CoreRoutes.home())}
-          className="absolute top-4 left-4 flex flex-row gap-1 items-center cursor-pointer"
+          className="absolute top-2 md:top-4 left-2 md:left-4 flex flex-row gap-1 items-center cursor-pointer"
         >
           <ChevronLeft width={24} />
           <p className="font-bold! text-white">Back</p>

@@ -170,7 +170,7 @@ export default function GamePage({
                 how it reaches 100%.
                 <br /> <br />
                 Want to maximize your earnings?{' '}
-                <span className="text-primary-content">Join us now</span>
+                <span className="text-primary-content">Join us now!</span>
               </p>
 
               <div className="flex flex-col md:flex-row gap-2 md:gap-4 mt-4 md:mt-8">

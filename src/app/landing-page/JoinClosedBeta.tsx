@@ -1,5 +1,7 @@
 import { Link } from 'react-router'
 
+import CheckPoint from './checkPoint'
+
 import { CoreRoutes } from '@/constant/router'
 import { useTimeline } from '@/hooks/useTimeline'
 import { TIME_CLOSED_BETA } from '@/constant'
@@ -73,15 +75,24 @@ function CoolDown() {
           <h4>Secs</h4>
         </div>
       </div>
-      <h5 className="text-center md:text-start px-8 md:px-0">
-        Deposit within the first{' '}
-        <span className="text-primary-content">48 hours</span> of the
-        Closed-Beta to secure your spot. <br />
-        Access is limited to{' '}
-        <span className="text-primary-content">whitelisted</span> wallets, with{' '}
-        <span className="text-primary-content">high APY</span> and{' '}
-        <span className="text-primary-content">capped capacity.</span>
-      </h5>
+      <div className="flex flex-col text-center md:text-start px-8 md:px-0">
+        <h5>
+          Deposit within the first{' '}
+          <span className="text-primary-content">48 hours</span> of the
+          Closed-Beta to secure your spot.{' '}
+        </h5>
+        <div className="flex flex-row gap-1">
+          <h5>
+            Access is limited to{' '}
+            <span className="text-primary-content">whitelisted</span> wallets,
+            with <span className="text-primary-content">high APY</span> and{' '}
+            <span className="text-primary-content">capped capacity.</span>
+          </h5>
+          <CheckPoint>
+            <h5 className="text-primary-content cursor-pointer">Join now!</h5>
+          </CheckPoint>
+        </div>
+      </div>
     </div>
   )
 }

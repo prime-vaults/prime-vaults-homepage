@@ -145,8 +145,12 @@ export default function LandingPage() {
       </div>
 
       {/* footer */}
-      <div className="bg-[#121212] p-7 md:p-14 flex flex-row gap-2 md:gap-4 justify-between border-t border-base-100">
-        <div />
+      <div className="bg-[#121212] items-center p-7 md:p-14 flex flex-row gap-2 md:gap-4 justify-between border-t border-base-100">
+        <div className="flex flex-col items-start gap-2">
+          <img src="/logo.svg" alt="" className="h-10" />
+          <p>Prime Strategies. Best Returns.</p>
+          <p>PRIME VAULTS © 2025. All rights reserved.</p>
+        </div>
         <div className="flex flex-row gap-3 md:gap-4">
           <div
             className="flex flex-col items-center justify-center w-9 h-9 border border-base-100 cursor-pointer"

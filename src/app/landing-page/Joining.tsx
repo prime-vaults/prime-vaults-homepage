@@ -17,7 +17,7 @@ export default function Joining() {
         fontStyle: 'italic',
       }}
     >
-      {total} are in the closed-beta
+      {total} primers are in the closed-beta
     </h3>
   )
 }

@@ -51,18 +51,16 @@ export default function PolicyPage() {
       className="h-full"
       innerClassName="bg-base-300 border-x border-neutral h-full"
     >
-      <div className="flex flex-col px-8 py-16 bg-[#141510] gap-7 font-medium">
+      <div className="flex flex-col px-4 md:px-8 py-8 md:py-16 bg-[#141510] gap-4 md:gap-7 font-medium">
         <div className="flex flex-col gap-2">
-          <p className="text-3xl md:text-5xl text-[#FCFCFD]">
+          <span className="text-[40px] text-[#FCFCFD]">
             Privacy Policy – Prime Vaults
-          </p>
-          <p className="text-sm md:text-base text-[#ABB1BA]">
-            Version dated Sep 18, 2025
-          </p>
+          </span>
+          <p className="text-[#ABB1BA]">Version dated Sep 18, 2025</p>
         </div>
         {POLICIES.map((term, idx) => (
           <div key={idx} className="flex flex-col gap-2 text-sm md:text-base">
-            <p className="text-[#FCFCFD]">{term.title}</p>
+            <h5 className="text-[#FCFCFD] uppercase">{term.title}</h5>
             {term.desc.map((desc, idx) => (
               <p key={idx} className="text-[#ABB1BA]">
                 {desc}

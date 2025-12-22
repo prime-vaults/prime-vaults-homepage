@@ -1,9 +1,11 @@
 import clsx from 'clsx'
-import { useState } from 'react'
-import { ArrowDownToLine } from 'lucide-react'
 import JSZip from 'jszip'
+import { useState } from 'react'
 import { saveAs } from 'file-saver'
 import { toast } from 'react-toastify'
+import { ArrowDownToLine } from 'lucide-react'
+
+import Corner from '@/components/UI/Corner'
 
 import l_black from '@/static/images/logo/brand/logo-black.svg'
 import l_dark from '@/static/images/logo/brand/logo-dark.svg'
@@ -23,15 +25,24 @@ import boxed_dark from '@/static/images/logo/brand/dark/boxed.svg'
 import horizontal_dark from '@/static/images/logo/brand/dark/horizontal.svg'
 import symbol_dark from '@/static/images/logo/brand/dark/symbol.svg'
 import vertical_dark from '@/static/images/logo/brand/dark/vertical.svg'
-import Corner from '@/components/UI/Corner'
 
-enum THEME {
+export enum THEME {
   Dark = 'dark',
   Light = 'light',
   Black = 'black',
 }
 
-const LOGOS = {
+interface LogoAssets {
+  bg_color: string
+  text_color: string
+  logo: string
+  boxed: string
+  horizontal: string
+  symbol: string
+  vertical: string
+}
+
+export const LOGOS: Record<THEME, LogoAssets> = {
   [THEME.Dark]: {
     bg_color: '#A2E76B',
     text_color: '#00342A',
@@ -128,6 +139,7 @@ export default function Logo() {
       const zip = new JSZip()
 
       for (const [key, url] of Object.entries(LOGOS[theme])) {
+        if (key === 'bg_color' || key === 'text_color') continue
         const response = await fetch(url)
         const blob = await response.blob()
         zip.file(`logo-${key}.svg`, blob)
@@ -145,7 +157,7 @@ export default function Logo() {
   return (
     <div className="section-container grid grid-cols-2 gap-6">
       <div className="col-span-full flex flex-col md:flex-row gap-2 justify-between">
-        <p className="text-4xl md:text-8xl font-bold">LOGO</p>
+        <span className="text-4xl md:text-8xl font-bold">LOGO</span>
         <button
           className="btn btn-primary flex flex-row gap-2 !px-6 py-3"
           onClick={handleDownloadAll}
@@ -163,9 +175,9 @@ export default function Logo() {
         </p>
         <div className="flex flex-col md:flex-row gap-4">
           {Object.keys(LOGOS).map((key, idx) => (
-            <div className="relative w-fit h-fit p-0.5" key={idx}>
+            <div className="relative w-full md:w-fit h-fit p-0.5" key={idx}>
               <button
-                className="btn btn-xl !px-2.5"
+                className="btn w-full md:w-fit btn-lg md:btn-xl !px-2.5"
                 style={{ backgroundColor: LOGOS[key as THEME].bg_color }}
                 onClick={() => setTheme(key as THEME)}
                 disabled={loading}

@@ -23,10 +23,10 @@ const TYPOGRAPHY: Props[] = [
 function TypographyCard({ className, name, font, type }: Props) {
   return (
     <div className="flex flex-col gap-2 md:gap-4 p-8 border border-[#3E3E3E] font-medium text-[#FFF]">
-      <p className="text-lg">{type}</p>
-      <p className={`text-3xl md:text-6xl mt-4 md:mt-12 ${className}`}>
+      <h5 className="text-lg">{type}</h5>
+      <span className={`text-3xl md:text-6xl mt-4 md:mt-12 ${className}`}>
         {name}
-      </p>
+      </span>
       {font && (
         <div className="flex flex-row gap-4">
           {font.map((font, idx) => (
@@ -44,8 +44,8 @@ export default function Typography() {
   return (
     <div className="section-container grid grid-cols-2 gap-12">
       <div className="col-span-full flex flex-col gap-4">
-        <p className="text-4xl md:text-8xl font-bold">TYPOGRAPHY</p>
-        <p className="text-sm md:text-base font-medium">
+        <span className="text-4xl md:text-8xl font-bold">TYPOGRAPHY</span>
+        <p className="font-medium">
           Space Grotesk brings a precise and engineered feel, with sharp corners
           and subtle ink traps that stand out in both small text and bold
           headlines. Paired with Tomorrow, a futuristic sans-serif, the

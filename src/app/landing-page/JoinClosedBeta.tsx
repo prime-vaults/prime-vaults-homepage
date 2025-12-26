@@ -1,6 +1,9 @@
+import { X } from 'lucide-react'
 import { Link } from 'react-router'
+import { Fragment, useState } from 'react'
 
-import CheckPoint from './checkPoint'
+import Modal from '@/components/UI/Modal'
+import SubmitWallet from './SubmitWallet'
 
 import { CoreRoutes } from '@/constant/router'
 import { useTimeline } from '@/hooks/useTimeline'
@@ -81,18 +84,56 @@ function CoolDown() {
           <span className="text-primary-content">48 hours</span> of the
           Closed-Beta to secure your spot.{' '}
         </h5>
-        <div className="flex flex-row gap-1">
+        <div className="flex flex-col md:flex-row gap-1">
           <h5>
             Access is limited to{' '}
             <span className="text-primary-content">whitelisted</span> wallets,
             with <span className="text-primary-content">high APY</span> and{' '}
             <span className="text-primary-content">capped capacity.</span>
           </h5>
-          <CheckPoint>
-            <h5 className="text-primary-content cursor-pointer">Join now!</h5>
-          </CheckPoint>
+          <JoinNowModal />
         </div>
       </div>
     </div>
+  )
+}
+
+function JoinNowModal() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Fragment>
+      <h5
+        className="text-primary-content cursor-pointer"
+        onClick={() => setOpen(true)}
+      >
+        Join now!
+      </h5>
+
+      {open && (
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          boxClassName="min-w-[360px] md:min-w-[600px]"
+        >
+          <div className="flex flex-col p-4">
+            <div className="flex flex-row items-center justify-between">
+              <img
+                className="w-auto h-6 md:h-10 object-contain"
+                src="/logo.svg"
+              />
+              <X
+                className="cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setOpen(false)
+                }}
+              />
+            </div>
+            <SubmitWallet onClose={() => setOpen(false)} />
+          </div>
+        </Modal>
+      )}
+    </Fragment>
   )
 }

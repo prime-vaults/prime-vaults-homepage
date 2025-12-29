@@ -24,12 +24,12 @@ const BadgeSelect = [
     badge: undefined,
   },
   {
-    name: 'Prime OG',
-    badge: Badge.PrimeOG,
-  },
-  {
     name: 'Prime Whale',
     badge: Badge.PrimeWhale,
+  },
+  {
+    name: 'Prime OG',
+    badge: Badge.PrimeOG,
   },
   {
     name: 'Active Wallet',

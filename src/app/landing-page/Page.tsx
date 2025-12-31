@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { Fragment, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { ArrowRight, ChevronLeft } from 'lucide-react'
@@ -12,6 +13,7 @@ import JoinClosedBeta from './JoinClosedBeta'
 import { CoreRoutes } from '@/constant/router'
 import ASSET from '@/static/images/landing-page/asset.png'
 import bg from '@/static/images/banner/banner.png'
+import { TIME_CLOSED_BETA } from '@/constant'
 
 export default function LandingPage() {
   const nav = useNavigate()
@@ -125,7 +127,10 @@ export default function LandingPage() {
         >
           <div className="col-span-full flex flex-col items-center gap-3 pt-4 md:pt-10 text-center">
             <div className="flex md:flex-row flex-col gap-2">
-              <h2>Closed-Beta opens January 6, 2026.</h2>
+              <h2>
+                Closed-Beta opens{' '}
+                {dayjs(TIME_CLOSED_BETA).format('MMMM D, YYYY.')}
+              </h2>
               <div
                 className="rotate-2 px-2.5 py-1 flex items-center justify-center"
                 style={{

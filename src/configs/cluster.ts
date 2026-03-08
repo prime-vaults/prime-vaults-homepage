@@ -1,7 +1,7 @@
 import { Env } from './env'
 
 /**
- * Contructor
+ * Constructor
  */
 
 type Conf = {

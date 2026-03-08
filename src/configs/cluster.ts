@@ -12,10 +12,10 @@ const conf: Record<Env, Conf> = {
     primeVaultRpc: 'https://prime-vaults-backend.onrender.com',
   },
   staging: {
-    primeVaultRpc: 'https://prime-vaults-backend.onrender.com',
+    primeVaultRpc: 'https://prime-strategy-backend.onrender.com',
   },
   production: {
-    primeVaultRpc: 'https://prime-vaults-backend.onrender.com',
+    primeVaultRpc: 'https://prime-strategy-backend.onrender.com',
   },
 }
 

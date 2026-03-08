@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
+import configs from '@/configs'
 
 const DATA_SOURCE_ID = '2a22441f-a3fc-80b5-81dc-000b19e78833'
-const rpc = 'https://prime-vaults-backend.onrender.com'
 
 const primeVaultApi = axios.create({
-  baseURL: `${rpc}/public/api/v1`,
+  baseURL: `${configs.cluster.primeVaultRpc}/public/api/v1`,
   headers: {
     'Content-Type': 'application/json',
   },

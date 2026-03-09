@@ -1,9 +1,12 @@
 import { Fragment, useMemo, useState } from 'react'
 import clsx from 'clsx'
+import { useQuery } from '@tanstack/react-query'
 
 import RandomTextColor from '@/components/RandomTextColor'
 import Corner from '@/components/UI/Corner'
 
+import { getVaults } from '@/app/api'
+import type { Vault, VaultMetrics } from '@/app/api/analytics.types'
 import { useUpdateSearchParams } from '@/hooks/updateSearchParams'
 import { HOLDING_DATA } from '@/constant/holding'
 import { SearchQueryKey } from '@/constant/query'
@@ -14,20 +17,97 @@ enum Token {
   ETH = 'eth',
 }
 
+const formatApyRate = (value: number) =>
+  `${value.toFixed(2).replace(/\.?0+$/, '')}%`
+
+const getApyFromVault = (vault: Vault): number | null => {
+  const displayApy = Number(vault.displayApy)
+  if (Number.isFinite(displayApy)) return displayApy
+
+  const snapshotApy = Number(vault.snapshot?.apy)
+  if (Number.isFinite(snapshotApy)) return snapshotApy
+
+  return null
+}
+
+const isVault = (value: unknown): value is Vault => {
+  if (!value || typeof value !== 'object') return false
+  return 'asset' in value && 'metadata' in value
+}
+
+const isVaultMetrics = (value: unknown): value is VaultMetrics => {
+  if (!value || typeof value !== 'object') return false
+  return Array.isArray((value as VaultMetrics).vaults)
+}
+
+const flattenVaults = (data: unknown): Vault[] => {
+  if (!data || typeof data !== 'object') return []
+  if (!('vaults' in data)) return []
+
+  const list = (data as { vaults?: unknown }).vaults
+  if (!Array.isArray(list)) return []
+
+  return list.flatMap((item) => {
+    if (isVaultMetrics(item)) return item.vaults.filter(isVault)
+    if (isVault(item)) return [item]
+
+    return []
+  })
+}
+
+const getPrimeApyByToken = (
+  data: Awaited<ReturnType<typeof getVaults>> | undefined,
+  token: Token,
+): number | null => {
+  const tokenKey = token.toLowerCase()
+  const vaults = flattenVaults(data)
+
+  const candidates = vaults.filter((vault) => {
+    const name = vault.metadata?.name?.toLowerCase() ?? ''
+    const symbol = vault.asset?.symbol?.toLowerCase() ?? ''
+    return name.includes('prime') && (name.includes(tokenKey) || symbol.includes(tokenKey))
+  })
+
+  const apys = candidates
+    .map(getApyFromVault)
+    .filter((apy): apy is number => apy !== null)
+
+  if (!apys.length) return null
+  return Math.max(...apys)
+}
+
 function CompareAPR() {
   const { update } = useUpdateSearchParams()
   const [tab, setTab] = useState(Token.USD)
+  const { data: vaults } = useQuery({
+    queryKey: ['prime-vaults-analytics'],
+    queryFn: getVaults,
+  })
 
   const onClick = (token: Token) => {
     setTab(token)
     update(SearchQueryKey.Tab, token)
   }
 
+  const primeApy = useMemo(() => getPrimeApyByToken(vaults, tab), [tab, vaults])
+
   const data = useMemo(() => {
     const rs = HOLDING_DATA[tab]
     if (!rs) return []
-    return rs.sort((a, b) => a.apy - b.apy)
-  }, [tab])
+
+    return rs
+      .map((item) => {
+        const isPrime = item.key === 'prime'
+        if (!isPrime || primeApy === null) return item
+
+        return {
+          ...item,
+          apy: primeApy,
+          rate: formatApyRate(primeApy),
+        }
+      })
+      .sort((a, b) => a.apy - b.apy)
+  }, [primeApy, tab])
 
   return (
     <div className="flex flex-col">

@@ -1,10 +1,18 @@
 import configs from '@/configs'
 import axios from 'axios'
 import { DebankChain, TokenInfo, UserAssetOverview } from './types'
-const { primeVaultRpc } = configs.cluster
+import { ApiResponse, VaultMetrics } from './analytics.types'
+const { primeVaultRpc, primeAnalyticsRpc } = configs.cluster
 
 const primeVaultApi = axios.create({
   baseURL: primeVaultRpc,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+const primeAnalyticsApi = axios.create({
+  baseURL: primeAnalyticsRpc,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -43,4 +51,12 @@ export const getBalances = async ({
     },
   )
   return data
+}
+
+export const getVaults = async () => {
+  const res =
+    await primeAnalyticsApi.get<ApiResponse<{ vaults: VaultMetrics[] }>>(
+      `/analytics/vaults`,
+    )
+  return res.data.data
 }
